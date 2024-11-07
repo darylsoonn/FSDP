@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    overflow-y: scroll;
+}
+
+header.header {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 0.9em;
+    color: #555555;
+}
+
+.section-indicator strong {
+    color: #333333;
+}
+
+.main-nav a {
+    color: #555555;
+    margin-right: 15px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    width: 100%;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+    transform: scale(1);
+    transform-origin: center;
+    margin-left: 0;
+    padding-left: 60px;
+}
+
+.sub-nav {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: flex-end;
+    margin-left: 30px;
+}
+
+.sub-nav a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 5px 0;
+}
+
+.sub-nav a:hover {
+    text-decoration: underline;
+}
+
+.sub-nav a.login {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.container {
+    padding: 0 20px;
+}
+
+.top-sections {
+    display: flex;
+    gap: 20px;
+    margin-top: 180px;
+}
+
+.top-sections .announcements, .top-sections .faq {
+    flex: 1;
+    max-height: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.announcements p, .faq li {
+    font-size: 1em;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.announcements, .faq {
+    flex: 1;
+    max-height: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.announcements p:last-child, .faq li:last-child {
+    border-bottom: none;
+}
+
+.announcements p:hover, .faq li:hover {
+    background-color: #f9f9f9;
+}
+
+.faq ul {
+    list-style: none;
+    padding: 0;
+}
+
+.faq li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    width: 100%; /* Ensure the strip spans across the page */
+    padding: 10px 0;
+    background-color: #f4f4f4; /* Add a light background color to the strip */
+}
+
+.icon-item {
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+}
+
+.icon-item img {
+    width: 50px; /* Increase the size of the icons */
+    height: 50px;
+    margin-bottom: 8px;
+}
+
+.icon-item span {
+    display: block;
+    font-size: 1em; /* Increase font size slightly */
+    color: #333;
+}
+
+.icon-container {
+    background-color: #e0e0e0; /* Add a strip color behind the icons */
+    padding: 20px 0; /* Add padding around the strip */
+}
+
+.icon-container .icon-item {
+    padding: 20px; /* Adjust padding for a better visual balance */
+}
+
+.icon-item img {
+    width: 60px; /* Increase the icon size */
+    height: 60px;
+}
+
+.icon-item span {
+    font-size: 1.1em; /* Adjust text size */
+    color: #333; /* Change text color for better visibility */
+}
+
+
+.chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-icon:hover {
+    background-color: #d32f2f;
+}
+
+.chatbot-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}

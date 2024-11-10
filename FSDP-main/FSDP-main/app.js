@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const sql = require("mssql");
 const path = require("path");
 const dbConfig = require("./dbConfig");
@@ -10,6 +11,7 @@ const scamCallController = require("./controllers/scamCallController");
 
 const app = express();
 
+app.use(cors());
 app.use(express.static(path.join(__dirname)));
 
 app.get("/", (req, res) => {

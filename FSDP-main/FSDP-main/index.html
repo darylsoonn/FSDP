@@ -39,13 +39,10 @@
     <div class="container">
         <div class="top-sections">
             <section class="announcements scroll-animate">
-                <h2>Announcements</h2>
-                <p>Maintenance scheduled on Friday, 12th Oct.</p>
-                <p>New update available for OCBC mobile app.</p>
-                <p>Holiday banking hours announced.</p>
-                <p>Important notice on security measures.</p>
+                <h2 class="announcement-header">Announcements</h2>
+                <div id="announcement-list"></div> <!-- This is where announcements will appear -->
             </section>
-    
+            
             <section class="faq scroll-animate">
                 <h2>Common FAQ</h2>
                 <ul>
@@ -58,7 +55,16 @@
             </section>
         </div>
     </div>
-
+    
+    <!-- Modal for Announcement Details -->
+    <div id="announcement-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h3 id="modal-title">Announcement Title</h3>
+            <p id="modal-description">Description goes here...</p>
+        </div>
+    </div>
+    
     <div class="icon-container">
         <div class="icon-item">
             <img src="media/general.png" alt="Icon 1">
@@ -85,12 +91,12 @@
             <span>Investments</span>
         </div>
     </div>
-</div>
     
-
+    <!-- Chatbot Icon -->
     <div class="chatbot-icon" onclick="openChatbot()">
         <img src="media/Chat Icon.png" alt="Chatbot Icon" style="width: 50px; height: 50px;">
     </div>
+    
     
     <script src="scripts.js"></script>
 </body>

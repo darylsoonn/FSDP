@@ -39,13 +39,10 @@
     <div class="container">
         <div class="top-sections">
             <section class="announcements scroll-animate">
-                <h2>Announcements</h2>
-                <p>Maintenance scheduled on Friday, 12th Oct.</p>
-                <p>New update available for OCBC mobile app.</p>
-                <p>Holiday banking hours announced.</p>
-                <p>Important notice on security measures.</p>
+                <h2 class="announcement-header">Announcements</h2>
+                <div id="announcement-list"></div> <!-- This is where announcements will appear -->
             </section>
-            <p id="output"></p>
+            
             <section class="faq scroll-animate">
                 <h2>Common FAQ</h2>
                 <ul>
@@ -58,7 +55,16 @@
             </section>
         </div>
     </div>
-
+    
+    <!-- Modal for Announcement Details -->
+    <div id="announcement-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h3 id="modal-title">Announcement Title</h3>
+            <p id="modal-description">Description goes here...</p>
+        </div>
+    </div>
+    
     <div class="icon-container">
         <div class="icon-item">
             <img src="media/general.png" alt="Icon 1">
@@ -85,40 +91,13 @@
             <span>Investments</span>
         </div>
     </div>
-
-    <script>
-        window.watsonAssistantChatOptions = {
-            integrationID: "cbf2905d-47c4-4ac7-aaba-deee43faaa06", // Replace with your integration ID
-            region: "us-south", // Replace with your region
-            serviceInstanceID: "b0a69481-ca01-4a11-b2cd-743beec90bd4", // Replace with your service instance ID
-            onLoad: function(instance) {
-                instance.render();
-
-                // Listen for context updates
-                instance.on({
-                    type: "context",
-                    handler: function(context) {
-                        // Access the phone number from the context
-                        let phoneNumber = context.skills['main skill'].user_defined.phone_number;
-                        if (phoneNumber) {
-                            console.log("Phone Number: ", phoneNumber);
-                            document.getElementById("output").textContent = "Phone Number: " + phoneNumber;
-                            // You can also send the phone number to the backend here if needed
-                        } else {
-                            console.log("Phone number not found in context.");
-                        }
-                    }
-                });
-            }
-        };
-
-        setTimeout(function() {
-            const t = document.createElement('script');
-            t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
-            document.head.appendChild(t);
-        });
-    </script>
-
+    
+    <!-- Chatbot Icon -->
+    <div class="chatbot-icon" onclick="openChatbot()">
+        <img src="media/Chat Icon.png" alt="Chatbot Icon" style="width: 50px; height: 50px;">
+    </div>
+    
+    
     <script src="scripts.js"></script>
 </body>
 </html>

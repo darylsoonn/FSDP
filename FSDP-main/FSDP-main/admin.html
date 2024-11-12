@@ -186,14 +186,62 @@
         }
     }
 
-    // DOMContentLoaded to ensure DOM is ready
     document.addEventListener("DOMContentLoaded", function () {
-        fetchAnnouncements(); // Fetch announcements on page load
+        // Interaction with Chatbot and Number of Call Centre chart
+        const interactionChartContainer = document.querySelector(".bar-chart");
+        interactionChartContainer.innerHTML = `<canvas id="interactionChart"></canvas>`;
+        const interactionCtx = document.getElementById('interactionChart').getContext('2d');
 
-        // Chart.js logic
-        const ctx = document.getElementById('scamChart').getContext('2d');
+        const interactionData = {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+                {
+                    type: 'bar',
+                    label: "Chatbot Interactions",
+                    data: [30, 21, 23, 17, 35, 27],
+                    backgroundColor: '#4a90e2',
+                    borderRadius: 5,
+                    barPercentage: 0.6
+                },
+                {
+                    type: 'line',
+                    label: "Call Centre Queries",
+                    data: [10, 15, 20, 14, 25, 19],
+                    borderColor: '#f44336',
+                    tension: 0.3, // Smoother curve
+                    fill: false, // No fill area
+                }
+            ]
+        };
 
-        const data = {
+        const interactionOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 10 },
+                    grid: { color: 'rgba(200, 200, 200, 0.5)' }
+                },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { size: 12 } }
+                }
+            }
+        };
+
+        new Chart(interactionCtx, {
+            data: interactionData,
+            options: interactionOptions
+        });
+
+        // Number of Reported Scams chart
+        const scamCtx = document.getElementById('scamChart').getContext('2d');
+
+        const scamData = {
             labels: ['Daily', 'Weekly', 'Monthly'],
             datasets: [
                 {
@@ -207,42 +255,29 @@
             ]
         };
 
-        const options = {
+        const scamOptions = {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: {
-                        color: 'rgba(200, 200, 200, 0.5)'
-                    },
-                    ticks: {
-                        stepSize: 100
-                    }
+                    ticks: { stepSize: 100 },
+                    grid: { color: 'rgba(200, 200, 200, 0.5)' }
                 },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
+                x: { grid: { display: false } }
             },
             plugins: {
                 legend: {
-                    display: true,
                     position: 'top',
-                    labels: {
-                        font: {
-                            size: 14
-                        }
-                    }
+                    labels: { font: { size: 14 } }
                 }
             }
         };
 
-        new Chart(ctx, {
+        new Chart(scamCtx, {
             type: 'bar',
-            data: data,
-            options: options
+            data: scamData,
+            options: scamOptions
         });
     });
 

@@ -32,7 +32,7 @@ app.post("/api/faq", faqController.addQuestion);
 app.get("/api/scamcalls", scamCallController.getScamCalls);
 app.get("/api/scamcalls/weekly", scamCallController.getScamCallsWeekly)
 app.get("/api/scamcalls/monthly", scamCallController.getScamCalls)
-app.post("/api/scamcall", scamCallController.reportNumber);
+app.post("/api/scamcall:phonenumber", scamCallController.reportNumber);
 //chatgpt watson fix
 app.post("/api/storePhoneNumber", (req, res) => {
     const phoneNumber = req.body.phoneNumber;

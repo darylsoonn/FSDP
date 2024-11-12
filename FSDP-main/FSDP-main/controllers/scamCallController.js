@@ -4,7 +4,7 @@ const reportNumber = async (req, res) =>{
     try {
         const {phoneNumber} = req.params;
 
-        const reportNumber = await ScamCall.reportNumber(phoneNumber);
+        const reportNumber = await ScamCall.createScamCallReport(phoneNumber);
 
         if(!reportNumber) {
             res.status(500).json({

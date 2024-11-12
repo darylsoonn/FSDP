@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function fetchAndDisplayAnnouncements() {
-    const announcementSection = document.querySelector(".announcements");
+    const announcementSection = document.querySelector("#announcement-list");
 
     if (!announcementSection) {
         console.error("Announcement section not found in DOM");
@@ -81,7 +81,6 @@ async function fetchAndDisplayAnnouncements() {
         if (!response.ok) throw new Error("Failed to load announcements");
 
         const data = await response.json();
-        console.log("Fetched announcement data:", data);
 
         if (Array.isArray(data.Announcements)) {
             displayAnnouncements(data.Announcements);
@@ -94,22 +93,32 @@ async function fetchAndDisplayAnnouncements() {
 }
 
 function displayAnnouncements(announcements) {
-    const announcementSection = document.getElementById("announcement-list");
-    announcementSection.innerHTML = ""; // Clear the current list
+    const announcementSection = document.querySelector("#announcement-list");
+
+    if (!announcementSection) {
+        console.error("Announcement section not found in DOM");
+        return;
+    }
+
+    announcementSection.innerHTML = ""; // Clear the existing list
 
     announcements.forEach((announcement) => {
         const announcementItem = document.createElement("div");
         announcementItem.className = "announcement-item";
         announcementItem.innerHTML = `
-            <h3>${announcement.Title}</h3>
-            <p>${announcement.DescriptionDetails}</p>
-            <small>Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
+            <div class="announcement-details">
+                <h3 class="announcement-title">${announcement.Title}</h3>
+                <p class="announcement-description">${announcement.DescriptionDetails}</p>
+                <small class="announcement-date">Created on: ${new Date(
+                    announcement.CreationDate
+                ).toLocaleDateString()}</small>
+            </div>
         `;
         announcementSection.appendChild(announcementItem);
     });
-
-    console.log("Announcements displayed successfully");
 }
+
+
 
 async function fetchAndDisplayFAQs() {
     const faqSection = document.querySelector(".faq");

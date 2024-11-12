@@ -17,7 +17,7 @@ class Account {
         const result = await request.query(query);
 
         // adjust increment string accordingly
-        const incrementString = str => str.replace(/\d+/, num => (Number(num) + 1).toString().padStart(4, "0"));
+        const incrementString = str => str.replace(/\d+/, num => (Number(num) + 1).toString().padStart(6, "0"));
         return incrementString(result.recordset[0].AccountId);
     }
 }

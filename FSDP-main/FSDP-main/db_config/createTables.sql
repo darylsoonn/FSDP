@@ -36,6 +36,7 @@ CREATE TABLE Question (
 );
 
 CREATE TABLE ScamCall (
+    ScamCallId VARCHAR(9) NOT NULL,
     PhoneNumber VARCHAR(50) NOT NULL,
-    ReportCount INT NULL
+    reportDateTime DATETIME  NOT NULL
 );

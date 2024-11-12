@@ -17,7 +17,7 @@ class Announcement {
         const result = await request.query(query);
 
         // adjust increment string accordingly
-        const incrementString = str => str.replace(/\d+/, num => (Number(num) + 1).toString().padStart(4, "0"));
+        const incrementString = str => str.replace(/\d+/, num => (Number(num) + 1).toString().padStart(6, "0"));
         return incrementString(result.recordset[0].AppointmentId);
     }
 
@@ -49,8 +49,8 @@ class Announcement {
     // Get Announcements by latest Dates
     static async getMostRecentAnnouncements() {
         const connection = await sql.connect(dbConfig);
-        const query = 
-            `SELECT TOP 10 *
+        const query = `
+            SELECT TOP 10 *
             FROM Announcement
             ORDER BY CreationDate DESC`;
 
@@ -58,6 +58,24 @@ class Announcement {
 
         const result = await request.query(query);
         return result.recordset;
+    }
+
+    // Edit Announcement by ID
+    static async updateAnnouncement(id, title, details) {
+        const connection = await sql.connect(dbConfig);
+        const query =`
+        UPDATE Announcement
+        SET Title = @Title, DescriptionDetails = @Details
+        WHERE AnnouncementId = @Id
+        `;
+
+        const request = connection.request();
+        request.input('Title', title);
+        request.input('Details',details);
+        request.input('Id',id);
+
+        const result = await request.query(query)
+        return result;
     }
 
 }

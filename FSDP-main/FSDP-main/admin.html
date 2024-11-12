@@ -127,122 +127,123 @@
 
 <script>
      
-        // Function to fetch announcements from the backend and display them
-        async function fetchAnnouncements() {
-            try {
-                const response = await fetch("http://localhost:3000/api/announcements");
-                const data = await response.json();
-
-                if (data.Announcements && data.Announcements.length > 0) {
-                    const announcementList = document.querySelector(".announcement-list");
-                    announcementList.innerHTML = ""; // Clear the existing list
-
-                    data.Announcements.forEach((announcement) => {
-                        const announcementItem = document.createElement("div");
-                        announcementItem.className = "announcement-item";
-                        announcementItem.innerHTML = `
-                            <div class="announcement-details">
-                                <h3 class="announcement-title">${announcement.Title}</h3>
-                                <p class="announcement-description">${announcement.DescriptionDetails}</p>
-                                <small class="announcement-date">Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
-                            </div>
-                        `;
-                        announcementList.appendChild(announcementItem);
-                    });
-                } else {
-                    console.error("No announcements found");
-                }
-            } catch (error) {
-                console.error("Error fetching announcements:", error);
-            }
-        }
-
-        // Function to add a new announcement and update the database
-        async function addAnnouncement() {
-    const title = document.getElementById("announcement-title").value.trim();
-    const description = document.getElementById("announcement-description").value.trim();
-
-    if (title && description) {
+        // Function to fetch announcements
+    async function fetchAnnouncements() {
         try {
-            const response = await fetch("http://localhost:3000/api/announcement", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ title, description }),
-            });
+            const response = await fetch("http://localhost:3000/api/announcements");
+            const data = await response.json();
 
-            if (response.ok) {
-                alert("Announcement added successfully!");
-                document.getElementById("announcement-title").value = "";
-                document.getElementById("announcement-description").value = "";
+            if (data.Announcements && data.Announcements.length > 0) {
+                const announcementList = document.querySelector(".announcement-list");
+                announcementList.innerHTML = ""; // Clear the existing list
+
+                data.Announcements.forEach((announcement) => {
+                    const announcementItem = document.createElement("div");
+                    announcementItem.className = "announcement-item";
+                    announcementItem.innerHTML = `
+                        <div class="announcement-details">
+                            <h3 class="announcement-title">${announcement.Title}</h3>
+                            <p class="announcement-description">${announcement.DescriptionDetails}</p>
+                            <small class="announcement-date">Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
+                        </div>
+                    `;
+                    announcementList.appendChild(announcementItem);
+                });
             } else {
-                console.error("Failed to add announcement:", response.statusText);
+                console.error("No announcements found");
             }
         } catch (error) {
-            console.error("Error adding announcement:", error);
+            console.error("Error fetching announcements:", error);
         }
-    } else {
-        alert("Please fill out both the title and description.");
     }
-}
 
+    // Function to add a new announcement
+    async function addAnnouncement() {
+        const title = document.getElementById("announcement-title").value.trim();
+        const description = document.getElementById("announcement-description").value.trim();
 
-        // Call fetchAnnouncements when the page loads
-        document.addEventListener("DOMContentLoaded", fetchAnnouncements);
+        if (title && description) {
+            try {
+                const response = await fetch("http://localhost:3000/api/announcement", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title, description }),
+                });
 
-
-    // Example Chart.js code
-    const ctx = document.getElementById('scamChart').getContext('2d');
-
-    const data = {
-        labels: ['Daily', 'Weekly', 'Monthly'], // Time periods
-        datasets: [
-            {
-                label: 'Number of Reported Scams',
-                data: [50, 200, 800], // Example values
-                backgroundColor: ['#4a90e2', '#f44336', '#ffc107'], // Color for bars
-                borderWidth: 1,
-                borderRadius: 5,
-                barPercentage: 0.6 // Controls bar width
+                if (response.ok) {
+                    alert("Announcement added successfully!");
+                    document.getElementById("announcement-title").value = "";
+                    document.getElementById("announcement-description").value = "";
+                    fetchAnnouncements(); // Refresh the list
+                } else {
+                    console.error("Failed to add announcement:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error adding announcement:", error);
             }
-        ]
-    };
+        } else {
+            alert("Please fill out both the title and description.");
+        }
+    }
 
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true,
-                grid: {
-                    color: 'rgba(200, 200, 200, 0.5)' // Light gray grid lines
+    // DOMContentLoaded to ensure DOM is ready
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchAnnouncements(); // Fetch announcements on page load
+
+        // Chart.js logic
+        const ctx = document.getElementById('scamChart').getContext('2d');
+
+        const data = {
+            labels: ['Daily', 'Weekly', 'Monthly'],
+            datasets: [
+                {
+                    label: 'Number of Reported Scams',
+                    data: [50, 200, 800],
+                    backgroundColor: ['#4a90e2', '#f44336', '#ffc107'],
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.6
+                }
+            ]
+        };
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(200, 200, 200, 0.5)'
+                    },
+                    ticks: {
+                        stepSize: 100
+                    }
                 },
-                ticks: {
-                    stepSize: 100 
+                x: {
+                    grid: {
+                        display: false
+                    }
                 }
             },
-            x: {
-                grid: {
-                    display: false // Hide grid lines on x-axis
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top', // Legend position
-                labels: {
-                    font: {
-                        size: 14 // Adjust legend font size
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 14
+                        }
                     }
                 }
             }
-        }
-    };
+        };
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: options
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
     });
 
 </script>

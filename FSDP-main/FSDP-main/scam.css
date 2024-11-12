@@ -1,0 +1,464 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    overflow-y: scroll;
+    padding-top: 100px;
+}
+
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px;
+    }
+    header .logo {
+        width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px 10px;
+    }
+    header .logo {
+        width: 60px;
+    }
+}
+
+
+header.header {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+    padding: 0 20px;
+    position: fixed;
+    top: 0 !important; 
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: none; 
+}
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 0.9em;
+    color: #555555;
+}
+
+.header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    width: 100%;
+    margin-top: 0;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+
+header .logo {
+    width: 80px; 
+    height: auto;
+}
+
+.section-indicator strong {
+    color: #333333;
+}
+
+.main-content {
+    margin-top: 120px;
+}
+
+.main-nav a {
+    color: #555555;
+    margin-right: 15px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+    transform: scale(1);
+    transform-origin: center;
+    margin-left: 0;
+    padding-left: 60px;
+}
+
+.sub-nav {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: flex-end;
+    margin-left: 30px;
+}
+
+.sub-nav a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 5px 0;
+}
+
+.sub-nav a:hover {
+    text-decoration: underline;
+}
+
+.sub-nav a.login {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.container {
+    padding-top: 100px; 
+}
+
+.banner-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    margin-top: 150px;
+}
+
+.banner-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2.5em; 
+    font-weight: bold;
+    text-align: center;
+    z-index: 2; 
+}
+
+.top-sections {
+    display: flex;
+    gap: 20px;
+    margin-top: 180px;
+}
+
+.vote-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #555;
+}
+
+.vote-button:hover {
+    color: #d32f2f; 
+}
+
+.vote-count {
+    font-size: 1em;
+    padding: 0 5px;
+    color: #333;
+}
+
+
+.scam-main-content {
+    padding: 50px 20px; 
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.scam-table-container {
+    overflow-x: auto; 
+    margin-top: 20px;
+}
+
+.scam-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.scam-table th,
+.scam-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.scam-table th {
+    background-color: #333;
+    color: white;
+    font-size: 1.1em;
+}
+
+.scam-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.scam-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+/* Scam Page Title Styling */
+.scam-page-title-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.scam-page-title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Add styles for the search bar */
+.scam-search-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.scam-search {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.scam-search:focus {
+    border-color: #d32f2f;
+}
+
+/* Style for the search bar and button */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 300px;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    border-color: #d32f2f;
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #b71c1c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        width: 250px;
+    }
+
+    .search-button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure header stays on top */
+  }
+  
+  .potential-scam-section {
+    position: relative;
+    z-index: 5; /* Ensure this section is below the header */
+  }
+
+/* Arrow Button Styling */
+.arrow-button {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.arrow-button:hover {
+    color: #007BFF;
+}
+
+.chatbot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-icon:hover {
+    background-color: #d32f2f;
+}
+
+.chatbot-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.footer {
+    background-color: #f9f9f9;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer-logo, .footer-links, .footer-contact {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-logo img {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.footer-logo p {
+    font-size: 14px;
+    color: #333;
+}
+
+.footer-logo ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-logo ul li {
+    color: #333;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.footer-links h4, .footer-contact h4 {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.footer-links ul, .footer-contact p {
+    list-style: none;
+    padding: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.footer-links ul li, .footer-contact p {
+    margin: 5px 0;
+}
+
+.footer-contact .social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: #fff;
+    background-color: #333;
+    padding: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px solid #ddd;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-logo, .footer-links, .footer-contact {
+        margin: 15px 0;
+    }
+}

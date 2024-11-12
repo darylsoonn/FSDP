@@ -21,6 +21,20 @@ const handleScrollAnimation = () => {
     });
 };
 
+let lastScrollY = window.scrollY;
+const header = document.querySelector('header.header');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > lastScrollY) {
+    // Scrolling down
+    header.style.transform = 'translateY(-100%)'; // Hide header
+  } else {
+    // Scrolling up
+    header.style.transform = 'translateY(0)'; // Show header
+  }
+  lastScrollY = window.scrollY;
+});
+
 window.addEventListener("scroll", () => {
     handleScrollAnimation();
 });

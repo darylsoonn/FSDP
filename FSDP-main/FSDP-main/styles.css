@@ -10,6 +10,29 @@ body {
     overflow-y: scroll;
 }
 
+.main-content {
+    margin-top: px; 
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px;
+    }
+    header .logo {
+        width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px 10px;
+    }
+    header .logo {
+        width: 60px;
+    }
+}
+
+
 header.header {
     display: flex;
     flex-direction: column;
@@ -17,12 +40,12 @@ header.header {
     border-bottom: 1px solid #dddddd;
     padding: 0 20px;
     position: fixed;
-    top: 0;
+    top: 0 !important; /* Force it to stay at the top */
     left: 0;
     width: 100%;
     z-index: 100;
+    transition: none; /* Disable transitions */
 }
-
 .header-top {
     display: flex;
     justify-content: space-between;
@@ -30,6 +53,20 @@ header.header {
     padding: 10px 0;
     font-size: 0.9em;
     color: #555555;
+}
+
+.header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    width: 100%;
+    margin-top: 0;
+}
+
+header .logo {
+    width: 80px; /* Adjust as needed */
+    height: auto;
 }
 
 .section-indicator strong {
@@ -41,14 +78,6 @@ header.header {
     margin-right: 15px;
     text-decoration: none;
     font-size: 0.9em;
-}
-
-.header-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
-    width: 100%;
 }
 
 .logo img {
@@ -85,9 +114,8 @@ header.header {
 }
 
 .container {
-    padding: 0 20px;
+    padding-top: 100px; 
 }
-
 
 .banner-section {
     position: relative;

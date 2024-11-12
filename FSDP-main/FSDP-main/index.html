@@ -36,53 +36,74 @@
         </div>
     </header>
 
+    <div class="banner-section">
+        <img src="media/ocbc.png" alt="Help and Support Banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-text">Help and Support</div>
+    </div>
+    
+
     <div class="container">
         <div class="top-sections">
             <section class="announcements scroll-animate">
+
                 <h2>Announcements</h2>
                 <p>Maintenance scheduled on Friday, 12th Oct.</p>
                 <p>New update available for OCBC mobile app.</p>
                 <p>Holiday banking hours announced.</p>
                 <p>Important notice on security measures.</p>
+                <h2 class="announcement-header">Announcements</h2>
+                <div id="announcement-list"></div> 
+
             </section>
             <p id="phoneNumberDisplay"></p>
             <section class="faq scroll-animate">
                 <h2>Common FAQ</h2>
-                <ul>
-                    <li>Why is this service out of date?</li>
-                    <li>Why is no one picking up the call?</li>
-                    <li>Why is the service very slow?</li>
-                    <li>How can I apply for a loan?</li>
-                    <li>How can I reset my password?</li>
-                </ul>
+                <div id="faq-list"></div> 
             </section>
         </div>
     </div>
 
+
+
+    
+    <div id="announcement-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h3 id="modal-title">Announcement Title</h3>
+            <p id="modal-description">Description goes here...</p>
+        </div>
+    </div>
+    
     <div class="icon-container">
         <div class="icon-item">
-            <img src="media/general.png" alt="Icon 1">
-            <span>General</span>
+            <img src="media/general.png" alt="General">
+            <span class="overlay-text">General</span>
         </div>
         <div class="icon-item">
-            <img src="media/banking.png" alt="Icon 2">
-            <span>Banking</span>
+            <img src="media/banking.png" alt="Banking">
+            <span class="overlay-text">Banking</span>
         </div>
         <div class="icon-item">
-            <img src="media/cards.png" alt="Icon 3">
-            <span>Cards</span>
+            <img src="media/cards.png" alt="Cards">
+            <span class="overlay-text">Cards</span>
         </div>
         <div class="icon-item">
-            <img src="media/scams.png" alt="Icon 4">
-            <span>Scams</span>
+            <a href="scam.html">
+            <img src="media/scams.png" alt="Scams">
+            <span class="overlay-text">Scams</span>
+        </a>
         </div>
-        <div class="icon-item">
-            <img src="media/insurance.png" alt="Icon 5">
-            <span>Insurance</span>
+    </div>
+
+    <div class="contact-section">
+        <div class="contact-text">
+            <h2>Need more help?</h2>
+            <p>Use our chatbot, call, write to us, or find a branch near you</p>
+            <button class="contact-button">Contact us</button>
         </div>
-        <div class="icon-item">
-            <img src="media/investments.png" alt="Icon 6">
-            <span>Investments</span>
+        <div class="contact-image">
+            <img src="media/holdingphone.png" alt="Person holding phone">
         </div>
     </div>
 
@@ -124,6 +145,57 @@
         });
     </script>
 
+    
+
+    <div class="chatbot-icon" onclick="openChatbot()">
+        <img src="media/Chat Icon.png" alt="Chatbot Icon" style="width: 50px; height: 50px;">
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="media/OCBC Logo.png" alt="OCBC Logo">
+                <p><strong>Personal Banking</strong></p>
+                <p>You are in <strong>Singapore</strong> <span>&#9660;</span></p>
+                <ul>
+                    <li>Premier Banking</li>
+                    <li>FRANK by OCBC</li>
+                    <li>Business Banking</li>
+                    <li>OCBC Group</li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Useful links</h4>
+                <ul>
+                    <li>OCBC Online Banking</li>
+                    <li>ATM and Branch locator</li>
+                    <li>Help and Support</li>
+                    <li>Important Documents</li>
+                    <li>Report Vulnerability</li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Get in touch with us</h4>
+                <p>Contact Us</p>
+                <p>+65 6363 3333</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>Conditions of Access | Policies | Notices</p>
+            <p>&copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co. Reg. No.: 193200032W</p>
+        </div>
+    </footer>
+    
     <script src="scripts.js"></script>
 </body>
 </html>

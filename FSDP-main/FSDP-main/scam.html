@@ -4,34 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCBC Scam Report</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="scam.css">
 </head>
 <body class="scam-body">
 
-    <!-- Header with unique classes -->
-    <header class="scam-header">
-        <div class="scam-logo-section">
-            <h1 class="scam-logo">OCBC</h1>
+    <header class="header">
+        <div class="header-top">
+            <span class="section-indicator"><strong></strong></span>
+            <nav class="main-nav">
+                <a href="#">Premier Banking</a>
+                <a href="#">Digital Banking</a>
+                <a href="#">Security</a>
+                <a href="#">Branches & ATMs</a>
+                <a href="#">Get help</a>
+            </nav>
         </div>
-        <nav class="scam-nav-links">
-            <a href="#">Premier Banking</a>
-            <a href="#">Digital Banking</a>
-            <a href="#">Security</a>
-            <a href="#">Get help</a>
-        </nav>
-        <div class="scam-search-bar">
-            <label for="scam-search">Search:</label>
-            <input type="text" id="scam-search" placeholder="Enter search text">
+        <div class="header-bottom">
+            <div class="logo">
+                <img src="media/OCBC Logo.png" alt="OCBC Logo">
+            </div>
+            <nav class="sub-nav">
+                <a href="#">Accounts</a>
+                <a href="#">Cards</a>
+                <a href="#">Loans</a>
+                <a href="#">Insurance</a>
+                <a href="#">Investments</a>
+                <a href="#">Advisory</a>
+                <a href="#">More</a>
+                <a href="#" class="login">Login</a>
+            </nav>
         </div>
     </header>
-    
-    <!-- Page title outside of header -->
+
     <div class="scam-page-title-container">
         <h2 class="scam-page-title">Potential Scam Numbers Reported</h2>
     </div>
 
-    <!-- Main Content -->
     <main class="scam-main-content">
+        <!-- Search Bar with Button -->
+        <div class="search-container">
+            <input type="text" id="search-bar" class="search-bar" placeholder="Search scam numbers...">
+            <button class="search-button" onclick="searchFunction()">Search</button>
+        </div>
+
         <section class="scam-table-container">
             <table class="scam-table">
                 <thead>
@@ -40,80 +55,175 @@
                         <th>Reported Number</th>
                         <th>Quantity of Reports</th>
                         <th>Upvotes</th>
+                        <th>Actions</th> <!-- Added Actions Column for Arrow Button -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr data-vote="none">
                         <td>1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 9876 5432</td>
+                        <td>150</td>
+                        <td>120</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">120</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>2</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 1234 5678</td>
+                        <td>90</td>
+                        <td>75</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">75</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>3</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 8765 4321</td>
+                        <td>130</td>
+                        <td>100</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">100</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>4</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 2345 6789</td>
+                        <td>80</td>
+                        <td>65</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">65</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">    
                         <td>5</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 3456 7890</td>
+                        <td>60</td>
+                        <td>55</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">55</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>6</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 4567 8901</td>
+                        <td>110</td>
+                        <td>95</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">95</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>7</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 5678 9012</td>
+                        <td>140</td>
+                        <td>110</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">110</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>8</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 6789 0123</td>
+                        <td>75</td>
+                        <td>50</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">50</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>9</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 7890 1234</td>
+                        <td>100</td>
+                        <td>85</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">85</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr data-vote="none">
                         <td>10</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>+65 8901 2345</td>
+                        <td>50</td>
+                        <td>40</td>
+                        <td>
+                            <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                            <span class="vote-count">40</span>
+                            <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Chatbot Section -->
-        <aside class="scam-chatbot-container">
-            <div class="scam-chatbot">
-                <p>Chatbot</p>
-            </div>
-        </aside>
+        <div class="chatbot-icon" onclick="openChatbot()">
+            <img src="media/Chat Icon.png" alt="Chatbot Icon" style="width: 50px; height: 50px;">
+        </div>
+
     </main>
 
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="media/OCBC Logo.png" alt="OCBC Logo">
+                <p><strong>Personal Banking</strong></p>
+                <p>You are in <strong>Singapore</strong> <span>&#9660;</span></p>
+                <ul>
+                    <li>Premier Banking</li>
+                    <li>FRANK by OCBC</li>
+                    <li>Business Banking</li>
+                    <li>OCBC Group</li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Useful links</h4>
+                <ul>
+                    <li>OCBC Online Banking</li>
+                    <li>ATM and Branch locator</li>
+                    <li>Help and Support</li>
+                    <li>Important Documents</li>
+                    <li>Report Vulnerability</li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Get in touch with us</h4>
+                <p>Contact Us</p>
+                <p>+65 6363 3333</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>Conditions of Access | Policies | Notices</p>
+            <p>&copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co. Reg. No.: 193200032W</p>
+        </div>
+    </footer>
+
+    <script src="scam.js"></script>
 </body>
 </html>

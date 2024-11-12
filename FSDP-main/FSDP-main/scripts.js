@@ -2,12 +2,14 @@ function openChatbot() {
     alert("Chatbot functionality coming soon!");
 }
 
-
 const scrollElements = document.querySelectorAll(".scroll-animate");
 
 const elementInView = (el, offset = 0) => {
     const elementTop = el.getBoundingClientRect().top;
-    return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset);
+    return (
+        elementTop <=
+        (window.innerHeight || document.documentElement.clientHeight) - offset
+    );
 };
 
 const displayScrollElement = (element) => {
@@ -22,6 +24,20 @@ const handleScrollAnimation = () => {
     });
 };
 
+let lastScrollY = window.scrollY;
+const header = document.querySelector('header.header');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > lastScrollY) {
+    // Scrolling down
+    header.style.transform = 'translateY(-100%)'; // Hide header
+  } else {
+    // Scrolling up
+    header.style.transform = 'translateY(0)'; // Show header
+  }
+  lastScrollY = window.scrollY;
+});
+
 window.addEventListener("scroll", () => {
     handleScrollAnimation();
 });
@@ -29,100 +45,134 @@ window.addEventListener("load", () => {
     handleScrollAnimation();
 });
 
-let lastScrollTop = 0; // Keeps track of the last scroll position
+let lastScrollTop = 0;
 
 window.addEventListener("scroll", () => {
     const header = document.querySelector("header.header");
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-    // If we scroll down, hide the header
     if (currentScroll > lastScrollTop) {
-        header.style.top = "-100px"; // Hide header by moving it up
+        header.style.top = "-100px"; 
     } else {
-        // If we scroll up, show the header
-        header.style.top = "0"; // Reset position to show the header
+        header.style.top = "0"; 
     }
-
-    // Update lastScrollTop to the current scroll position
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
-    console.log("DOM fully loaded"); // Check if this runs
+    console.log("DOM fully loaded");
+    await fetchAndDisplayAnnouncements();
+    await fetchAndDisplayFAQs();
+
+    // Poll announcements every 10 seconds
+    setInterval(fetchAndDisplayAnnouncements, 10000);
+});
+
+async function fetchAndDisplayAnnouncements() {
     const announcementSection = document.querySelector(".announcements");
 
-    // Check if the announcement section exists in the DOM
     if (!announcementSection) {
-        console.error("Announcement section not found in DOM"); // This message will help identify the issue
+        console.error("Announcement section not found in DOM");
         return;
     }
-    console.log("Announcement Section:", announcementSection); // Log the section to confirm it's found
 
     try {
-        const response = await fetch("http://localhost:3000/api/announcements"); // Adjust API route if necessary
+        const response = await fetch("http://localhost:3000/api/announcements");
         if (!response.ok) throw new Error("Failed to load announcements");
 
         const data = await response.json();
-        console.log("Fetched data:", data); // See what data is returned
+        console.log("Fetched announcement data:", data);
 
-        // Check if data contains announcements and call the display function
-        if (data.Announcements) {
+        if (Array.isArray(data.Announcements)) {
             displayAnnouncements(data.Announcements);
         } else {
             console.error("Announcements key not found in data", data);
         }
-
     } catch (error) {
         console.error("Error fetching announcements:", error);
     }
-});
+}
 
 function displayAnnouncements(announcements) {
-    const announcementSection = document.querySelector(".announcements");
-    announcementSection.innerHTML = ""; // Clear existing announcements if needed
+    const announcementSection = document.getElementById("announcement-list");
+    announcementSection.innerHTML = ""; // Clear the current list
 
-    announcements.forEach(announcement => {
-        const announcementItem = document.createElement("p");
-        
-        // Title is displayed initially
-        const title = announcement.Title || "No title available";
-        announcementItem.textContent = title;
-
-        // Add an event listener to open the modal when the title is clicked
-        announcementItem.addEventListener('click', () => {
-            openModal(announcement); // Pass the entire announcement object to the modal
-        });
-
+    announcements.forEach((announcement) => {
+        const announcementItem = document.createElement("div");
+        announcementItem.className = "announcement-item";
+        announcementItem.innerHTML = `
+            <h3>${announcement.Title}</h3>
+            <p>${announcement.DescriptionDetails}</p>
+            <small>Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
+        `;
         announcementSection.appendChild(announcementItem);
     });
 
     console.log("Announcements displayed successfully");
 }
 
-function openModal(announcement) {
-    // Set the modal content with the announcement details
+async function fetchAndDisplayFAQs() {
+    const faqSection = document.querySelector(".faq");
+
+    if (!faqSection) {
+        console.error("FAQ section not found in DOM");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3000/api/faqs");
+        if (!response.ok) throw new Error("Failed to load FAQs");
+
+        const data = await response.json();
+        console.log("Fetched FAQ data:", data);
+
+        if (data.FAQ) {
+            const faqItems = Array.isArray(data.FAQ) ? data.FAQ : Object.values(data.FAQ);
+            displayFAQs(faqItems);
+        } else {
+            console.error("Unexpected FAQ data format:", data);
+        }
+    } catch (error) {
+        console.error("Error fetching FAQs:", error);
+    }
+}
+
+function displayFAQs(faqs) {
+    const faqSection = document.querySelector(".faq");
+    faqSection.innerHTML = ""; // Clear the current list
+
+    faqs.forEach((faq) => {
+        const faqItem = document.createElement("p");
+        faqItem.textContent = faq.QuestionTitle || "No title available";
+
+        faqItem.addEventListener("click", () => {
+            openModal(faq);
+        });
+
+        faqSection.appendChild(faqItem);
+    });
+
+    console.log("FAQs displayed successfully");
+}
+
+function openModal(item) {
     const modal = document.getElementById("announcement-modal");
     const modalTitle = document.getElementById("modal-title");
     const modalDescription = document.getElementById("modal-description");
 
-    modalTitle.textContent = announcement.Title || "No title available";
-    modalDescription.textContent = announcement.DescriptionDetails || "No description available";
+    modalTitle.textContent = item.Title || item.QuestionTitle || "No title available";
+    modalDescription.textContent = item.DescriptionDetails || item.QuestionAnswer || "No description available";
 
-    // Show the modal
     modal.style.display = "block";
 }
 
-// Close the modal when the user clicks on <span> (x)
 document.getElementById("close-modal").addEventListener("click", () => {
-    const modal = document.getElementById("announcement-modal");
-    modal.style.display = "none";
+    document.getElementById("announcement-modal").style.display = "none";
 });
 
-// Close the modal if the user clicks outside of the modal content
 window.addEventListener("click", (event) => {
     const modal = document.getElementById("announcement-modal");
     if (event.target === modal) {
         modal.style.display = "none";
     }
 });
-

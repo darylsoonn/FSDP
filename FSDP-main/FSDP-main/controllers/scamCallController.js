@@ -53,7 +53,60 @@ const getScamCalls = async (req, res) => {
     }
 }
 
+const getScamCallsWeekly = async (req, res) => {
+    try {
+        const scamCalls = await ScamCall.getScamCallsWeekly();
+
+        if (!scamCalls) {
+            res.status(404).json({
+                message: `Failed to get any scam calls`
+            });
+            return;
+        }
+
+        res.status(201).json({
+            message: `Scam calls succesfully returned`,
+            scamCalls: scamCalls
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            status: "Error",
+            message: "Internal Server Error",
+            error: err
+        });
+    }
+}
+
+const getScamCallsMonthly = async (req, res) => {
+    try {
+        const scamCalls = await ScamCall.getScamCallsMonthly();
+
+        if (!scamCalls) {
+            res.status(404).json({
+                message: `Failed to get any scam calls`
+            });
+            return;
+        }
+
+        res.status(201).json({
+            message: `Scam calls succesfully returned`,
+            scamCalls: scamCalls
+        });
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({
+            status: "Error",
+            message: "Internal Server Error",
+            error: err
+        });
+    }
+}
+
 module.exports = {
     reportNumber,
     getScamCalls,
+    getScamCallsWeekly,
+    getScamCallsMonthly,
 }

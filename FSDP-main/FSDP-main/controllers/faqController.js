@@ -4,11 +4,14 @@ const addQuestion = async (req, res) => {
 try {
     const {title, answer, catId} = req.body;
 
-    const question = Question.createQuestion(title, answer, catId)
+    const question = await Question.createQuestion(title, answer, catId)
 
-    // check if question exists
+    // check if question created
     if (!question) {
-
+        res.status(500).json({
+            message: `Failed to create or update reported number`
+        });
+        return;
     }
 
 } catch (err) {
@@ -24,8 +27,7 @@ try {
 const getQuestions = async (req, res) => {
 try {
 
-    const commonQuestions = Question.getQuestions();
-    
+    const commonQuestions = await Question.getQuestions();
     if (!commonQuestions) {
         res.status(404).json({
             message: `Failed to get any notifications, notifications do not exist for this user`

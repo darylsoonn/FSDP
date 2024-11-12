@@ -581,16 +581,18 @@ body, html {
     border-top: 1px solid #ddd; /* Optional border to separate frequency and question list */
 }
 /* Announcements Section */
+/* Announcements Section */
 .announcement-section {
-    background-color: #f9f9f9;
-    padding: 20px; /* Consistent padding */
-    border-radius: 10px; /* Rounded corners */
+    background-color: #f9f9f9; /* Ensure background matches */
+    padding: 20px;
+    border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Full width alignment with other sections */
-    margin-top: 20px; /* Add space above section */
+    width: 100%;
+    height: 300px; /* Match the height of other sections */
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Spacing between items */
+    gap: 15px;
+    overflow: hidden; /* Ensures contents don't overflow */
 }
 
 .announcement-section h2 {
@@ -603,19 +605,48 @@ body, html {
     margin-bottom: 10px; /* Space between heading and items */
 }
 
+
+
 .announcement-list {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Space between announcements */
+    gap: 10px;
+    max-height: calc(100% - 100px); /* Deduct space for the title and input */
+    overflow-y: auto; /* Add vertical scrolling */
+    padding-right: 10px; /* Space for the scrollbar */
+    margin: 0;
 }
 
+.chart-container.announcement-section {
+    flex: 1;
+    min-width: 0; /* Prevent expansion outside the parent container */
+}
+
+.announcement-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.announcement-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 5px;
+}
+
+.announcement-list::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+}
+
+/* Adjust announcement items to look consistent */
 .announcement-item {
     background-color: #ffffff;
-    padding: 15px 20px; /* Inner spacing */
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
+
+
 
 .announcement-item:hover {
     transform: scale(1.02); /* Subtle zoom effect */
@@ -626,13 +657,88 @@ body, html {
     font-size: 1.1em;
     font-weight: bold;
     color: #4a90e2;
-    margin-bottom: 5px;
 }
 
 .announcement-item p {
     font-size: 0.95em;
     color: #666;
-    margin: 0;
+}
+.announcement-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduce spacing between fields */
+    margin-bottom: 15px;
+}
+
+.announcement-input input[type="text"] {
+    padding: 5px; /* Decrease padding inside the input */
+    font-size: 0.9em; /* Slightly smaller font size */
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Maintain rounded corners */
+    width: 100%;
+    height: 30px; /* Fix the height for consistency */
+}
+
+.announcement-input button {
+    padding: 8px; /* Adjust padding to align with smaller input */
+    font-size: 0.9em; /* Match font size with inputs */
+    color: white;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 4px; /* Adjust to match input fields */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+}
+
+.announcement-input button:hover {
+    background-color: #357abd;
+}
+
+.announcement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.announcement-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.announcement-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.announcement-description {
+    font-size: 1em;
+    color: #666;
+}
+
+.announcement-date {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.edit-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #357abd;
 }
 
 

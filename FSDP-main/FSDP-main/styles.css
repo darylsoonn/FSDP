@@ -369,14 +369,16 @@ header.header {
 }
 
 .contact-image {
-    max-width: 40%;
+    max-width: 30%; /* Reduced image width */
 }
 
 .contact-image img {
     width: 100%;
     height: auto;
     object-fit: cover;
+    align-self: flex-end; /* Ensures the image aligns to the bottom */
 }
+
 
 /* General footer styling */
 .footer {

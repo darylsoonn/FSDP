@@ -13,11 +13,15 @@ VALUES
 INSERT INTO ChatbotData (DataId, CategoryDesc)
 VALUES 
 ('CHA000001', 'Security');
+('CHA000002', 'Scams');
+('CHA000003', 'Cards');
 
 -- Insert data into Question table
 INSERT INTO Question (QuestionId, CategoryId, QuestionTitle, QuestionAnswer)
 VALUES
 ('QUE000001', 'CHA000001', 'How can I reset my password', 'Go into the login page of the OCBC website...');
+('QUE000002', 'CHA000002', 'How do I know if the caller is from OCBC', 'Our operators will only direct you to search for the officia website...');
+('QUE000003', 'CHA000003', 'How do I get my first debit card?', 'Visit our nearest bank branch...');
 
 -- Insert data into ScamCall table
 INSERT INTO ScamCall (PhoneNumber, ReportCount)

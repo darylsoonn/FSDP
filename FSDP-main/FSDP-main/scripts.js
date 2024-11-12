@@ -6,7 +6,10 @@ const scrollElements = document.querySelectorAll(".scroll-animate");
 
 const elementInView = (el, offset = 0) => {
     const elementTop = el.getBoundingClientRect().top;
-    return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset);
+    return (
+        elementTop <=
+        (window.innerHeight || document.documentElement.clientHeight) - offset
+    );
 };
 
 const displayScrollElement = (element) => {
@@ -46,6 +49,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("DOM fully loaded");
     await fetchAndDisplayAnnouncements();
     await fetchAndDisplayFAQs();
+
+    // Poll announcements every 10 seconds
+    setInterval(fetchAndDisplayAnnouncements, 10000);
 });
 
 async function fetchAndDisplayAnnouncements() {
@@ -74,17 +80,17 @@ async function fetchAndDisplayAnnouncements() {
 }
 
 function displayAnnouncements(announcements) {
-    const announcementSection = document.querySelector(".announcements");
-    announcementSection.innerHTML = ""; 
+    const announcementSection = document.getElementById("announcement-list");
+    announcementSection.innerHTML = ""; // Clear the current list
 
-    announcements.forEach(announcement => {
-        const announcementItem = document.createElement("p");
-        announcementItem.textContent = announcement.Title || "No title available";
-
-        announcementItem.addEventListener('click', () => {
-            openModal(announcement);
-        });
-
+    announcements.forEach((announcement) => {
+        const announcementItem = document.createElement("div");
+        announcementItem.className = "announcement-item";
+        announcementItem.innerHTML = `
+            <h3>${announcement.Title}</h3>
+            <p>${announcement.DescriptionDetails}</p>
+            <small>Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
+        `;
         announcementSection.appendChild(announcementItem);
     });
 
@@ -119,9 +125,9 @@ async function fetchAndDisplayFAQs() {
 
 function displayFAQs(faqs) {
     const faqSection = document.querySelector(".faq");
-    faqSection.innerHTML = ""; 
+    faqSection.innerHTML = ""; // Clear the current list
 
-    faqs.forEach(faq => {
+    faqs.forEach((faq) => {
         const faqItem = document.createElement("p");
         faqItem.textContent = faq.QuestionTitle || "No title available";
 

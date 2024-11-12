@@ -45,7 +45,7 @@
                 <p>Holiday banking hours announced.</p>
                 <p>Important notice on security measures.</p>
             </section>
-            <p id="output"></p>
+            <p id="phoneNumberDisplay"></p>
             <section class="faq scroll-animate">
                 <h2>Common FAQ</h2>
                 <ul>
@@ -88,34 +88,39 @@
 
     <script>
         window.watsonAssistantChatOptions = {
-            integrationID: "cbf2905d-47c4-4ac7-aaba-deee43faaa06", // Replace with your integration ID
-            region: "us-south", // Replace with your region
-            serviceInstanceID: "b0a69481-ca01-4a11-b2cd-743beec90bd4", // Replace with your service instance ID
+            integrationID: "cbf2905d-47c4-4ac7-aaba-deee43faaa06", // Your integration ID
+            region: "us-south", // The region your integration is hosted in
+            serviceInstanceID: "b0a69481-ca01-4a11-b2cd-743beec90bd4", // Your service instance ID
             onLoad: function(instance) {
                 instance.render();
 
-                // Listen for context updates
+                // Listen for assistant's response messages
                 instance.on({
-                    type: "context",
-                    handler: function(context) {
-                        // Access the phone number from the context
-                        let phoneNumber = context.skills['main skill'].user_defined.phone_number;
-                        if (phoneNumber) {
-                            console.log("Phone Number: ", phoneNumber);
-                            document.getElementById("output").textContent = "Phone Number: " + phoneNumber;
-                            // You can also send the phone number to the backend here if needed
-                        } else {
-                            console.log("Phone number not found in context.");
+                    type: "pre:receive",
+                    handler: function(event) {
+                        // Check if the assistant's response contains the phone_number in the context
+                        if (event.data.context && event.data.context.skills && 
+                            event.data.context.skills['main skill'] &&
+                            event.data.context.skills['main skill'].user_defined) {
+                            
+                            const phoneNumber = event.data.context.skills['main skill'].user_defined.phone_number;
+                            
+                            if (phoneNumber) {
+                                // Display the phone number on the webpage
+                                document.getElementById("phoneNumberDisplay").innerText = 
+                                    "Captured Phone Number: " + phoneNumber;
+                            }
                         }
                     }
                 });
             }
         };
 
+        // Load Watson Assistant Chat script
         setTimeout(function() {
-            const t = document.createElement('script');
-            t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
-            document.head.appendChild(t);
+            const script = document.createElement('script');
+            script.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
+            document.head.appendChild(script);
         });
     </script>
 

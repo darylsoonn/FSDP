@@ -3,7 +3,6 @@ const cors = require("cors");
 const sql = require("mssql");
 const path = require("path");
 const dbConfig = require("./dbConfig");
-const { CloudantV1 } = require('@ibm-cloud/cloudant');
 
 // Controllers
 const announcementController = require("./controllers/announcementController");

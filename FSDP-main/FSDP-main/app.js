@@ -1,42 +1,48 @@
 const express = require("express");
+const cors = require("cors");
 const sql = require("mssql");
-const bodyParser = require("body-parser");
+const path = require("path");
 const dbConfig = require("./dbConfig");
 
-// possible JWT
+// Controllers
+const announcementController = require("./controllers/announcementController");
+const faqController = require("./controllers/faqController");
+const scamCallController = require("./controllers/scamCallController");
 
-// Controller
-const announcementController = require("./controllers/announcementController")
-const faqController = require("./controllers/faqController")
-const scamCallController = require("./controllers/scamCallController")
 const app = express();
 
-// Routes
-app.get("/api/announcements", announcementController.getRecentAnnouncements)
-app.post("/api/announcement", announcementController.createAnnouncement)
+app.use(cors());
+app.use(express.static(path.join(__dirname)));
 
-app.get("/api/faqs",faqController.getQuestions)
-app.post("/api/faq", faqController.addQuestion)
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 
-app.get("/api/scamcalls", scamCallController.getScamCalls)
-app.post("/api/scamcall", scamCallController.reportNumber)
+// API Routes
+app.get("/api/announcements", announcementController.getRecentAnnouncements);
+app.post("/api/announcement", announcementController.createAnnouncement);
 
+app.get("/api/faqs", faqController.getQuestions);
+app.post("/api/faq", faqController.addQuestion);
+
+app.get("/api/scamcalls", scamCallController.getScamCalls);
+app.post("/api/scamcall", scamCallController.reportNumber);
 
 // Initialise Server
 app.listen(3000, async () => {
-    console.log("FSDP listening on port 3000.")
+    console.log("Server running at http://localhost:3000");
 
     try {
         await sql.connect(dbConfig);
-        console.log("Established connection to Database");
+        console.log("Connected to Database");
     } catch (err) {
         console.error("Database connection failed:", err);
     }
 });
 
-// Close the connection pool on SIGINT signal
+// Graceful shutdown for the server
 process.on("SIGINT", async () => {
-    console.log("Server is gracefully shutting down");
+    console.log("Server is shutting down");
     await sql.close();
     console.log("Database connection closed");
     process.exit(0);

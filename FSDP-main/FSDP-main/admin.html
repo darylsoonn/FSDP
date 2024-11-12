@@ -126,65 +126,130 @@
     </div>
 
 <script>
-     
-        // Function to fetch announcements
-    async function fetchAnnouncements() {
-        try {
-            const response = await fetch("http://localhost:3000/api/announcements");
-            const data = await response.json();
 
-            if (data.Announcements && data.Announcements.length > 0) {
-                const announcementList = document.querySelector(".announcement-list");
-                announcementList.innerHTML = ""; // Clear the existing list
+     // Define the displayAnnouncements function
+     function displayAnnouncements(announcements) {
+    console.log("Announcements to Display:", announcements);
 
-                data.Announcements.forEach((announcement) => {
-                    const announcementItem = document.createElement("div");
-                    announcementItem.className = "announcement-item";
-                    announcementItem.innerHTML = `
-                        <div class="announcement-details">
-                            <h3 class="announcement-title">${announcement.Title}</h3>
-                            <p class="announcement-description">${announcement.DescriptionDetails}</p>
-                            <small class="announcement-date">Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
-                        </div>
-                    `;
-                    announcementList.appendChild(announcementItem);
-                });
-            } else {
-                console.error("No announcements found");
-            }
-        } catch (error) {
-            console.error("Error fetching announcements:", error);
-        }
+    const announcementSection = document.querySelector(".announcement-list");
+    if (!announcementSection) {
+        console.error("Announcement section not found in DOM");
+        return;
     }
+
+    announcementSection.innerHTML = ""; // Clear the existing list
+
+    announcements.forEach((announcement) => {
+        const announcementItem = document.createElement("div");
+        announcementItem.className = "announcement-item";
+        announcementItem.innerHTML = `
+            <div class="announcement-details">
+                <h3 class="announcement-title">${announcement.Title || "No Title"}</h3>
+                <p class="announcement-description">${announcement.DescriptionDetails || "No Description"}</p>
+                <small class="announcement-date">Created on: ${
+                    announcement.CreationDate
+                        ? new Date(announcement.CreationDate).toLocaleDateString()
+                        : "Unknown Date"
+                }</small>
+            </div>
+        `;
+        announcementSection.appendChild(announcementItem);
+    });
+}
+
+     
+     async function fetchAnnouncements() {
+    const announcementSection = document.querySelector(".announcement-list");
+    if (!announcementSection) {
+        console.error("Announcement section not found in DOM");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3000/api/announcements");
+        if (!response.ok) {
+            console.error("Failed to load announcements:", response.statusText);
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Fetched Announcements:", data);
+
+        if (data.Announcements && data.Announcements.length > 0) {
+            displayAnnouncements(data.Announcements);
+        } else {
+            console.error("No announcements found in API response.");
+        }
+    } catch (error) {
+        console.error("Error fetching announcements:", error);
+    }
+}
+
+// Ensure fetchAnnouncements runs when the page loads
+document.addEventListener("DOMContentLoaded", fetchAnnouncements);
 
     // Function to add a new announcement
     async function addAnnouncement() {
-        const title = document.getElementById("announcement-title").value.trim();
-        const description = document.getElementById("announcement-description").value.trim();
+    const title = document.getElementById("announcement-title").value.trim();
+    const description = document.getElementById("announcement-description").value.trim();
 
-        if (title && description) {
-            try {
-                const response = await fetch("http://localhost:3000/api/announcement", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ title, description }),
-                });
+    if (title && description) {
+        try {
+            const response = await fetch("http://localhost:3000/api/announcement", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, description }),
+            });
 
-                if (response.ok) {
-                    alert("Announcement added successfully!");
-                    document.getElementById("announcement-title").value = "";
-                    document.getElementById("announcement-description").value = "";
-                    fetchAnnouncements(); // Refresh the list
-                } else {
-                    console.error("Failed to add announcement:", response.statusText);
-                }
-            } catch (error) {
-                console.error("Error adding announcement:", error);
+            if (response.ok) {
+                const data = await response.json();
+
+                // Clear the input fields
+                document.getElementById("announcement-title").value = "";
+                document.getElementById("announcement-description").value = "";
+
+                // Prepend the new announcement to the list
+                const announcementList = document.querySelector(".announcement-list");
+                const announcementItem = document.createElement("div");
+                announcementItem.className = "announcement-item";
+                announcementItem.innerHTML = `
+                    <div class="announcement-details">
+                        <h3 class="announcement-title">${data.announcement.title}</h3>
+                        <p class="announcement-description">${data.announcement.description}</p>
+                        <small class="announcement-date">Created on: ${new Date(
+                            data.announcement.creationDate
+                        ).toLocaleDateString()}</small>
+                    </div>
+                `;
+                announcementList.prepend(announcementItem); // Add the new announcement at the top
+            } else {
+                console.error("Failed to add announcement:", response.statusText);
             }
-        } else {
-            alert("Please fill out both the title and description.");
+        } catch (error) {
+            console.error("Error adding announcement:", error);
         }
+    } else {
+        alert("Please fill out both the title and description.");
     }
+}
+
+
+// Function to update the index.html announcements directly
+async function updateIndexAnnouncements(announcement) {
+    try {
+        // Send a POST request to a route that appends the announcement
+        await fetch("http://localhost:3000/api/append-announcement", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(announcement),
+        });
+
+        console.log("Announcement successfully sent to the index.html page");
+    } catch (error) {
+        console.error("Error updating announcements in index.html:", error);
+    }
+}
+
 
     document.addEventListener("DOMContentLoaded", function () {
         // Interaction with Chatbot and Number of Call Centre chart

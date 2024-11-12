@@ -42,6 +42,12 @@ app.post("/api/storePhoneNumber", (req, res) => {
     res.json({ message: "Phone number received", phoneNumber: phoneNumber });
   });
 
+  app.post("/api/trigger-update", (req, res) => {
+    // Call this endpoint to notify `index.html` to refresh its announcements
+    res.status(200).send("Trigger update received");
+});
+
+
 
 // Initialize Server
 app.listen(3000, async () => {

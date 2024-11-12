@@ -12,13 +12,15 @@ const scamCallController = require("./controllers/scamCallController");
 const app = express();
 
 app.use(cors());
+app.use(express.json()); // Add this line to parse JSON payloads
+app.use(express.urlencoded({ extended: true })); // Add this for URL-encoded form data
 app.use(express.static(path.join(__dirname)));
 
+// Routes
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// API Routes
 app.get("/api/announcements", announcementController.getRecentAnnouncements);
 app.post("/api/announcement", announcementController.createAnnouncement);
 
@@ -28,7 +30,7 @@ app.post("/api/faq", faqController.addQuestion);
 app.get("/api/scamcalls", scamCallController.getScamCalls);
 app.post("/api/scamcall", scamCallController.reportNumber);
 
-// Initialise Server
+// Initialize Server
 app.listen(3000, async () => {
     console.log("Server running at http://localhost:3000");
 

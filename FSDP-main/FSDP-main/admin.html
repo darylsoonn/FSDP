@@ -159,37 +159,32 @@
 
         // Function to add a new announcement and update the database
         async function addAnnouncement() {
-            const title = document.getElementById("announcement-title").value.trim();
-            const description = document.getElementById("announcement-description").value.trim();
+    const title = document.getElementById("announcement-title").value.trim();
+    const description = document.getElementById("announcement-description").value.trim();
 
-            if (title && description) {
-                try {
-                    const response = await fetch("http://localhost:3000/api/announcement", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            title: title,
-                            description: description,
-                        }),
-                    });
+    if (title && description) {
+        try {
+            const response = await fetch("http://localhost:3000/api/announcement", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, description }),
+            });
 
-                    if (response.ok) {
-                        alert("Announcement added successfully!");
-                        document.getElementById("announcement-title").value = '';
-                        document.getElementById("announcement-description").value = '';
-                        fetchAnnouncements(); // Refresh the announcement list
-                    } else {
-                        console.error("Failed to add announcement:", response.statusText);
-                    }
-                } catch (error) {
-                    console.error("Error adding announcement:", error);
-                }
+            if (response.ok) {
+                alert("Announcement added successfully!");
+                document.getElementById("announcement-title").value = "";
+                document.getElementById("announcement-description").value = "";
             } else {
-                alert("Please fill out both the title and description.");
+                console.error("Failed to add announcement:", response.statusText);
             }
+        } catch (error) {
+            console.error("Error adding announcement:", error);
         }
+    } else {
+        alert("Please fill out both the title and description.");
+    }
+}
+
 
         // Call fetchAnnouncements when the page loads
         document.addEventListener("DOMContentLoaded", fetchAnnouncements);
@@ -222,7 +217,7 @@
                     color: 'rgba(200, 200, 200, 0.5)' // Light gray grid lines
                 },
                 ticks: {
-                    stepSize: 100 // Increment for y-axis ticks
+                    stepSize: 100 
                 }
             },
             x: {

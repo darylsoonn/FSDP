@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCBC Scam Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="admin.css">
 </head>
 <body class="analytics-bg">
@@ -30,8 +31,8 @@
             <br>
             <h3>Audience</h3>
             <a href="#">Visitors</a>
+           
             <a href="#">Devices</a>
-            <br>
             <br>
             <h3>Recruitment</h3>
             <a href="#">Jobs Overview</a>
@@ -47,7 +48,7 @@
         <!-- Main Content Area -->
         <div class="main-content">
             <div class="chart-container">
-                <h2>Status of Chatbot <span class="report-link">REPORT</span></h2>
+                <h2>Status of Chatbot <span class="report-link">VIEW MORE</span></h2>
                 <div class="bar-chart">
                     <div class="bar" style="height: 60%;"><span>30</span></div>
                     <div class="bar" style="height: 42%;"><span>21</span></div>
@@ -59,86 +60,63 @@
             </div>
 
             <div class="chart-container">
-                <h2>Question Frequency <span class="report-link">REPORT</span></h2>
-                <div class="question-frequency">
-                    <div class="frequency-item">
-                        <span class="percentage">60%</span>
-                        <p>Why is there such a long wait for the call to pick up?</p>
-                    </div>
-                    <div class="frequency-item">
-                        <span class="percentage">35%</span>
-                        <p>Are there other services to handle inquiries?</p>
-                    </div>
-                    <div class="frequency-item">
-                        <span class="percentage">17%</span>
-                        <p>Can there be more branches and call centers?</p>
-                    </div>
-                </div>
+                <h2>Number of Reported Scams <span class="report-link">VIEW MORE</span></h2>
+                <canvas id="scamChart"></canvas>
             </div>
 
             <!-- New Commonly Asked Questions Section -->
-    <div class="chart-container commonly-asked-questions">
-        <h2>Commonly Asked Questions <span class="report-link">REPORT</span></h2>
-        <div class="question-list">
-            <div class="question-item">
-                <p>Why is there such a long wait for the call to pick up?</p>
-            </div>
-            <div class="question-item">
-                <p>Are there other services to handle inquiries?</p>
-            </div>
-            <div class="question-item">
-                <p>Can there be more branches and call centers?</p>
-            </div>
-            <div class="question-item">
-                <p>Is there a better AI to handle these situations?</p>
-            </div>
-        </div>
-
-        
-        </div>
-
-        <div class="chart-container calls-customer-service">
-            <h2>Calls to Customer Service <span class="report-link">REPORT</span></h2>
-            <br>
-            <div class="service-level">
-                <div class="service-item">
-                    <img src="smiley-happy.png" alt="Very Engaged" class="service-icon">
-                    <span class="service-text">Very Engaged</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 17%;"></div>
+            <div class="chart-container commonly-asked-questions">
+                <h2>Frequency Asked Questions <span class="report-link">VIEW MORE</span></h2>
+                <div class="question-list">
+                    <div class="question-item">
+                        <p>Why is there such a long wait for the call to pick up? <span class="percentage">60%</span></p>
                     </div>
-                    <span class="percentages">17%</span>
-                </div>
-                <div class="service-item">
-                    <img src="smiley-neutral.png" alt="Engaged" class="service-icon">
-                    <span class="service-text">Engaged</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 33%;"></div>
+                    <div class="question-item">
+                        <p>Are there other services to handle inquiries? <span class="percentage">41%</span></p>
                     </div>
-                    <span class="percentages">33%</span>
-                </div>
-                <div class="service-item">
-                    <img src="smiley-slightly-sad.png" alt="Weekly Engaged" class="service-icon">
-                    <span class="service-text">Weekly Engaged</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 70%;"></div>
+                    <div class="question-item">
+                        <p>Can there be more branches and call centers? <span class="percentage">35%</span></p>
                     </div>
-                    <span class="percentages">70%</span>
-                </div>
-                <div class="service-item">
-                    <img src="smiley-sad.png" alt="Not Engaged" class="service-icon">
-                    <span class="service-text">Not Engaged</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 20%;"></div>
+                    <div class="question-item">
+                        <p>Is there a better AI to handle these situations? <span class="percentage">23%</span></p>
                     </div>
-                    <span class="percentages">20%</span>
+                    <div class="question-item">
+                        <p>Can there be more branches and call centers? <span class="percentage">17%</span></p>
+                    </div>
                 </div>
-        </div>
+            </div>
+            
 
-        
-        </div>
+        <!-- Announcements Section -->
+        <div class="chart-container announcement-section">
+            <h2>Announcements <span class="report-link">VIEW MORE</span></h2>
+            <div class="announcement-input">
+                <input type="text" id="announcement-title" placeholder="Enter title" />
+                <input type="text" id="announcement-description" placeholder="Enter description" />
+                <button type="button" onclick="addAnnouncement()">Submit</button>
+            </div>
+            <div class="announcement-list">
+                <div class="announcement-item">
+                    <div class="announcement-details">
+                        <h3 class="announcement-title"></h3>
+                        <p class="announcement-description"></p>
+                        <small class="announcement-date"></small>
+                    </div>
+                    
+                </div>
+                <div class="announcement-item">
+                    <div class="announcement-details">
+                        <h3 class="announcement-title"></h3>
+                        <p class="announcement-description"></p>
+                        <small class="announcement-date"></small>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
 
-        <!-- Calls to Customer Service Section -->
 
     </div>
 </div>
@@ -147,7 +125,132 @@
         </div>
     </div>
 
+<script>
+     
+        // Function to fetch announcements from the backend and display them
+        async function fetchAnnouncements() {
+            try {
+                const response = await fetch("http://localhost:3000/api/announcements");
+                const data = await response.json();
 
+                if (data.Announcements && data.Announcements.length > 0) {
+                    const announcementList = document.querySelector(".announcement-list");
+                    announcementList.innerHTML = ""; // Clear the existing list
+
+                    data.Announcements.forEach((announcement) => {
+                        const announcementItem = document.createElement("div");
+                        announcementItem.className = "announcement-item";
+                        announcementItem.innerHTML = `
+                            <div class="announcement-details">
+                                <h3 class="announcement-title">${announcement.Title}</h3>
+                                <p class="announcement-description">${announcement.DescriptionDetails}</p>
+                                <small class="announcement-date">Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
+                            </div>
+                        `;
+                        announcementList.appendChild(announcementItem);
+                    });
+                } else {
+                    console.error("No announcements found");
+                }
+            } catch (error) {
+                console.error("Error fetching announcements:", error);
+            }
+        }
+
+        // Function to add a new announcement and update the database
+        async function addAnnouncement() {
+            const title = document.getElementById("announcement-title").value.trim();
+            const description = document.getElementById("announcement-description").value.trim();
+
+            if (title && description) {
+                try {
+                    const response = await fetch("http://localhost:3000/api/announcement", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            description: description,
+                        }),
+                    });
+
+                    if (response.ok) {
+                        alert("Announcement added successfully!");
+                        document.getElementById("announcement-title").value = '';
+                        document.getElementById("announcement-description").value = '';
+                        fetchAnnouncements(); // Refresh the announcement list
+                    } else {
+                        console.error("Failed to add announcement:", response.statusText);
+                    }
+                } catch (error) {
+                    console.error("Error adding announcement:", error);
+                }
+            } else {
+                alert("Please fill out both the title and description.");
+            }
+        }
+
+        // Call fetchAnnouncements when the page loads
+        document.addEventListener("DOMContentLoaded", fetchAnnouncements);
+
+
+    // Example Chart.js code
+    const ctx = document.getElementById('scamChart').getContext('2d');
+
+    const data = {
+        labels: ['Daily', 'Weekly', 'Monthly'], // Time periods
+        datasets: [
+            {
+                label: 'Number of Reported Scams',
+                data: [50, 200, 800], // Example values
+                backgroundColor: ['#4a90e2', '#f44336', '#ffc107'], // Color for bars
+                borderWidth: 1,
+                borderRadius: 5,
+                barPercentage: 0.6 // Controls bar width
+            }
+        ]
+    };
+
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(200, 200, 200, 0.5)' // Light gray grid lines
+                },
+                ticks: {
+                    stepSize: 100 // Increment for y-axis ticks
+                }
+            },
+            x: {
+                grid: {
+                    display: false // Hide grid lines on x-axis
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top', // Legend position
+                labels: {
+                    font: {
+                        size: 14 // Adjust legend font size
+                    }
+                }
+            }
+        }
+    };
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+
+</script>
 
     
 

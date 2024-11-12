@@ -10,28 +10,31 @@ class Question {
     }
 
     // Helper Function to get New ID
-    static async getNextQuestionId(announcementConnection) {
+    static async getNextQuestionId(questionConnection) {
         const query = `SELECT * FROM Question WHERE QuestionId=(SELECT max(QuestionId) FROM Question);`
-        const request = announcementConnection.request();
+        const request = questionConnection.request();
 
         const result = await request.query(query);
 
         // adjust increment string accordingly
-        const incrementString = str => str.replace(/\d+/, num => (Number(num) + 1).toString().padStart(4, "0"));
-        return incrementString(result.recordset[0].AppointmentId);
+        const incrementString = str => str.replace(/\d+/, num => (Number(num) + 1).toString().padStart(6, "0"));
+        return incrementString(result.recordset[0].QuestionId);
     }
 
     // Create Question
     static async createQuestion(categoryId, title, answer) {
         const connection = await sql.connect(dbConfig);
+        const newQuestionId = await Question.getNextQuestionId(connection);
         const query = `
             INSERT INTO Question (QuestionId, CategoryId, QuestionTitle, QuestionAnswer)
             VALUES (@QuestionId, @CategoryId, @QuestionTitle, @QuestionAnswer)
         `;
 
         const request = connection.request();
-        request.input('AnnouncementId', newAnnouncementId);
-        request.input('Title', title);
+        request.input('QuestionId', newQuestionId);
+        request.input('CategoryId', categoryId);
+        request.input('QuestionTitle', title);
+        request.input('QuestionAnswer',answer)
 
         connection.close();
     }

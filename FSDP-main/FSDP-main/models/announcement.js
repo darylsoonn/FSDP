@@ -3,7 +3,7 @@ const dbConfig = require("../dbConfig");
 
 class Announcement {
     constructor(id, title, description, creationDate) {
-        this.Announcementid = id;
+        this.AnnouncementId = id;
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
@@ -55,12 +55,34 @@ class Announcement {
         const query = `
             SELECT TOP 10 *
             FROM Announcement
-            ORDER BY CreationDate DESC`;
+            ORDER BY CreationDate DESC
+        `;
 
         const request = connection.request();
+        const result = await request.query(query);
+
+        connection.close();
+        return result.recordset;
+    }
+
+    // Edit Announcement by ID
+    static async updateAnnouncement(id, title, details) {
+        const connection = await sql.connect(dbConfig);
+        const query = `
+            UPDATE Announcement
+            SET Title = @Title, DescriptionDetails = @Details
+            WHERE AnnouncementId = @Id
+        `;
+
+        const request = connection.request();
+        request.input('Title', title);
+        request.input('Details', details);
+        request.input('Id', id);
 
         const result = await request.query(query);
-        return result.recordset;
+
+        connection.close();
+        return result;
     }
 }
 

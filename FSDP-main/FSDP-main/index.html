@@ -46,15 +46,17 @@
     <div class="container">
         <div class="top-sections">
             <section class="announcements scroll-animate">
-
-               
                 <h2 class="announcement-header">Announcements</h2>
                 <div id="announcement-list"></div> 
 
             </section>
             <p id="phoneNumberDisplay"></p>
             <section class="faq scroll-animate">
+
                 <h2 class="faq-header">Common FAQ</h2>
+
+                <h2 class="announcement-header">Common FAQ</h2>
+
                 <div id="faq-list"></div> 
             </section>
         </div>
@@ -104,7 +106,7 @@
     </div>
 
     <script>
-        window.watsonAssistantChatOptions = {
+                window.watsonAssistantChatOptions = {
             integrationID: "cbf2905d-47c4-4ac7-aaba-deee43faaa06", // Your integration ID
             region: "us-south", // The region your integration is hosted in
             serviceInstanceID: "b0a69481-ca01-4a11-b2cd-743beec90bd4", // Your service instance ID
@@ -126,6 +128,9 @@
                                 // Display the phone number on the webpage
                                 document.getElementById("phoneNumberDisplay").innerText = 
                                     "Captured Phone Number: " + phoneNumber;
+                                
+                                // Send the phone number to the backend
+                                reportPhoneNumberToBackend(phoneNumber);
                             }
                         }
                     }
@@ -133,12 +138,38 @@
             }
         };
 
+        // Function to send the phone number to the backend
+        function reportPhoneNumberToBackend(phoneNumber) {
+            fetch('http://localhost:3000/api/scamcall/report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ phoneNumber: phoneNumber })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    console.log("Success:", data.message);
+                    alert(data.message); // Show a success message
+                } else {
+                    console.log("Failed to report the number");
+                    alert("Failed to report the number."); // Handle failure
+                }
+            })
+            .catch(error => {
+                console.error("Error reporting phone number:", error);
+                alert("An error occurred while reporting the number.");
+            });
+        }
+
         // Load Watson Assistant Chat script
         setTimeout(function() {
             const script = document.createElement('script');
             script.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
             document.head.appendChild(script);
         });
+
     </script>
 
     

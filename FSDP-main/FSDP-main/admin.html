@@ -126,39 +126,70 @@
     </div>
 
 <script>
+
+     // Define the displayAnnouncements function
+     function displayAnnouncements(announcements) {
+    console.log("Announcements to Display:", announcements);
+
+    const announcementSection = document.querySelector(".announcement-list");
+    if (!announcementSection) {
+        console.error("Announcement section not found in DOM");
+        return;
+    }
+
+    announcementSection.innerHTML = ""; // Clear the existing list
+
+    announcements.forEach((announcement) => {
+        const announcementItem = document.createElement("div");
+        announcementItem.className = "announcement-item";
+        announcementItem.innerHTML = `
+            <div class="announcement-details">
+                <h3 class="announcement-title">${announcement.Title || "No Title"}</h3>
+                <p class="announcement-description">${announcement.DescriptionDetails || "No Description"}</p>
+                <small class="announcement-date">Created on: ${
+                    announcement.CreationDate
+                        ? new Date(announcement.CreationDate).toLocaleDateString()
+                        : "Unknown Date"
+                }</small>
+            </div>
+        `;
+        announcementSection.appendChild(announcementItem);
+    });
+}
+
      
-        // Function to fetch announcements from the backend and display them
-        async function fetchAnnouncements() {
-            try {
-                const response = await fetch("http://localhost:3000/api/announcements");
-                const data = await response.json();
+     async function fetchAnnouncements() {
+    const announcementSection = document.querySelector(".announcement-list");
+    if (!announcementSection) {
+        console.error("Announcement section not found in DOM");
+        return;
+    }
 
-                if (data.Announcements && data.Announcements.length > 0) {
-                    const announcementList = document.querySelector(".announcement-list");
-                    announcementList.innerHTML = ""; // Clear the existing list
-
-                    data.Announcements.forEach((announcement) => {
-                        const announcementItem = document.createElement("div");
-                        announcementItem.className = "announcement-item";
-                        announcementItem.innerHTML = `
-                            <div class="announcement-details">
-                                <h3 class="announcement-title">${announcement.Title}</h3>
-                                <p class="announcement-description">${announcement.DescriptionDetails}</p>
-                                <small class="announcement-date">Created on: ${new Date(announcement.CreationDate).toLocaleDateString()}</small>
-                            </div>
-                        `;
-                        announcementList.appendChild(announcementItem);
-                    });
-                } else {
-                    console.error("No announcements found");
-                }
-            } catch (error) {
-                console.error("Error fetching announcements:", error);
-            }
+    try {
+        const response = await fetch("http://localhost:3000/api/announcements");
+        if (!response.ok) {
+            console.error("Failed to load announcements:", response.statusText);
+            return;
         }
 
-        // Function to add a new announcement and update the database
-        async function addAnnouncement() {
+        const data = await response.json();
+        console.log("Fetched Announcements:", data);
+
+        if (data.Announcements && data.Announcements.length > 0) {
+            displayAnnouncements(data.Announcements);
+        } else {
+            console.error("No announcements found in API response.");
+        }
+    } catch (error) {
+        console.error("Error fetching announcements:", error);
+    }
+}
+
+// Ensure fetchAnnouncements runs when the page loads
+document.addEventListener("DOMContentLoaded", fetchAnnouncements);
+
+    // Function to add a new announcement
+    async function addAnnouncement() {
     const title = document.getElementById("announcement-title").value.trim();
     const description = document.getElementById("announcement-description").value.trim();
 
@@ -171,9 +202,26 @@
             });
 
             if (response.ok) {
-                alert("Announcement added successfully!");
+                const data = await response.json();
+
+                // Clear the input fields
                 document.getElementById("announcement-title").value = "";
                 document.getElementById("announcement-description").value = "";
+
+                // Prepend the new announcement to the list
+                const announcementList = document.querySelector(".announcement-list");
+                const announcementItem = document.createElement("div");
+                announcementItem.className = "announcement-item";
+                announcementItem.innerHTML = `
+                    <div class="announcement-details">
+                        <h3 class="announcement-title">${data.announcement.title}</h3>
+                        <p class="announcement-description">${data.announcement.description}</p>
+                        <small class="announcement-date">Created on: ${new Date(
+                            data.announcement.creationDate
+                        ).toLocaleDateString()}</small>
+                    </div>
+                `;
+                announcementList.prepend(announcementItem); // Add the new announcement at the top
             } else {
                 console.error("Failed to add announcement:", response.statusText);
             }
@@ -186,63 +234,116 @@
 }
 
 
-        // Call fetchAnnouncements when the page loads
-        document.addEventListener("DOMContentLoaded", fetchAnnouncements);
+// Function to update the index.html announcements directly
+async function updateIndexAnnouncements(announcement) {
+    try {
+        // Send a POST request to a route that appends the announcement
+        await fetch("http://localhost:3000/api/append-announcement", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(announcement),
+        });
+
+        console.log("Announcement successfully sent to the index.html page");
+    } catch (error) {
+        console.error("Error updating announcements in index.html:", error);
+    }
+}
 
 
-    // Example Chart.js code
-    const ctx = document.getElementById('scamChart').getContext('2d');
+    document.addEventListener("DOMContentLoaded", function () {
+        // Interaction with Chatbot and Number of Call Centre chart
+        const interactionChartContainer = document.querySelector(".bar-chart");
+        interactionChartContainer.innerHTML = `<canvas id="interactionChart"></canvas>`;
+        const interactionCtx = document.getElementById('interactionChart').getContext('2d');
 
-    const data = {
-        labels: ['Daily', 'Weekly', 'Monthly'], // Time periods
-        datasets: [
-            {
-                label: 'Number of Reported Scams',
-                data: [50, 200, 800], // Example values
-                backgroundColor: ['#4a90e2', '#f44336', '#ffc107'], // Color for bars
-                borderWidth: 1,
-                borderRadius: 5,
-                barPercentage: 0.6 // Controls bar width
-            }
-        ]
-    };
-
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true,
-                grid: {
-                    color: 'rgba(200, 200, 200, 0.5)' // Light gray grid lines
+        const interactionData = {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+                {
+                    type: 'bar',
+                    label: "Chatbot Interactions",
+                    data: [30, 21, 23, 17, 35, 27],
+                    backgroundColor: '#4a90e2',
+                    borderRadius: 5,
+                    barPercentage: 0.6
                 },
-                ticks: {
-                    stepSize: 100 
+                {
+                    type: 'line',
+                    label: "Call Centre Queries",
+                    data: [10, 15, 20, 14, 25, 19],
+                    borderColor: '#f44336',
+                    tension: 0.3, // Smoother curve
+                    fill: false, // No fill area
                 }
-            },
-            x: {
-                grid: {
-                    display: false // Hide grid lines on x-axis
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top', // Legend position
-                labels: {
-                    font: {
-                        size: 14 // Adjust legend font size
-                    }
-                }
-            }
-        }
-    };
+            ]
+        };
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: options
+        const interactionOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 10 },
+                    grid: { color: 'rgba(200, 200, 200, 0.5)' }
+                },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { size: 12 } }
+                }
+            }
+        };
+
+        new Chart(interactionCtx, {
+            data: interactionData,
+            options: interactionOptions
+        });
+
+        // Number of Reported Scams chart
+        const scamCtx = document.getElementById('scamChart').getContext('2d');
+
+        const scamData = {
+            labels: ['Daily', 'Weekly', 'Monthly'],
+            datasets: [
+                {
+                    label: 'Number of Reported Scams',
+                    data: [50, 200, 800],
+                    backgroundColor: ['#4a90e2', '#f44336', '#ffc107'],
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.6
+                }
+            ]
+        };
+
+        const scamOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 100 },
+                    grid: { color: 'rgba(200, 200, 200, 0.5)' }
+                },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { size: 14 } }
+                }
+            }
+        };
+
+        new Chart(scamCtx, {
+            type: 'bar',
+            data: scamData,
+            options: scamOptions
+        });
     });
 
 </script>

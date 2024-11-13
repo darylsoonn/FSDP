@@ -51,19 +51,19 @@ class Announcement {
 
     // Get Announcements by latest Dates
     static async getMostRecentAnnouncements() {
-        const connection = await sql.connect(dbConfig);
-        const query = `
-            SELECT TOP 10 *
-            FROM Announcement
-            ORDER BY CreationDate DESC
-        `;
+    const connection = await sql.connect(dbConfig);
+    const query = `
+        SELECT *
+        FROM Announcement
+        ORDER BY CreationDate DESC
+    `;
 
-        const request = connection.request();
-        const result = await request.query(query);
+    const request = connection.request();
+    const result = await request.query(query);
 
-        connection.close();
-        return result.recordset;
-    }
+    connection.close();
+    return result.recordset;
+}
 
     // Edit Announcement by ID
     static async updateAnnouncement(id, title, details) {

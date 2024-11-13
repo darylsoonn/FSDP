@@ -38,27 +38,27 @@ const createAnnouncement = async (req, res) => {
 const getRecentAnnouncements = async (req, res) => {
     try {
         const recentAnnouncements = await Announcement.getMostRecentAnnouncements();
+        console.log("Fetched Announcements from Database:", recentAnnouncements);
 
-        if (!recentAnnouncements) {
-            res.status(404).json({
-                message: `Failed to get any announcements`
-            });
+        if (!recentAnnouncements || recentAnnouncements.length === 0) {
+            res.status(404).json({ message: "No announcements found" });
             return;
         }
-        res.status(200).json({
-            message: "Announcements returned Successfully",
-            Announcements: recentAnnouncements
-        });
 
+        res.status(200).json({
+            message: "Announcements fetched successfully",
+            Announcements: recentAnnouncements,
+        });
     } catch (err) {
-        console.error(err);
+        console.error("Error fetching announcements:", err);
         res.status(500).json({
             status: "Error",
             message: "Internal Server Error",
-            error: err
+            error: err,
         });
     }
-}
+};
+
 
 module.exports = {
     createAnnouncement,

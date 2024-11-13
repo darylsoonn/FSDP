@@ -32,7 +32,7 @@ app.post("/api/faq", faqController.addQuestion);
 app.get("/api/scamcalls", scamCallController.getScamCalls);
 app.get("/api/scamcalls/weekly", scamCallController.getScamCallsWeekly)
 app.get("/api/scamcalls/monthly", scamCallController.getScamCalls)
-app.post("/api/scamcall", scamCallController.reportNumber);
+app.post("/api/scamcall/report", scamCallController.reportNumber);
 //chatgpt watson fix
 app.post("/api/storePhoneNumber", (req, res) => {
     const phoneNumber = req.body.phoneNumber;
@@ -41,6 +41,12 @@ app.post("/api/storePhoneNumber", (req, res) => {
     // Handle the phone number as needed (e.g., store in a database)
     res.json({ message: "Phone number received", phoneNumber: phoneNumber });
   });
+
+  app.post("/api/trigger-update", (req, res) => {
+    // Call this endpoint to notify `index.html` to refresh its announcements
+    res.status(200).send("Trigger update received");
+});
+
 
 
 // Initialize Server

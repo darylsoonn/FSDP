@@ -2,19 +2,19 @@ const ScamCall = require("../models/scamcall")
 
 const reportNumber = async (req, res) =>{
     try {
-        const {phoneNumber} = req.params;
+        const {phoneNumber} = req.body;
+        console.log(phoneNumber);
 
-        const reportNumber = await ScamCall.reportNumber(phoneNumber);
+        const reportNumber = await ScamCall.createScamCallReport(phoneNumber);
 
-        if(!reportNumber) {
+        if(reportNumber == 0) {
             res.status(500).json({
-                message: `Failed to create or update reported number`
+                message: `Failed to create reported number record`
             });
             return;
         }
         res.status(201).json({
-            message: `ScamCall with ID ${reportNumber.ScamCallId} has been created.`,
-            notification: createNotification
+            message: `ScamCall has been reported`
         });
 
     } catch (err) {

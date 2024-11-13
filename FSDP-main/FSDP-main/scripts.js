@@ -121,7 +121,7 @@ function displayAnnouncements(announcements) {
 
 
 async function fetchAndDisplayFAQs() {
-    const faqSection = document.querySelector(".faq");
+    const faqSection = document.querySelector("#faq-list");
 
     if (!faqSection) {
         console.error("FAQ section not found in DOM");
@@ -133,13 +133,11 @@ async function fetchAndDisplayFAQs() {
         if (!response.ok) throw new Error("Failed to load FAQs");
 
         const data = await response.json();
-        console.log("Fetched FAQ data:", data);
 
-        if (data.FAQ) {
-            const faqItems = Array.isArray(data.FAQ) ? data.FAQ : Object.values(data.FAQ);
-            displayFAQs(faqItems);
+        if (Array.isArray(data.FAQ)) {
+            displayFAQs(data.FAQ);
         } else {
-            console.error("Unexpected FAQ data format:", data);
+            console.error("FAQ data is not in an array format:", data);
         }
     } catch (error) {
         console.error("Error fetching FAQs:", error);
@@ -147,21 +145,23 @@ async function fetchAndDisplayFAQs() {
 }
 
 function displayFAQs(faqs) {
-    const faqSection = document.querySelector(".faq");
-    faqSection.innerHTML = ""; // Clear the current list
+    const faqList = document.querySelector("#faq-list");
+    faqList.innerHTML = ""; // Clear any existing content
 
     faqs.forEach((faq) => {
-        const faqItem = document.createElement("p");
-        faqItem.textContent = faq.QuestionTitle || "No title available";
+        const faqItem = document.createElement("div");
+        faqItem.className = "faq-item";
+        faqItem.textContent = faq.QuestionTitle;
 
         faqItem.addEventListener("click", () => {
-            openModal(faq);
+            openModal({
+                Title: faq.QuestionTitle,
+                DescriptionDetails: faq.QuestionAnswer,
+            });
         });
 
-        faqSection.appendChild(faqItem);
+        faqList.appendChild(faqItem);
     });
-
-    console.log("FAQs displayed successfully");
 }
 
 function openModal(item) {

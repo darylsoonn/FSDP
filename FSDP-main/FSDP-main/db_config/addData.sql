@@ -19,8 +19,8 @@ VALUES
 -- Insert data into Question table
 INSERT INTO Question (QuestionId, CategoryId, QuestionTitle, QuestionAnswer)
 VALUES
-('QUE000001', 'CHA000001', 'How can I reset my password', 'Go into the login page of the OCBC website...'),
-('QUE000002', 'CHA000002', 'How do I know if the caller is from OCBC', 'Our operators will only direct you to search for the officia website...'),
+('QUE000001', 'CHA000001', 'How can I reset my password?', 'Go into the login page of the OCBC website...'),
+('QUE000002', 'CHA000002', 'How do I know if the caller is from OCBC?', 'Our operators will only direct you to search for the official website...'),
 ('QUE000003', 'CHA000003', 'How do I get my first debit card?', 'Visit our nearest bank branch...');
 
 -- Insert data into ScamCall table

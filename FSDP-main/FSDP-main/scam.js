@@ -56,32 +56,137 @@ window.addEventListener("scroll", () => {
     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
 
-function upvote(button) {
-    let row = button.closest('tr'); // Find the closest row
-    let voteCountElement = button.nextElementSibling; // Vote count span
-    let voteCount = parseInt(voteCountElement.innerText);
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/scamcalls');
+        const data = await response.json();
 
-    if (row.getAttribute('data-vote') === 'none') {
-        voteCountElement.innerText = voteCount + 1;
-        row.setAttribute('data-vote', 'upvoted'); // Set as upvoted
-    } else if (row.getAttribute('data-vote') === 'downvoted') {
-        voteCountElement.innerText = voteCount + 1;
-        row.setAttribute('data-vote', 'none'); // Neutralize downvote
+        if (response.ok) {
+            console.log("Scam Calls Data:", data);  // Log the entire data to check its structure
+
+            // Ensure that data.recordset is an array
+            if (!Array.isArray(data.recordset)) {
+                console.error("Expected an array of scam calls in 'recordset', but got:", data.recordset);
+                alert("Unexpected data format. Please try again.");
+                return;
+            }
+
+            const tableBody = document.querySelector(".scam-table tbody");
+
+            if (!tableBody) {
+                console.error("Table body not found");
+                return; 
+            }
+
+            tableBody.innerHTML = '';  
+
+            // Loop through the recordset array to display the scam calls
+            data.recordset.forEach((call, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${call.PhoneNumber}</td>
+                    <td>${call.ReportCount}</td> <!-- Updated to match the backend column name -->
+                    <td>${call.totalUpvotes || 0}</td>
+                    <td>
+                        <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                        <span class="vote-count">${call.totalUpvotes || 0}</span>
+                        <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            console.error("API Response Error:", data.message || "Unknown error");
+            alert(data.message || "Failed to load scam calls.");
+        }
+    } catch (err) {
+        console.error("Error loading scam calls:", err);
+        alert("Error loading scam calls. Please try again.");
     }
-}
+});
 
-function downvote(button) {
-    let row = button.closest('tr'); // Find the closest row
-    let voteCountElement = button.previousElementSibling; // Vote count span
-    let voteCount = parseInt(voteCountElement.innerText);
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/scamcalls');
+        const data = await response.json();
 
-    if (row.getAttribute('data-vote') === 'none') {
-        voteCountElement.innerText = voteCount - 1;
-        row.setAttribute('data-vote', 'downvoted'); // Set as downvoted
-    } else if (row.getAttribute('data-vote') === 'upvoted') {
-        voteCountElement.innerText = voteCount - 1;
-        row.setAttribute('data-vote', 'none'); // Neutralize upvote
+        if (response.ok) {
+            console.log("Scam Calls Data:", data);
+
+            if (!Array.isArray(data)) {
+                console.error("Expected an array of scam calls, but got:", data);
+                alert("Unexpected data format. Please try again.");
+                return;
+            }
+
+            const tableBody = document.querySelector(".scam-table tbody");
+
+            if (!tableBody) {
+                console.error("Table body not found");
+                return;
+            }
+
+            tableBody.innerHTML = '';
+
+            // Hardcoded upvotes data for each scam call
+            const upvoteData = {
+                '9305-2121': 5,
+                '8200-2004': 7,
+                '8775-2004': 4,
+                '8443-1100': 3,
+                '9004-6890': 6,
+                '8934-5566': 2,
+                '7265-3030': 1
+            };
+
+            // Track user votes to restrict multiple votes
+            const userVotes = {};
+
+            data.forEach((call, index) => {
+                const upvotes = upvoteData[call.PhoneNumber] || 0;
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${call.PhoneNumber}</td>
+                    <td>${call.ReportCount}</td>
+                    <td>
+                        <button class="vote-button upvote" onclick="vote('upvote', '${call.PhoneNumber}', this)">&#9650;</button>
+                        <span class="vote-count">${upvotes}</span>
+                        <button class="vote-button downvote" onclick="vote('downvote', '${call.PhoneNumber}', this)">&#9660;</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Vote function to handle upvotes and downvotes
+            window.vote = function(type, phoneNumber, button) {
+                if (!userVotes[phoneNumber]) userVotes[phoneNumber] = { upvoted: false, downvoted: false };
+
+                const voteCountElem = button.parentNode.querySelector(".vote-count");
+
+                if (type === 'upvote' && !userVotes[phoneNumber].upvoted) {
+                    userVotes[phoneNumber].upvoted = true;
+                    voteCountElem.textContent = parseInt(voteCountElem.textContent) + 1;
+                } else if (type === 'downvote' && !userVotes[phoneNumber].downvoted) {
+                    userVotes[phoneNumber].downvoted = true;
+                    voteCountElem.textContent = parseInt(voteCountElem.textContent) - 1;
+                } else {
+                    alert(`You have already ${type === 'upvote' ? 'upvoted' : 'downvoted'} this number.`);
+                }
+            };
+
+        } else {
+            console.error("API Response Error:", data.message || "Unknown error");
+            alert(data.message || "Failed to load scam calls.");
+        }
+    } catch (err) {
+        console.error("Error loading scam calls:", err);
+        alert("Error loading scam calls. Please try again.");
     }
-}
+});
+
+
 
 

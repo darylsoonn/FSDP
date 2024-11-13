@@ -102,7 +102,7 @@ class ScamCall {
 
         const result = await request.query(query);
         connection.close();
-        return result;
+        return result.recordset;
 
     }
 

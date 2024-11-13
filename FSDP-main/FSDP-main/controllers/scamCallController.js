@@ -31,27 +31,26 @@ const getScamCalls = async (req, res) => {
     try {
         const scamCalls = await ScamCall.getScamCalls();
 
-        if (!scamCalls) {
+        if (!scamCalls || !Array.isArray(scamCalls)) {
             res.status(404).json({
-                message: `Failed to get any scam calls`
+                message: "Failed to get scam calls",
             });
             return;
         }
 
-        res.status(201).json({
-            message: `Scam calls succesfully returned`,
-            scamCalls: scamCalls
+        res.status(200).json({
+            message: "Scam calls successfully returned",
+            recordset: scamCalls,  // Ensure this field is returned
         });
-
-    } catch (err){
+    } catch (err) {
         console.error(err);
         res.status(500).json({
             status: "Error",
             message: "Internal Server Error",
-            error: err
+            error: err,
         });
     }
-}
+};
 
 const getScamCallsWeekly = async (req, res) => {
     try {

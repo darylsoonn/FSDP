@@ -366,6 +366,21 @@ header .logo {
     object-fit: cover;
 }
 
+.heatmap-button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.heatmap-button:hover {
+    background-color: #ff4c3b;
+}
+
 .footer {
     background-color: #f9f9f9;
     padding: 20px 0;

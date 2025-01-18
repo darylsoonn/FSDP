@@ -133,10 +133,24 @@ const getScamCallsMonthly = async (req, res) => {
     }
 }
 
+const getHeatmapData = async (req, res) => {
+    try {
+        const heatmapData = await ScamCall.getHeatmapData();
+        if (!heatmapData || heatmapData.length === 0) {
+            return res.status(404).json({ message: 'No heatmap data found' });
+        }
+        res.status(200).json(heatmapData); // Return the full dataset
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal Server Error', error: err });
+    }
+};
+
 module.exports = {
     reportNumber,
     getScamCalls,
     getScamCallsWeekly,
     getScamCallsMonthly,
     searchScamCall,
+    getHeatmapData,
 }

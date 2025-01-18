@@ -175,6 +175,19 @@ class ScamCall {
         return result.recordsets;
     }
 
+    static async getHeatmapData() {
+        const connection = await sql.connect(dbConfig);
+        const query = `
+            SELECT id, scam_type, description, latitude, longitude, timestamp
+            FROM ScamReports
+            WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+        `;
+        const request = connection.request();
+        const result = await request.query(query);
+        connection.close();
+        return result.recordset; // Ensure all fields are returned
+    }    
+
 }
 
 module.exports = ScamCall;

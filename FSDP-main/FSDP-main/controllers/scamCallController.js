@@ -78,6 +78,36 @@ const getScamCallsWeekly = async (req, res) => {
     }
 }
 
+const searchScamCall = async (req, res) => {
+    try {
+        const { phoneNumber } = req.query;
+
+        if (!phoneNumber) {
+            res.status(400).json({ message: "Phone number is required" });
+            return;
+        }
+
+        const scamCall = await ScamCall.getScamCallByNumber(phoneNumber);
+
+        if (!scamCall || scamCall.recordset.length === 0) {
+            res.status(404).json({ message: "No record found for the provided phone number" });
+            return;
+        }
+
+        res.status(200).json({
+            message: "Scam call record found",
+            recordset: scamCall.recordset,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            status: "Error",
+            message: "Internal Server Error",
+            error: err,
+        });
+    }
+};
+
 const getScamCallsMonthly = async (req, res) => {
     try {
         const scamCalls = await ScamCall.getScamCallsMonthly();
@@ -108,4 +138,5 @@ module.exports = {
     getScamCalls,
     getScamCallsWeekly,
     getScamCallsMonthly,
+    searchScamCall,
 }

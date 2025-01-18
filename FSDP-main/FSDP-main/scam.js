@@ -2,6 +2,10 @@ function openChatbot() {
     alert("Chatbot functionality coming soon!");
 }
 
+function viewHeatmap() {
+    window.location.href = "/heatmap.html";
+}
+
 async function searchFunction() {
     const searchBar = document.getElementById("search-bar");
     const query = searchBar.value.trim();

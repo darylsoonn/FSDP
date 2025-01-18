@@ -106,6 +106,18 @@ class ScamCall {
 
     }
 
+    static async getScamCallByNumber(phoneNumber) {
+        const connection = await sql.connect(dbConfig);
+        const query = `SELECT PhoneNumber, COUNT(*) AS ReportCount FROM ScamCall WHERE PhoneNumber LIKE '%' + @PhoneNumber + '%' GROUP BY PhoneNumber`;
+        const request = connection.request();
+        request.input("PhoneNumber", phoneNumber);
+    
+        const result = await request.query(query);
+        connection.close();
+        return result;
+    }
+    
+
     // Get Most Reported Calls This week, returns 2 datasets
     static async getScamCallsWeekly() {
         const connection = await sql.connect(dbConfig);

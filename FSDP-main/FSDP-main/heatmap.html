@@ -12,6 +12,15 @@
 <body>
     <header class="header">
         <h1>Scam Heatmap</h1>
+        <div>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate">
+            <label for="scamType">Scam Type:</label>
+            <input type="text" id="scamType" placeholder="e.g., Phishing Call">
+            <button id="applyFilters">Apply Filters</button>
+        </div>
     </header>
     <main>
         <div id="map" style="height: 500px; width: 100%;"></div>

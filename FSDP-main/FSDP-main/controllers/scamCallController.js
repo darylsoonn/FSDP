@@ -135,14 +135,21 @@ const getScamCallsMonthly = async (req, res) => {
 
 const getHeatmapData = async (req, res) => {
     try {
-        const heatmapData = await ScamCall.getHeatmapData();
+        const { startDate, endDate, scamType } = req.query;
+
+        console.log("Received query parameters:", { startDate, endDate, scamType }); // Debug
+
+        const heatmapData = await ScamCall.getHeatmapData({ startDate, endDate, scamType });
+
         if (!heatmapData || heatmapData.length === 0) {
-            return res.status(404).json({ message: 'No heatmap data found' });
+            console.log("No heatmap data found for the filters:", { startDate, endDate, scamType });
+            return res.status(404).json({ message: "No heatmap data found" });
         }
-        res.status(200).json(heatmapData); // Return the full dataset
+
+        res.status(200).json(heatmapData);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal Server Error', error: err });
+        console.error("Error in getHeatmapData:", err);
+        res.status(500).json({ message: "Internal Server Error", error: err });
     }
 };
 

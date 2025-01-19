@@ -147,6 +147,23 @@
                                 reportPhoneNumberToBackend(phoneNumber);
                             }
                         }
+
+                         // Check if the assistant's response contains the phone_number in the context
+                         if (event.data.context && event.data.context.skills && 
+                            event.data.context.skills['main skill'] &&
+                            event.data.context.skills['main skill'].user_defined) {
+                            
+                            const Question_asked = event.data.context.skills['main skill'].user_defined.Question_asked;
+                            
+                            if (Question_asked) {
+                                // Display the phone number on the webpage
+                                document.getElementById("phoneNumberDisplay").innerText = 
+                                    "Captured Question: " + Question_asked;
+                                
+                                // Send the phone number to the backend
+                                //reportPhoneNumberToBackend(Question_asked);
+                            }
+                        }
                     }
                 });
             }

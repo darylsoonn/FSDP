@@ -175,18 +175,31 @@ class ScamCall {
         return result.recordsets;
     }
 
-    static async getHeatmapData() {
+    static async getHeatmapData({ startDate, endDate, scamType }) {
         const connection = await sql.connect(dbConfig);
-        const query = `
+        let query = `
             SELECT id, scam_type, description, latitude, longitude, timestamp
             FROM ScamReports
             WHERE latitude IS NOT NULL AND longitude IS NOT NULL
         `;
+    
+        // Dynamically append filters
+        if (startDate) query += ` AND timestamp >= @startDate`;
+        if (endDate) query += ` AND timestamp <= @endDate`;
+        if (scamType) query += ` AND scam_type LIKE '%' + @scamType + '%'`;
+    
+        console.log("Constructed SQL query:", query); // Debug
+    
         const request = connection.request();
+    
+        if (startDate) request.input("startDate", sql.DateTime, new Date(startDate));
+        if (endDate) request.input("endDate", sql.DateTime, new Date(endDate));
+        if (scamType) request.input("scamType", sql.VarChar, scamType);
+    
         const result = await request.query(query);
         connection.close();
-        return result.recordset; // Ensure all fields are returned
-    }    
+        return result.recordset;
+    }                
 
 }
 

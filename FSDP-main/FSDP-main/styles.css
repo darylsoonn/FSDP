@@ -562,3 +562,49 @@ header .logo {
         margin: 15px 0;
     }
 }
+.mic-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.mic-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.mic-circle:hover {
+    transform: scale(1.2);
+}
+
+.mic-record {
+    background-color: #ffffff;
+    color: #4caf50;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid #4caf50;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+
+.mic-record.recording {
+    background-color: #f44336;
+    color: white;
+    border-color: #f44336;
+}

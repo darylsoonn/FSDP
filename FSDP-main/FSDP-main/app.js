@@ -33,6 +33,9 @@ app.get("/api/scamcalls", scamCallController.getScamCalls);
 app.get("/api/scamcalls/weekly", scamCallController.getScamCallsWeekly)
 app.get("/api/scamcalls/monthly", scamCallController.getScamCalls)
 app.post("/api/scamcall/report", scamCallController.reportNumber);
+app.get("/api/scamcall/search", scamCallController.searchScamCall);
+app.get('/api/heatmap-data', scamCallController.getHeatmapData);
+
 //chatgpt watson fix
 app.post("/api/storePhoneNumber", (req, res) => {
     const phoneNumber = req.body.phoneNumber;

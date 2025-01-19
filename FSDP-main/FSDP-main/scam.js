@@ -2,6 +2,51 @@ function openChatbot() {
     alert("Chatbot functionality coming soon!");
 }
 
+function viewHeatmap() {
+    window.location.href = "/heatmap.html";
+}
+
+async function searchFunction() {
+    const searchBar = document.getElementById("search-bar");
+    const query = searchBar.value.trim();
+
+    if (!query) {
+        alert("Please enter a phone number to search.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/scamcall/search?phoneNumber=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            const tableBody = document.querySelector(".scam-table tbody");
+
+            tableBody.innerHTML = ""; // Clear previous results
+
+            data.recordset.forEach((call, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${call.PhoneNumber}</td>
+                    <td>${call.ReportCount}</td>
+                    <td>
+                        <button class="vote-button upvote" onclick="upvote(this)">&#9650;</button>
+                        <span class="vote-count">0</span>
+                        <button class="vote-button downvote" onclick="downvote(this)">&#9660;</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            alert(data.message || "No record found for the entered phone number.");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred while searching for the phone number. Please try again.");
+    }
+}
+
 const scrollElements = document.querySelectorAll(".scroll-animate");
 
 const elementInView = (el, offset = 0) => {
@@ -209,7 +254,4 @@ document.getElementById("scam-details").addEventListener("input", function () {
     const wordCount = this.value.trim().split(/\s+/).filter(Boolean).length;
     document.getElementById("word-count").textContent = `${wordCount}/200 words`;
 });
-
-
-
 

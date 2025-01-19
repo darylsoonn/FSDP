@@ -187,6 +187,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+function openScamModal() {
+    document.getElementById("scam-modal").style.display = "block";
+}
+
+function closeScamModal() {
+    document.getElementById("scam-modal").style.display = "none";
+}
+
+function validateForm() {
+    const scamDetails = document.getElementById("scam-details").value;
+    if (scamDetails.split(' ').length > 200) {
+        alert("Please limit your scam details to 200 words.");
+        return false;
+    }
+    alert("Scam report submitted successfully!");
+    return true;
+}
+
+document.getElementById("scam-details").addEventListener("input", function () {
+    const wordCount = this.value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById("word-count").textContent = `${wordCount}/200 words`;
+});
+
 
 
 

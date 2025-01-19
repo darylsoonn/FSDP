@@ -340,6 +340,165 @@ header .logo {
     color: #007BFF;
 }
 
+.report-scam-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    text-align: center;
+    width: fit-content;
+}
+
+.report-scam-button:hover {
+    background-color: #e63939;
+    transform: translateY(-3px);
+}
+
+.report-scam-button:active {
+    transform: translateY(1px);
+}
+
+.report-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 40%;
+    max-width: 500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+.modal-content h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.95em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+#word-count {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 5px;
+    display: block;
+    text-align: right;
+}
+
+.submit-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1em;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%;
+        padding: 20px 30px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.5em;
+    }
+
+    .submit-button {
+        font-size: 0.9em;
+        padding: 10px 15px;
+    }
+}
+
 .chatbot-icon {
     position: fixed;
     bottom: 20px;
@@ -364,6 +523,21 @@ header .logo {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.heatmap-button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.heatmap-button:hover {
+    background-color: #ff4c3b;
 }
 
 .footer {

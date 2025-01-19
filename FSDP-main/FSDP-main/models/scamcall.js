@@ -106,6 +106,18 @@ class ScamCall {
 
     }
 
+    static async getScamCallByNumber(phoneNumber) {
+        const connection = await sql.connect(dbConfig);
+        const query = `SELECT PhoneNumber, COUNT(*) AS ReportCount FROM ScamCall WHERE PhoneNumber LIKE '%' + @PhoneNumber + '%' GROUP BY PhoneNumber`;
+        const request = connection.request();
+        request.input("PhoneNumber", phoneNumber);
+    
+        const result = await request.query(query);
+        connection.close();
+        return result;
+    }
+    
+
     // Get Most Reported Calls This week, returns 2 datasets
     static async getScamCallsWeekly() {
         const connection = await sql.connect(dbConfig);
@@ -162,6 +174,19 @@ class ScamCall {
         connection.close();
         return result.recordsets;
     }
+
+    static async getHeatmapData() {
+        const connection = await sql.connect(dbConfig);
+        const query = `
+            SELECT id, scam_type, description, latitude, longitude, timestamp
+            FROM ScamReports
+            WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+        `;
+        const request = connection.request();
+        const result = await request.query(query);
+        connection.close();
+        return result.recordset; // Ensure all fields are returned
+    }    
 
 }
 

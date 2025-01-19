@@ -185,3 +185,70 @@ window.addEventListener("click", (event) => {
         modal.style.display = "none";
     }
 });
+
+const recordButton = document.getElementById("recordButton");
+
+let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+
+// Toggle recording state
+recordButton.addEventListener("click", async () => {
+    if (!isRecording) {
+        // Start recording
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        audioChunks = [];
+        mediaRecorder.ondataavailable = event => {
+            audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+            const file = new File([audioBlob], `recording_${new Date().toISOString().replace(/[:.]/g, "-")}.wav`);
+
+            // Send audio file to backend
+            await sendAudioFile(file);
+        };
+
+        mediaRecorder.start();
+        recordButton.textContent = "Stop Recording";
+        recordButton.classList.add("recording");
+        isRecording = true;
+    } else {
+        // Stop recording
+        mediaRecorder.stop();
+        recordButton.textContent = "Start Recording";
+        recordButton.classList.remove("recording");
+        isRecording = false;
+    }
+});
+
+// Send audio file to Node.js backend
+async function sendAudioFile(file) {
+    const formData = new FormData();
+    formData.append("audio", file);
+
+    try {
+        // Update the fetch URL to point to the Node.js backend
+        const response = await fetch("http://localhost:3000/api/transcribe", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to process the audio file.");
+        }
+
+        const data = await response.json();
+        if (data.text) {
+            console.log("Transcription:", data.text);
+            alert(`Transcription: ${data.text}`);
+        } else {
+            console.error("Error in response:", data.error);
+        }
+    } catch (error) {
+        console.error("Error sending audio file:", error);
+    }
+}

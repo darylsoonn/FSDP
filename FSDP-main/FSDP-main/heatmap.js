@@ -32,6 +32,7 @@ const fetchHeatmapData = (filters = {}) => {
 
             // Validate and filter data to ensure valid latitude and longitude
             const filteredData = data.filter((point) => point.latitude && point.longitude);
+
             if (filteredData.length === 0) {
                 console.warn("No valid heatmap data points available.");
                 alert("No results found for the selected filters.");
@@ -76,6 +77,7 @@ const fetchHeatmapData = (filters = {}) => {
                 point.longitude,
                 point.intensity ? point.intensity * 2 : 1.0, // Amplify intensity for better visibility
             ]);
+
             console.log("Heatmap points for rendering:", heatmapPoints);
 
             // Add heatmap layer with configuration
@@ -102,7 +104,54 @@ const fetchHeatmapData = (filters = {}) => {
         });
 };
 
-// Fetch data with filters when the "Apply Filters" button is clicked
+// Function to fetch and display OCBC branches
+const fetchOcbcBranches = () => {
+    fetch('/api/ocbc-branches')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Network error: ${response.status} - ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then((branches) => {
+            console.log("OCBC Branch data fetched:", branches);
+
+            // Clear existing layers from the map (except the tile layer)
+            map.eachLayer((layer) => {
+                if (!(layer instanceof L.TileLayer)) {
+                    map.removeLayer(layer);
+                }
+            });
+
+            // Add OCBC branch markers
+            branches.forEach((branch) => {
+                const marker = L.marker([branch.latitude, branch.longitude], {
+                    icon: L.divIcon({
+                        className: 'custom-div-icon',
+                        html: '<div style="background-color: red; width: 15px; height: 15px; border-radius: 50%;"></div>',
+                        iconSize: [15, 15],
+                        iconAnchor: [7.5, 7.5],
+                    }),
+                }).addTo(map);
+
+                // Add popup content for branch markers
+                marker.bindPopup(`
+                    <b>Branch Name:</b> ${branch.name || 'N/A'}<br>
+                    <b>Address:</b> ${branch.address || 'N/A'}
+                `);
+            });
+
+            // Adjust map to fit all branch markers
+            const bounds = L.latLngBounds(branches.map((branch) => [branch.latitude, branch.longitude]));
+            map.fitBounds(bounds);
+        })
+        .catch((err) => {
+            console.error("Error loading OCBC branches:", err);
+            alert("Failed to load OCBC branches. Please try again.");
+        });
+};
+
+// Button event listeners for toggling between heatmap and OCBC branches
 document.getElementById("applyFilters").addEventListener("click", () => {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
@@ -112,5 +161,16 @@ document.getElementById("applyFilters").addEventListener("click", () => {
     fetchHeatmapData({ startDate, endDate, scamType });
 });
 
-// Fetch and display initial heatmap data (without filters)
+// Add event listeners for switching between sections
+document.getElementById("scamHeatButton").addEventListener("click", () => {
+    document.getElementById("filters").style.display = "block"; // Show filters for heatmap
+    fetchHeatmapData();
+});
+
+document.getElementById("ocbcBranchesButton").addEventListener("click", () => {
+    document.getElementById("filters").style.display = "none"; // Hide filters for branches
+    fetchOcbcBranches();
+});
+
+// Fetch and display initial heatmap data (default view)
 fetchHeatmapData();

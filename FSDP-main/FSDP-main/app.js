@@ -39,6 +39,15 @@ app.get("/api/scamcalls/monthly", scamCallController.getScamCalls);
 app.post("/api/scamcall/report", scamCallController.reportNumber);
 app.get("/api/scamcall/search", scamCallController.searchScamCall);
 app.get('/api/heatmap-data', scamCallController.getHeatmapData);
+// Add endpoint for fetching OCBC branches
+app.get('/api/ocbc-branches', (req, res) => {
+    const ocbcBranches = [
+        { name: 'Branch 1', address: 'Address 1', latitude: 1.3521, longitude: 103.8198 },
+        { name: 'Branch 2', address: 'Address 2', latitude: 1.3001, longitude: 103.8000 },
+        { name: 'Branch 3', address: 'Address 3', latitude: 1.2800, longitude: 103.8500 },
+    ];
+    res.json(ocbcBranches);
+});
 //chatgpt watson fix
 app.post("/api/storePhoneNumber", (req, res) => {
     const phoneNumber = req.body.phoneNumber;

@@ -40,13 +40,56 @@ app.post("/api/scamcall/report", scamCallController.reportNumber);
 app.get("/api/scamcall/search", scamCallController.searchScamCall);
 app.get('/api/heatmap-data', scamCallController.getHeatmapData);
 // Add endpoint for fetching OCBC branches
-app.get('/api/ocbc-branches', (req, res) => {
-    const ocbcBranches = [
-        { name: 'Branch 1', address: 'Address 1', latitude: 1.3521, longitude: 103.8198 },
-        { name: 'Branch 2', address: 'Address 2', latitude: 1.3001, longitude: 103.8000 },
-        { name: 'Branch 3', address: 'Address 3', latitude: 1.2800, longitude: 103.8500 },
-    ];
-    res.json(ocbcBranches);
+app.get('/api/ocbc-branches', async (req, res) => {
+    const fetch = require('node-fetch'); // Ensure node-fetch is installed
+    const OCBC_API_URL = 'https://api.ocbc.com:443/branch_locator/1.1/*?category=2&country=SG';
+    const AUTH_TOKEN = process.env.OCBC_API_TOKEN || 'YOUR_DEFAULT_TOKEN_HERE'; // Use environment variable for the token
+
+    try {
+        const response = await fetch(OCBC_API_URL, {
+            method: 'GET',
+            headers: {
+                Authorization: AUTH_TOKEN,
+                Accept: 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`API Request Failed: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const branches = data.branchesAndCentresList.map((branch) => ({
+            name: branch.landmark || 'Unknown Branch',
+            address: branch.address,
+            latitude: branch.latitude,
+            longitude: branch.longitude,
+            openingHours: branch.openingHours || 'N/A',
+            remark: branch.remark || '',
+        }));
+
+        res.json(branches);
+    } catch (error) {
+        console.error("Error fetching branches from API:", error.message);
+
+        // Load from local JSON file as a fallback
+        const filePath = path.join(__dirname, "response_1737382161569.json");
+        try {
+            const localData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+            const branches = localData.branchesAndCentresList.map((branch) => ({
+                name: branch.landmark || 'Unknown Branch',
+                address: branch.address,
+                latitude: branch.latitude,
+                longitude: branch.longitude,
+                openingHours: branch.openingHours || 'N/A',
+                remark: branch.remark || '',
+            }));
+            res.json(branches);
+        } catch (fileError) {
+            console.error("Error reading fallback JSON file:", fileError.message);
+            res.status(500).json({ error: "Failed to load branch data from both API and fallback file." });
+        }
+    }
 });
 //chatgpt watson fix
 app.post("/api/storePhoneNumber", (req, res) => {

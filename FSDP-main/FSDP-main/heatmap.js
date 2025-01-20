@@ -107,48 +107,49 @@ const fetchHeatmapData = (filters = {}) => {
 // Function to fetch and display OCBC branches
 const fetchOcbcBranches = () => {
     fetch('/api/ocbc-branches')
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Network error: ${response.status} - ${response.statusText}`);
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`Network error: ${response.status} - ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then((branches) => {
+        console.log("Fetched OCBC Branch data:", branches);
+
+        // Clear existing layers from the map (except the tile layer)
+        map.eachLayer((layer) => {
+            if (!(layer instanceof L.TileLayer)) {
+                map.removeLayer(layer);
             }
-            return response.json();
-        })
-        .then((branches) => {
-            console.log("OCBC Branch data fetched:", branches);
-
-            // Clear existing layers from the map (except the tile layer)
-            map.eachLayer((layer) => {
-                if (!(layer instanceof L.TileLayer)) {
-                    map.removeLayer(layer);
-                }
-            });
-
-            // Add OCBC branch markers
-            branches.forEach((branch) => {
-                const marker = L.marker([branch.latitude, branch.longitude], {
-                    icon: L.divIcon({
-                        className: 'custom-div-icon',
-                        html: '<div style="background-color: red; width: 15px; height: 15px; border-radius: 50%;"></div>',
-                        iconSize: [15, 15],
-                        iconAnchor: [7.5, 7.5],
-                    }),
-                }).addTo(map);
-
-                // Add popup content for branch markers
-                marker.bindPopup(`
-                    <b>Branch Name:</b> ${branch.name || 'N/A'}<br>
-                    <b>Address:</b> ${branch.address || 'N/A'}
-                `);
-            });
-
-            // Adjust map to fit all branch markers
-            const bounds = L.latLngBounds(branches.map((branch) => [branch.latitude, branch.longitude]));
-            map.fitBounds(bounds);
-        })
-        .catch((err) => {
-            console.error("Error loading OCBC branches:", err);
-            alert("Failed to load OCBC branches. Please try again.");
         });
+
+        // Add markers for branches
+        branches.forEach((branch) => {
+            const marker = L.marker([branch.latitude, branch.longitude], {
+                icon: L.divIcon({
+                    className: 'custom-div-icon',
+                    html: '<div style="background-color: red; width: 15px; height: 15px; border-radius: 50%;"></div>',
+                    iconSize: [15, 15],
+                    iconAnchor: [7.5, 7.5],
+                }),
+            }).addTo(map);
+
+            marker.bindPopup(`
+                <b>Branch Name:</b> ${branch.name}<br>
+                <b>Address:</b> ${branch.address}<br>
+                <b>Opening Hours:</b> ${branch.openingHours}<br>
+                <b>Remarks:</b> ${branch.remark}
+            `);
+        });
+
+        // Fit map to markers
+        const bounds = L.latLngBounds(branches.map((branch) => [branch.latitude, branch.longitude]));
+        map.fitBounds(bounds);
+    })
+    .catch((err) => {
+        console.error("Error loading OCBC branches:", err);
+        alert("Failed to load OCBC branches. Please try again.");
+    });
 };
 
 // Button event listeners for toggling between heatmap and OCBC branches

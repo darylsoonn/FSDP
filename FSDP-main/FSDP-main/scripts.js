@@ -252,3 +252,27 @@ async function sendAudioFile(file) {
         console.error("Error sending audio file:", error);
     }
 }
+
+// Function to apply the saved theme
+function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+}
+
+// Function to toggle theme
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+    // Apply and save the new theme
+    applyTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+}
+
+// Load the saved theme on page load
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    applyTheme(savedTheme);
+
+    // Add event listener to the button
+    document.getElementById("darkModeToggle").addEventListener("click", toggleTheme);
+});

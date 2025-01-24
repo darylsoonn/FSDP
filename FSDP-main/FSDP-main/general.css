@@ -113,6 +113,69 @@ header .logo {
     font-weight: bold;
 }
 
+/* Accessibility */
+.accessibility-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.accessibility-controls button {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.accessibility-controls button:hover {
+    background-color: #b71c1c;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+header.header.dark-mode,
+footer.footer.dark-mode {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+a.dark-mode {
+    color: #80cbc4;
+}
+
+/* High Contrast Mode */
+body.high-contrast {
+    background-color: black;
+    color: yellow;
+}
+
+button.high-contrast {
+    background-color: yellow;
+    color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .accessibility-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .accessibility-controls button {
+        margin-bottom: 10px;
+        width: 80%;
+    }
+}
+
 /* General footer styling */
 .footer {
     background-color: #f9f9f9;

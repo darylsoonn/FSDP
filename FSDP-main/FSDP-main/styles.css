@@ -751,6 +751,37 @@ header .logo {
     border-color: #f44336;
 }
 
+.control-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.font-size-btn {
+    background: #ddd;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.font-size-btn:hover {
+    background: #ccc;
+}
+
+[data-theme="dark"] .font-size-btn {
+    background: #444;
+    color: #fff;
+}
+
+[data-theme="dark"] .font-size-btn:hover {
+    background: #555;
+}
+
+
 
 
 

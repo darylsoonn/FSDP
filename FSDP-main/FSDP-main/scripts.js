@@ -276,3 +276,4 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add event listener to the button
     document.getElementById("darkModeToggle").addEventListener("click", toggleTheme);
 });
+

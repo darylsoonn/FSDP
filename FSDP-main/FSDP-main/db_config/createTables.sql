@@ -36,6 +36,16 @@ CREATE TABLE Question (
 );
 
 CREATE TABLE ScamCall (
+    ScamCallId VARCHAR(9) NOT NULL,
     PhoneNumber VARCHAR(50) NOT NULL,
-    ReportCount INT NULL
+    reportDateTime DATETIME  NOT NULL
+);
+
+CREATE TABLE ScamReports (
+    id INT IDENTITY(1,1) PRIMARY KEY, -- Use IDENTITY for auto-increment
+    scam_type VARCHAR(255) NOT NULL,
+    description TEXT,
+    latitude FLOAT NOT NULL,
+    longitude FLOAT NOT NULL,
+    timestamp DATETIME DEFAULT GETDATE() -- Use GETDATE() for the current timestamp
 );

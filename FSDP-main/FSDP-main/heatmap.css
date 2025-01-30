@@ -1,0 +1,95 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #990000; /* Red */
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header div {
+    margin-top: 10px;
+    text-align: center;
+}
+
+label {
+    font-size: 14px;
+    margin-right: 5px;
+    color: white;
+}
+
+input[type="date"],
+input[type="text"] {
+    padding: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #cc0000; /* Darker red */
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #a30000; /* Even darker red */
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    flex: 1;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Buttons for switching views */
+#scamHeatButton, #ocbcBranchesButton {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#scamHeatButton:hover, #ocbcBranchesButton:hover {
+    background-color: #a30000;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #990000; /* Red */
+    color: white;
+    position: relative; /* Removed fixed position */
+    width: 100%;
+}

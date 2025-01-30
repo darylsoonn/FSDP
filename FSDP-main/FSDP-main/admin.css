@@ -1,0 +1,744 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    overflow-y: scroll;
+
+}
+.analytics-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: black; /* Adjust if you want it to stand out differently */
+    margin-left: 5px;
+}
+/* General styles for all pages */
+header.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white; /* Default background */
+    color: black;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    border-bottom: 1px solid #ddd;
+}
+
+#white-header .logo-section {
+    display: flex;
+    align-items: center;
+}
+
+#white-header .logo {
+    font-size: 1.5em;
+    color: #f44336; /* OCBC text in red */
+    margin-right: 10px;
+}
+
+#white-header .analytics-title {
+    font-size: 1.0em;
+    font-weight: bold;
+    color: black; /* Analytics text in black */
+    position: relative;
+    left: 150px; /* Move Analytics to the right */
+}
+
+#white-header nav a {
+    color: black; /* Navigation links in black */
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-left: 20px; /* Space between navigation links */
+}
+
+#red-header {
+    background-color: #f44336; /* Red background */
+    color: white;
+}
+
+#red-header .logo {
+    color: white;
+}
+
+#red-header nav a {
+    color: white;
+}
+
+#white-header {
+    background-color: white; /* White background */
+    color: black;
+    border-bottom: 1px solid #ddd; /* Optional: Adds a border for separation */
+}
+
+#white-header .logo {
+    color: #f44336; /* OCBC text in red */
+}
+
+#white-header .analytics-title {
+    color: black; /* Analytics text in black */
+    margin-left: 10px;
+    position: relative;
+    left: 150px; /* Adjust to shift right */
+}
+
+#white-header nav a {
+    color: black;
+}
+
+/* Ensure full-page layout */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    
+}
+
+.analytics-bg {
+    background-color: #e6f4ff; /* Light blue background */
+}
+
+.analytics-container {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjusts for header height */
+    margin-top: 60px;
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: white;
+    padding: 20px;
+    width: 200px;
+    font-family: Arial, sans-serif;
+    height: 100vh; /* Full height of the viewport to cover top gap */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box; /* Ensures padding doesn’t push sidebar out */
+}
+
+/* Sidebar text styling */
+.sidebar h2.overview {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f44336; /* Red for "Overview" */
+    margin-bottom: 10px;
+    text-align: left;
+    padding-left: 10px; /* Align with the links below */
+}
+
+.sidebar h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    padding-left: 10px; /* Align with the links below */
+}
+
+.sidebar a {
+    font-size: 1em;
+    color: black;
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    text-decoration: none;
+    padding-left: 10px; /* Consistent left padding with headings */
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* Header adjustments to align seamlessly with sidebar */
+#white-header {
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    z-index: 1000; /* Make sure it stays above other content */
+}
+
+.main-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+
+.chart-container {
+    background-color: #f9f9f9;
+    padding: 15px; 
+    border-radius: 20px; /* Slightly round corners */
+    width: 625px; /* Adjust width to match desired look */
+    height: 300px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+    margin-bottom: 20px; /* Add space below each chart */
+}
+
+
+.chart-container h2 {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-link {
+    font-size: 0.9em;
+    color: red;
+    font-weight: bold;
+}
+.bar-chart {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 250px; /* Increase height */
+    background-color: #fff;
+    padding: 0 10px; /* Adds padding on sides to prevent overflow */
+    border-radius: 10px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bar {
+    width: 14%; /* Fixed width for each bar */
+    max-width: 60px; /* Maximum width to prevent overflow */
+    background-color: #4a90e2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    margin: 0;
+}
+
+.bar span {
+    color: #333;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    font-size: 0.85em;
+}
+
+.question-frequency {
+    padding: 20px;
+}
+
+.frequency-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 50px;
+}
+
+.percentage {
+    font-size: 3.0em;
+    font-weight: bold;
+    color: gray; /* Change to gray */
+    width: 50px;
+    margin-right: 15px;
+}
+
+.frequency-item p {
+    font-size: 1em;
+    color: #666;
+    margin: 0;
+}
+
+.commonly-asked-questions .question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.commonly-asked-questions .question-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.commonly-asked-questions .question-item:last-child {
+    border-bottom: none; /* Remove border for the last item */
+}
+
+.commonly-asked-questions .question-item p {
+    font-size: 1em;
+    color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.commonly-asked-questions .percentage {
+    font-size: 1em;
+    font-weight: bold;
+    color: #4a90e2; /* Adjust color to match your theme */
+    margin-left: auto; /* Aligns percentage to the right */
+    padding-left: 30px; /* Adds additional space to move it farther right */
+}
+
+.calls-customer-service {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: -1px;
+    width: 625px; /* Adjust based on your layout needs */
+}
+
+.calls-customer-service h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.service-level {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 10px;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.service-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.service-text {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    flex: 1;
+}
+
+.progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    width: 100%;
+    height: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background-color: #4a90e2;
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.percentages {
+    font-size: 0.9em;
+    color: #333;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Reset and body */
+.scam-body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    overflow-y: scroll;
+}
+
+/* Header styling */
+.scam-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    border-bottom: 1px solid #ddd;
+    height: 60px;
+}
+
+.scam-header .scam-logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+}
+
+.scam-header .scam-logo {
+    font-size: 1.5em;
+    color: #f44336;
+}
+
+.scam-header .scam-page-title {
+    font-weight: bold;
+    font-size: 1em;
+    color: #333;
+    margin-top: 5px;
+}
+
+.scam-header .scam-nav-links a {
+    color: black;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 15px 0;
+}
+
+.scam-header .scam-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.scam-header .scam-search-bar label {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.scam-header .scam-search-bar input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Main content styling */
+.scam-main-content {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 80px;
+}
+
+/* Report table styling */
+.scam-table-container {
+    width: 70%;
+}
+
+.scam-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.scam-table th, .scam-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.scam-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Chatbot section styling */
+.scam-chatbot-container {
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.scam-chatbot {
+    width: 100px;
+    height: 150px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Adjusted page title container styling */
+.scam-page-title-container {
+    text-align: center;
+    margin-top: 70px; /* Slightly lower to create space above */
+    padding: 10px 0;
+    background-color: #f4f4f4;
+}
+
+/* Table container styling */
+.scam-table-container {
+    width: 95%; /* Extend the table width */
+    margin: 0 auto; /* Center the table */
+    padding: 0; /* Minimal padding for full width */
+}
+
+/* Main content adjustment */
+.scam-main-content {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px; /* Slightly reduced gap */
+    padding: 0 10px; /* Remove side padding to give the table more space */
+}
+
+/* Table cell styling */
+.scam-table th, .scam-table td {
+    font-size: 1.1em;
+    padding: 18px; /* Reduced padding for compact look */
+}
+
+/* Chatbot container adjustments */
+.scam-chatbot-container {
+    width: 12%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.scam-chatbot {
+    width: 100px;
+    height: 100px;
+    font-size: 1em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .scam-table-container, .scam-chatbot-container {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .scam-chatbot {
+        width: 80px;
+        height: 80px;
+        font-size: 0.9em;
+    }
+
+    .scam-page-title-container {
+        margin-top: 20px;
+        padding: 5px 0;
+    }
+}
+
+.scam-nav-links {
+    display: flex;
+    margin-left: auto; /* Moves the navigation links to the right */
+    gap: 20px; /* Adjust spacing between links if needed */
+}
+
+.scam-nav-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 15px 0;
+}
+
+.feedback-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feedback-section .question-frequency {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.feedback-section .question-list {
+    padding-top: 10px;
+    border-top: 1px solid #ddd; /* Optional border to separate frequency and question list */
+}
+/* Announcements Section */
+/* Announcements Section */
+.announcement-section {
+    background-color: #f9f9f9; /* Ensure background matches */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 300px; /* Match the height of other sections */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden; /* Ensures contents don't overflow */
+}
+
+.announcement-section h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Space between heading and items */
+}
+
+
+
+.announcement-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: calc(100% - 100px); /* Deduct space for the title and input */
+    overflow-y: auto; /* Add vertical scrolling */
+    padding-right: 10px; /* Space for the scrollbar */
+    margin: 0;
+}
+
+.chart-container.announcement-section {
+    flex: 1;
+    min-width: 0; /* Prevent expansion outside the parent container */
+}
+
+.announcement-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.announcement-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 5px;
+}
+
+.announcement-list::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+}
+
+/* Adjust announcement items to look consistent */
+.announcement-item {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+
+.announcement-item:hover {
+    transform: scale(1.02); /* Subtle zoom effect */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.announcement-item h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #4a90e2;
+}
+
+.announcement-item p {
+    font-size: 0.95em;
+    color: #666;
+}
+.announcement-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduce spacing between fields */
+    margin-bottom: 15px;
+}
+
+.announcement-input input[type="text"] {
+    padding: 5px; /* Decrease padding inside the input */
+    font-size: 0.9em; /* Slightly smaller font size */
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Maintain rounded corners */
+    width: 100%;
+    height: 30px; /* Fix the height for consistency */
+}
+
+.announcement-input button {
+    padding: 8px; /* Adjust padding to align with smaller input */
+    font-size: 0.9em; /* Match font size with inputs */
+    color: white;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 4px; /* Adjust to match input fields */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+}
+
+.announcement-input button:hover {
+    background-color: #357abd;
+}
+
+.announcement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.announcement-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.announcement-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.announcement-description {
+    font-size: 1em;
+    color: #666;
+}
+
+.announcement-date {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.edit-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #357abd;
+}
+
+

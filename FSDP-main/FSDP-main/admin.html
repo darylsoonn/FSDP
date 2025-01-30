@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCBC Scam Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="analytics-bg">
+
+    <header id="white-header" class="header">
+        <div class="logo-section">
+            <h1 class="logo">OCBC</h1>
+            <span class="analytics-title">Analytics</span>
+        </div>
+        <nav>
+            <a href="#">Select Location</a>
+            <a href="#">Select Department</a>
+            <a href="#">Select Job</a>
+            <a href="#">Last 30 days</a>
+        </nav>
+    </header>
+    
+
+    <div class="analytics-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2 class="overview">Overview</h2>
+            <br>
+            <br>
+            <h3>Audience</h3>
+            <a href="#">Visitors</a>
+           
+            <a href="#">Devices</a>
+            <br>
+            <h3>Recruitment</h3>
+            <a href="#">Jobs Overview</a>
+            <a href="#">Hires</a>
+            <a href="#">Reject Reasons</a>
+            <br>
+            <br>
+            <h3>Team</h3>
+            <a href="#">Activity</a>
+            <a href="#">Referrals</a>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="chart-container">
+                <h2>Status of Chatbot <span class="report-link">VIEW MORE</span></h2>
+                <div class="bar-chart">
+                    <div class="bar" style="height: 60%;"><span>30</span></div>
+                    <div class="bar" style="height: 42%;"><span>21</span></div>
+                    <div class="bar" style="height: 46%;"><span>23</span></div>
+                    <div class="bar" style="height: 34%;"><span>17</span></div>
+                    <div class="bar" style="height: 70%;"><span>35</span></div>
+                    <div class="bar" style="height: 54%;"><span>27</span></div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h2>Number of Reported Scams <span class="report-link">VIEW MORE</span></h2>
+                <canvas id="scamChart"></canvas>
+            </div>
+
+            <!-- New Commonly Asked Questions Section -->
+            <div class="chart-container commonly-asked-questions">
+                <h2>Frequency Asked Questions <span class="report-link">VIEW MORE</span></h2>
+                <div class="question-list">
+                    <div class="question-item">
+                        <p>Why is there such a long wait for the call to pick up? <span class="percentage">60%</span></p>
+                    </div>
+                    <div class="question-item">
+                        <p>Are there other services to handle inquiries? <span class="percentage">41%</span></p>
+                    </div>
+                    <div class="question-item">
+                        <p>Can there be more branches and call centers? <span class="percentage">35%</span></p>
+                    </div>
+                    <div class="question-item">
+                        <p>Is there a better AI to handle these situations? <span class="percentage">23%</span></p>
+                    </div>
+                    <div class="question-item">
+                        <p>Can there be more branches and call centers? <span class="percentage">17%</span></p>
+                    </div>
+                </div>
+            </div>
+            
+
+        <!-- Announcements Section -->
+        <div class="chart-container announcement-section">
+            <h2>Announcements <span class="report-link">VIEW MORE</span></h2>
+            <div class="announcement-input">
+                <input type="text" id="announcement-title" placeholder="Enter title" />
+                <input type="text" id="announcement-description" placeholder="Enter description" />
+                <button type="button" onclick="addAnnouncement()">Submit</button>
+            </div>
+            <div class="announcement-list">
+                <div class="announcement-item">
+                    <div class="announcement-details">
+                        <h3 class="announcement-title"></h3>
+                        <p class="announcement-description"></p>
+                        <small class="announcement-date"></small>
+                    </div>
+                    
+                </div>
+                <div class="announcement-item">
+                    <div class="announcement-details">
+                        <h3 class="announcement-title"></h3>
+                        <p class="announcement-description"></p>
+                        <small class="announcement-date"></small>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+
+
+    </div>
+</div>
+        
+    
+        </div>
+    </div>
+
+<script>
+
+     // Define the displayAnnouncements function
+     function displayAnnouncements(announcements) {
+    console.log("Announcements to Display:", announcements);
+
+    const announcementSection = document.querySelector(".announcement-list");
+    if (!announcementSection) {
+        console.error("Announcement section not found in DOM");
+        return;
+    }
+
+    announcementSection.innerHTML = ""; // Clear the existing list
+
+    announcements.forEach((announcement) => {
+        const announcementItem = document.createElement("div");
+        announcementItem.className = "announcement-item";
+        announcementItem.innerHTML = `
+            <div class="announcement-details">
+                <h3 class="announcement-title">${announcement.Title || "No Title"}</h3>
+                <p class="announcement-description">${announcement.DescriptionDetails || "No Description"}</p>
+                <small class="announcement-date">Created on: ${
+                    announcement.CreationDate
+                        ? new Date(announcement.CreationDate).toLocaleDateString()
+                        : "Unknown Date"
+                }</small>
+            </div>
+        `;
+        announcementSection.appendChild(announcementItem);
+    });
+}
+
+     
+     async function fetchAnnouncements() {
+    const announcementSection = document.querySelector(".announcement-list");
+    if (!announcementSection) {
+        console.error("Announcement section not found in DOM");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3000/api/announcements");
+        if (!response.ok) {
+            console.error("Failed to load announcements:", response.statusText);
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Fetched Announcements:", data);
+
+        if (data.Announcements && data.Announcements.length > 0) {
+            displayAnnouncements(data.Announcements);
+        } else {
+            console.error("No announcements found in API response.");
+        }
+    } catch (error) {
+        console.error("Error fetching announcements:", error);
+    }
+}
+
+// Ensure fetchAnnouncements runs when the page loads
+document.addEventListener("DOMContentLoaded", fetchAnnouncements);
+
+    // Function to add a new announcement
+    async function addAnnouncement() {
+    const title = document.getElementById("announcement-title").value.trim();
+    const description = document.getElementById("announcement-description").value.trim();
+
+    if (title && description) {
+        try {
+            const response = await fetch("http://localhost:3000/api/announcement", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, description }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                // Clear the input fields
+                document.getElementById("announcement-title").value = "";
+                document.getElementById("announcement-description").value = "";
+
+                // Prepend the new announcement to the list
+                const announcementList = document.querySelector(".announcement-list");
+                const announcementItem = document.createElement("div");
+                announcementItem.className = "announcement-item";
+                announcementItem.innerHTML = `
+                    <div class="announcement-details">
+                        <h3 class="announcement-title">${data.announcement.title}</h3>
+                        <p class="announcement-description">${data.announcement.description}</p>
+                        <small class="announcement-date">Created on: ${new Date(
+                            data.announcement.creationDate
+                        ).toLocaleDateString()}</small>
+                    </div>
+                `;
+                announcementList.prepend(announcementItem); // Add the new announcement at the top
+            } else {
+                console.error("Failed to add announcement:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error adding announcement:", error);
+        }
+    } else {
+        alert("Please fill out both the title and description.");
+    }
+}
+
+
+// Function to update the index.html announcements directly
+async function updateIndexAnnouncements(announcement) {
+    try {
+        // Send a POST request to a route that appends the announcement
+        await fetch("http://localhost:3000/api/append-announcement", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(announcement),
+        });
+
+        console.log("Announcement successfully sent to the index.html page");
+    } catch (error) {
+        console.error("Error updating announcements in index.html:", error);
+    }
+}
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Interaction with Chatbot and Number of Call Centre chart
+        const interactionChartContainer = document.querySelector(".bar-chart");
+        interactionChartContainer.innerHTML = `<canvas id="interactionChart"></canvas>`;
+        const interactionCtx = document.getElementById('interactionChart').getContext('2d');
+
+        const interactionData = {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+                {
+                    type: 'bar',
+                    label: "Chatbot Interactions",
+                    data: [30, 21, 23, 17, 35, 27],
+                    backgroundColor: '#4a90e2',
+                    borderRadius: 5,
+                    barPercentage: 0.6
+                },
+                {
+                    type: 'line',
+                    label: "Call Centre Queries",
+                    data: [10, 15, 20, 14, 25, 19],
+                    borderColor: '#f44336',
+                    tension: 0.3, // Smoother curve
+                    fill: false, // No fill area
+                }
+            ]
+        };
+
+        const interactionOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 10 },
+                    grid: { color: 'rgba(200, 200, 200, 0.5)' }
+                },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { size: 12 } }
+                }
+            }
+        };
+
+        new Chart(interactionCtx, {
+            data: interactionData,
+            options: interactionOptions
+        });
+
+        // Number of Reported Scams chart
+        const scamCtx = document.getElementById('scamChart').getContext('2d');
+
+        const scamData = {
+            labels: ['Daily', 'Weekly', 'Monthly'],
+            datasets: [
+                {
+                    label: 'Number of Reported Scams',
+                    data: [50, 200, 800],
+                    backgroundColor: ['#4a90e2', '#f44336', '#ffc107'],
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    barPercentage: 0.6
+                }
+            ]
+        };
+
+        const scamOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 100 },
+                    grid: { color: 'rgba(200, 200, 200, 0.5)' }
+                },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { size: 14 } }
+                }
+            }
+        };
+
+        new Chart(scamCtx, {
+            type: 'bar',
+            data: scamData,
+            options: scamOptions
+        });
+    });
+
+</script>
+
+    
+
+   
+</body>
+</html>

@@ -2,51 +2,63 @@ const Announcement = require("../models/announcement");
 
 const createAnnouncement = async (req, res) => {
     try {
-        const {title, description} = req.body;
+        console.log(req.body); // Log the request body for debugging
+        const { title, description } = req.body;
 
-        // Create a new announcement
-        const createAnnouncement = await Announcement.createAnnouncement(title, description)
-
-        if (!createAnnouncement) {
-            res.status(500).json({
-                message: `Failed to create Announcement`
-            })
+        if (!title || !description) {
+            return res.status(400).json({
+                message: "Title and description are required",
+            });
         }
 
-    } catch (err) {
-        console.error(err);
+        const newAnnouncement = await Announcement.createAnnouncement(title, description);
+
+        if (newAnnouncement) {
+            res.status(201).json({
+                message: "Announcement created successfully",
+                announcement: newAnnouncement,
+            });
+        } else {
+            res.status(500).json({
+                message: "Failed to create announcement",
+            });
+        }
+    } catch (error) {
+        console.error("Error creating announcement:", error);
         res.status(500).json({
             status: "Error",
-            message: "Internal Server Error - Scold Emmanuel",
-            error: err,
+            message: "Internal Server Error",
+            error: error,
         });
     }
-}
+};
+
+
 
 const getRecentAnnouncements = async (req, res) => {
     try {
         const recentAnnouncements = await Announcement.getMostRecentAnnouncements();
+        console.log("Fetched Announcements from Database:", recentAnnouncements);
 
-        if (!recentAnnouncements) {
-            res.status(404).json({
-                message: `Failed to get any announcements`
-            });
+        if (!recentAnnouncements || recentAnnouncements.length === 0) {
+            res.status(404).json({ message: "No announcements found" });
             return;
         }
-        res.status(200).json({
-            message: "Announcements returned Successfully",
-            Announcements: recentAnnouncements
-        });
 
+        res.status(200).json({
+            message: "Announcements fetched successfully",
+            Announcements: recentAnnouncements,
+        });
     } catch (err) {
-        console.error(err);
+        console.error("Error fetching announcements:", err);
         res.status(500).json({
             status: "Error",
             message: "Internal Server Error",
-            error: err
+            error: err,
         });
     }
-}
+};
+
 
 module.exports = {
     createAnnouncement,

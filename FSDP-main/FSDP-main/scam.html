@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCBC Scam Report</title>
+    <link rel="stylesheet" href="scam.css">
+</head>
+<body class="scam-body">
+
+    <header class="header">
+        <div class="header-top">
+            <span class="section-indicator"><strong></strong></span>
+            <nav class="main-nav">
+                <a href="#">Premier Banking</a>
+                <a href="#">Digital Banking</a>
+                <a href="#">Security</a>
+                <a href="#">Branches & ATMs</a>
+                <a href="#">Get help</a>
+            </nav>
+        </div>
+        <div class="header-bottom">
+            <div class="logo">
+                <img src="media/OCBC Logo.png" alt="OCBC Logo">
+            </div>
+            <nav class="sub-nav">
+                <a href="#">Accounts</a>
+                <a href="#">Cards</a>
+                <a href="#">Loans</a>
+                <a href="#">Insurance</a>
+                <a href="#">Investments</a>
+                <a href="#">Advisory</a>
+                <a href="#">More</a>
+                <a href="#" class="login">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="scam-main-content">
+        <!-- Search Bar with Button -->
+        <div class="search-container">
+            <input type="text" id="search-bar" class="search-bar" placeholder="Search scam numbers...">
+            <button class="search-button" onclick="searchFunction()">Search</button>
+        </div>
+
+        <!-- Heatmap Button -->
+<div class="heatmap-container">
+    <button class="heatmap-button" onclick="viewHeatmap()">View Scam Heatmap</button>
+</div>
+
+        <section class="scam-table-container">
+            <table class="scam-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Reported Number</th>
+                        <th>Quantity of Reports</th>
+                        <th>Upvotes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </section>
+
+        <button class="report-scam-button" onclick="openScamModal()">
+            Report a Scam
+            <img src="media/report.png" alt="Report Icon" class="report-icon">
+        </button>
+        
+        <div id="scam-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeScamModal()">&times;</span>
+                <h2>Report a Scam</h2>
+                <p>Please fill out the form below to report suspicious activity.</p>
+                <form id="report-scam-form">
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="phone">Your Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="scam-details">Scam Details:</label>
+                        <textarea id="scam-details" name="scam-details" placeholder="Describe the scam" rows="5" required></textarea>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="proof">Upload Proof (optional):</label>
+                        <input type="file" id="proof" name="proof" accept="image/*">
+                    </div>
+        
+                    <button type="submit" class="submit-button">Submit Report</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="chatbot-icon" onclick="openChatbot()">
+            <img src="media/Chat Icon.png" alt="Chatbot Icon" style="width: 50px; height: 50px;">
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="media/OCBC Logo.png" alt="OCBC Logo">
+                <p><strong>Personal Banking</strong></p>
+                <p>You are in <strong>Singapore</strong> <span>&#9660;</span></p>
+                <ul>
+                    <li>Premier Banking</li>
+                    <li>FRANK by OCBC</li>
+                    <li>Business Banking</li>
+                    <li>OCBC Group</li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Useful links</h4>
+                <ul>
+                    <li>OCBC Online Banking</li>
+                    <li>ATM and Branch locator</li>
+                    <li>Help and Support</li>
+                    <li>Important Documents</li>
+                    <li>Report Vulnerability</li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Get in touch with us</h4>
+                <p>Contact Us</p>
+                <p>+65 6363 3333</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>Conditions of Access | Policies | Notices</p>
+            <p>&copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co. Reg. No.: 193200032W</p>
+        </div>
+    </footer>
+
+    <script src="scam.js"></script>
+</body>
+</html>

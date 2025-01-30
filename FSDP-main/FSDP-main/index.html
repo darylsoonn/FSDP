@@ -123,7 +123,7 @@
         <button id="recordButton" class="mic-record">Start Recording</button>
     </div>
     <script>
-                window.watsonAssistantChatOptions = {
+                /*window.watsonAssistantChatOptions = {
             integrationID: "cbf2905d-47c4-4ac7-aaba-deee43faaa06", // Your integration ID
             region: "us-south", // The region your integration is hosted in
             serviceInstanceID: "b0a69481-ca01-4a11-b2cd-743beec90bd4", // Your service instance ID
@@ -169,8 +169,47 @@
                         }
                     }
                 });
-            }
-        };
+            }*/
+
+
+            !(function () {
+                let e = document.createElement("script"),
+                    t = document.head || document.getElementsByTagName("head")[0];
+                (e.src =
+                    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/lib/index.js"),
+                    // Replace 1.x.x with the version that you want
+                    (e.async = !0),
+                    (e.onload = () => {
+                    window.WebChat.default(
+                        {
+                        customData: { language: "en" },
+                        socketUrl: "https://bf-botfront.development.agents.botfront.cloud",
+                        // add other props here
+                        },
+                        null
+                    );
+                    }),
+                    t.insertBefore(e, t.firstChild);
+           })();
+
+
+
+           (function () {
+            let script = document.createElement("script");
+            script.src = "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js";
+            script.async = true;
+            script.onload = () => {
+                window.WebChat.default({
+                    initPayload: "/greet",
+                    customData: { language: "en" },
+                    socketUrl: "http://localhost:5005",  // Rasa Server URL
+                    socketPath: "/socket.io/",
+                    title: "Chat with Us",
+                    subtitle: "Powered by Rasa"
+                }, null);
+            };
+            document.body.appendChild(script);
+        })();
 
         // Function to send the phone number to the backend
         function reportPhoneNumberToBackend(phoneNumber) {

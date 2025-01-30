@@ -116,6 +116,29 @@ class ScamCall {
         connection.close();
         return result;
     }
+
+    static async getAllScamPhoneNumbers() {
+        try {
+            const connection = await sql.connect(dbConfig);
+            const query = `
+                SELECT PhoneNumber
+                FROM ScamCall
+                GROUP BY PhoneNumber
+                HAVING COUNT(PhoneNumber) > 3
+                ORDER BY PhoneNumber ASC;
+            `;
+            const request = connection.request();
+    
+            const result = await request.query(query);
+            connection.close();
+            
+            return result.recordset; // Returns only numbers with more than 10 reports
+        } catch (error) {
+            console.error("Error retrieving frequently reported scam numbers:", error);
+            throw error;
+        }
+    }
+    
     
 
     // Get Most Reported Calls This week, returns 2 datasets

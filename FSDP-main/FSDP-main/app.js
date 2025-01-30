@@ -39,6 +39,9 @@ app.get("/api/scamcalls/monthly", scamCallController.getScamCalls);
 app.post("/api/scamcall/report", scamCallController.reportNumber);
 app.get("/api/scamcall/search", scamCallController.searchScamCall);
 app.get('/api/heatmap-data', scamCallController.getHeatmapData);
+app.get("/api/scamcalls/all", scamCallController.getAllScamPhoneNumbers);
+
+
 // Add endpoint for fetching OCBC branches
 app.get('/api/ocbc-branches', async (req, res) => {
     const fetch = require('node-fetch'); // Ensure node-fetch is installed

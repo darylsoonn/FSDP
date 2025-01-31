@@ -42,14 +42,10 @@ CREATE TABLE ScamCall (
 );
 
 CREATE TABLE ScamReports (
-    id INT IDENTITY(1,1) PRIMARY KEY, 
-    victim_name VARCHAR(255), 
-    victim_contact_info VARCHAR(255), 
-    scam_type VARCHAR(255) NOT NULL, 
-    description TEXT NOT NULL, 
-    attachment_path VARCHAR(255),
-    scammer_contact_info VARCHAR(255), 
-    amount_lost FLOAT, 
-    timestamp DATETIME DEFAULT GETDATE(), 
-    actions_taken TEXT 
+    id INT IDENTITY(1,1) PRIMARY KEY, -- Use IDENTITY for auto-increment
+    scam_type VARCHAR(255) NOT NULL,
+    description TEXT,
+    latitude FLOAT NOT NULL,
+    longitude FLOAT NOT NULL,
+    timestamp DATETIME DEFAULT GETDATE() -- Use GETDATE() for the current timestamp
 );

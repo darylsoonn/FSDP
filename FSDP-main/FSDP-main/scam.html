@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCBC Scam Report</title>
     <link rel="stylesheet" href="scam.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="scam-body">
 
@@ -73,36 +74,71 @@
             <div class="modal-content">
                 <span class="close" onclick="closeScamModal()">&times;</span>
                 <h2>Report a Scam</h2>
-                <p>Please fill out the form below to report suspicious activity.</p>
+                <p id="form-step-instruction">Step 1: Enter basic details</p>
                 <form id="report-scam-form">
-                    <div class="form-group">
-                        <label for="name">Your Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    <!-- Step 1: Victim Details -->
+                    <div class="form-step" id="step-1">
+                        <div class="form-group">
+                            <label for="victim-name">Your Name:</label>
+                            <input type="text" id="victim-name" name="victim_name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="victim-contact">Your Contact Info:</label>
+                            <input type="email" id="victim-contact" name="victim_contact_info" placeholder="Enter your email" required>
+                        </div>
                     </div>
         
-                    <div class="form-group">
-                        <label for="email">Your Email:</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <!-- Step 2: Scam Description and Attachment -->
+                    <div class="form-step" id="step-2" style="display: none;">
+                        <div class="form-group">
+                            <label for="description">Scam Details:</label>
+                            <textarea id="description" name="description" placeholder="Describe the scam" rows="5" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="attachment">Upload Proof (optional):</label>
+                            <input type="file" id="attachment" name="attachment_path" accept="image/*">
+                        </div>
                     </div>
         
-                    <div class="form-group">
-                        <label for="phone">Your Phone Number:</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    <!-- Step 3: Scammer Details and Amount Lost -->
+                    <div class="form-step" id="step-3" style="display: none;">
+                        <div class="form-group">
+                            <label for="scammer-contact">Scammer Contact Info:</label>
+                            <input type="text" id="scammer-contact" name="scammer_contact_info" placeholder="Enter scammer contact info">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount-lost">Amount Lost (optional):</label>
+                            <input type="number" id="amount-lost" name="amount_lost" placeholder="Enter the amount lost">
+                        </div>
                     </div>
         
-                    <div class="form-group">
-                        <label for="scam-details">Scam Details:</label>
-                        <textarea id="scam-details" name="scam-details" placeholder="Describe the scam" rows="5" required></textarea>
+                    <!-- Step 4: Actions Taken -->
+                    <div class="form-step" id="step-4" style="display: none;">
+                        <div class="form-group">
+                            <label for="actions-taken">Actions Taken:</label>
+                            <textarea id="actions-taken" name="actions_taken" placeholder="Describe any actions taken" rows="4"></textarea>
+                        </div>
+                        <!-- Google reCAPTCHA only appears on final step -->
+                        <div class="g-recaptcha" data-sitekey="6LdSOskqAAAAAFLBVn6WzRwTc0wOOdsAz-gFTKhL"></div>
                     </div>
         
-                    <div class="form-group">
-                        <label for="proof">Upload Proof (optional):</label>
-                        <input type="file" id="proof" name="proof" accept="image/*">
+                    <!-- Navigation Buttons -->
+                    <div class="form-navigation">
+                        <button type="button" id="prev-button" onclick="prevStep()" style="display: none;">Previous</button>
+                        <button type="button" id="next-button" onclick="nextStep()">Next</button>
+                        <button type="submit" id="submit-button" style="display: none;">Submit Report</button>
                     </div>
-        
-                    <button type="submit" class="submit-button">Submit Report</button>
                 </form>
             </div>
+
+            <div id="success-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeSuccessModal()">&times;</span>
+                    <h2>Form Successfully Submitted!</h2>
+                    <p>Thank you for doing your part in keeping us safe!</p>
+                </div>
+            </div>
+            
         </div>
         
         <div class="chatbot-icon" onclick="openChatbot()">

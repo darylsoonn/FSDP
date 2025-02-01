@@ -133,6 +133,32 @@ const getScamCallsMonthly = async (req, res) => {
     }
 }
 
+const getAllScamPhoneNumbers = async (req, res) => {
+    try {
+        const phoneNumbers = await ScamCall.getAllScamPhoneNumbers();
+
+        if (!phoneNumbers || phoneNumbers.length === 0) {
+            return res.status(404).json({
+                message: "No scam phone numbers found",
+            });
+        }
+
+        res.status(200).json({
+            message: "Scam phone numbers retrieved successfully",
+            phoneNumbers: phoneNumbers.map(item => item.PhoneNumber),
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            status: "Error",
+            message: "Internal Server Error",
+            error: error.message,
+        });
+    }
+};
+
+
+
 const getHeatmapData = async (req, res) => {
     try {
         const { startDate, endDate, scamType } = req.query;
@@ -154,6 +180,7 @@ const getHeatmapData = async (req, res) => {
 };
 
 module.exports = {
+    getAllScamPhoneNumbers,
     reportNumber,
     getScamCalls,
     getScamCallsWeekly,

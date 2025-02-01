@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCBC Help and Support - Cards</title>
+  <link rel="stylesheet" href="cards.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-top">
+      <span class="section-indicator"><strong></strong></span>
+      <nav class="main-nav">
+        <a href="#">Premier Banking</a>
+        <a href="#">Digital Banking</a>
+        <a href="#">Security</a>
+        <a href="#">Branches & ATMs</a>
+        <a href="#">Get Help</a>
+      </nav>
+    </div>
+    <div class="header-bottom">
+      <div class="logo">
+        <img src="media/OCBC Logo.png" alt="OCBC Logo">
+      </div>
+      <nav class="sub-nav">
+        <a href="#">Accounts</a>
+        <a href="#">Cards</a>
+        <a href="#">Loans</a>
+        <a href="#">Insurance</a>
+        <a href="#">Investments</a>
+        <a href="#">Advisory</a>
+        <a href="#">More</a>
+        <a href="#" class="login">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner Section -->
+  <div class="banner-section">
+    <img src="media/cards page.png" alt="Cards">
+    <div class="banner-overlay"></div>
+    <div class="banner-text">Cards</div>
+  </div>
+
+  <!-- Card Products Section -->
+  <section class="cards-content">
+    <h2>Our Card Products</h2>
+    <div class="card-products">
+      <div class="card-item">
+        <h3>Credit Cards</h3>
+        <p>Enjoy exclusive rewards, low interest rates, and premium benefits with our range of credit cards.</p>
+        <a href="#" class="learn-more" onclick="openModal('modal-credit')">Learn More</a>
+      </div>
+      <div class="card-item">
+        <h3>Debit Cards</h3>
+        <p>Access your funds securely and conveniently with our range of debit cards, featuring enhanced security measures.</p>
+        <a href="#" class="learn-more" onclick="openModal('modal-debit')">Learn More</a>
+      </div>
+      <div class="card-item">
+        <h3>Prepaid Cards</h3>
+        <p>Manage your budget easily with our prepaid cards, designed for hassle-free spending control.</p>
+        <a href="#" class="learn-more" onclick="openModal('modal-prepaid')">Learn More</a>
+      </div>
+      <div class="card-item">
+        <h3>Rewards Cards</h3>
+        <p>Earn rewards on every purchase and enjoy exclusive offers with our specially designed rewards cards.</p>
+        <a href="#" class="learn-more" onclick="openModal('modal-rewards')">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Help & Support Section -->
+  <section class="help-support">
+    <h2>Help & Support</h2>
+    <p>
+      Whether you have questions about your credit or debit cards, need assistance with a payment, or require troubleshooting tips, our dedicated support team is here to help.
+    </p>
+    <div class="help-items">
+      <div class="help-item" onclick="openModal('modal-faqs')">
+        <a href="#">FAQs</a>
+        <p>Browse our frequently asked questions for quick answers.</p>
+      </div>
+      <div class="help-item" onclick="openModal('modal-contact')">
+        <a href="#">Contact Us</a>
+        <p>Reach out to our support team via phone, email, or chat.</p>
+      </div>
+      <div class="help-item" onclick="openModal('modal-troubleshoot')">
+        <a href="#">Troubleshooting</a>
+        <p>Find solutions for common issues related to your cards.</p>
+      </div>
+      <div class="help-item" onclick="openModal('modal-guides')">
+        <a href="#">User Guides</a>
+        <p>Step-by-step guides to help you manage and use your cards effectively.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals for Card Products -->
+  <div id="modal-credit" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-credit')">&times;</span>
+      <h2>Credit Cards</h2>
+      <p>Our credit cards come with a range of benefits including cashback, rewards, and exclusive offers. Enjoy premium privileges and flexible payment options tailored to your lifestyle.</p>
+    </div>
+  </div>
+
+  <div id="modal-debit" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-debit')">&times;</span>
+      <h2>Debit Cards</h2>
+      <p>Secure and convenient, our debit cards offer robust protection features, easy access to your funds, and seamless integration with your daily transactions.</p>
+    </div>
+  </div>
+
+  <div id="modal-prepaid" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-prepaid')">&times;</span>
+      <h2>Prepaid Cards</h2>
+      <p>Our prepaid cards are ideal for budgeting and controlled spending, allowing you to load a fixed amount and spend without the risk of overspending.</p>
+    </div>
+  </div>
+
+  <div id="modal-rewards" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-rewards')">&times;</span>
+      <h2>Rewards Cards</h2>
+      <p>Earn points and enjoy exclusive deals with our rewards cards. Use your rewards for travel, dining, shopping, and more while enjoying competitive benefits.</p>
+    </div>
+  </div>
+
+  <!-- Modals for Help & Support -->
+  <div id="modal-faqs" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-faqs')">&times;</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Find answers to common questions about our card products, fees, rewards, and more.</p>
+    </div>
+  </div>
+
+  <div id="modal-contact" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-contact')">&times;</span>
+      <h2>Contact Us</h2>
+      <p>If you need further assistance, please reach out via:</p>
+      <ul>
+        <li>Phone: +65 6363 3333</li>
+        <li>Email: cardsupport@ocbc.com</li>
+        <li>Live Chat: Available on our website</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal-troubleshoot" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-troubleshoot')">&times;</span>
+      <h2>Troubleshooting</h2>
+      <p>Discover solutions for issues related to card activation, transaction disputes, and more.</p>
+    </div>
+  </div>
+
+  <div id="modal-guides" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-guides')">&times;</span>
+      <h2>User Guides</h2>
+      <p>Access our step-by-step guides to help you manage your cards, review statements, and understand rewards.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="media/OCBC Logo.png" alt="OCBC Logo">
+        <p><strong>Personal Banking</strong></p>
+        <p>You are in <strong>Singapore</strong> <span>&#9660;</span></p>
+        <ul>
+          <li>Premier Banking</li>
+          <li>FRANK by OCBC</li>
+          <li>Business Banking</li>
+          <li>OCBC Group</li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Useful links</h4>
+        <ul>
+          <li>OCBC Online Banking</li>
+          <li>ATM and Branch locator</li>
+          <li>Help and Support</li>
+          <li>Important Documents</li>
+          <li>Report Vulnerability</li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Get in touch with us</h4>
+        <p>Contact Us</p>
+        <p>+65 6363 3333</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fas fa-comments"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>Conditions of Access | Policies | Notices</p>
+      <p>&copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co. Reg. No.: 193200032W</p>
+    </div>
+  </footer>
+  
+  <script src="cards.js"></script>
+</body>
+</html>

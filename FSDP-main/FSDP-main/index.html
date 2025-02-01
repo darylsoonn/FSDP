@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCBC Help and Support</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
 </head>
 <body>
 
@@ -52,8 +53,57 @@
         <div class="banner-overlay"></div>
         <div class="banner-text">Help and Support</div>
     </div>
-    
 
+      <!-- Container for search bar, FAQ, and Announcements -->
+  <div class="container">
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search pages..." />
+      <ul id="searchResults"></ul>
+    </div>
+
+    <script>
+        const pages = [
+          { title: "General", url: "general.html" },
+          { title: "Banking", url: "banking.html" },
+          { title: "Cards", url: "cards.html" },
+          { title: "Scams", url: "scams.html" },
+        ];
+    
+        // Configure Fuse.js options.
+        const options = {
+          keys: ["title"],
+          threshold: 0.3,  // Adjust this to control fuzzy matching
+        };
+    
+        // Initialize Fuse.js
+        const fuse = new Fuse(pages, options);
+    
+        // Get references to the search input and results container
+        const searchInput = document.getElementById("searchInput");
+        const searchResults = document.getElementById("searchResults");
+    
+        // Listen for input changes
+        searchInput.addEventListener("input", function () {
+          const query = searchInput.value.trim();
+          searchResults.innerHTML = "";  // Clear previous results
+    
+          if (query.length > 0) {
+            const results = fuse.search(query);
+            results.forEach(({ item }) => {
+              const li = document.createElement("li");
+              li.textContent = item.title;
+              li.style.cursor = "pointer";
+              li.addEventListener("click", function () {
+                // Navigate to the selected page
+                window.location.href = item.url;
+              });
+              searchResults.appendChild(li);
+            });
+          }
+        });
+      </script>
+    
     <div class="container">
         <div class="top-sections">
             <section class="announcements scroll-animate">

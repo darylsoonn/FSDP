@@ -125,66 +125,50 @@ header .logo {
 .container {
     padding-top: 100px; 
 }
-
-.banner {
-    background-color: white; /* Make the entire banner background white */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Align content to the left */
-    width: 100vw; /* Full width */
-    height: auto; /* Keep height dynamic */
-    padding: 0; /* Remove any default padding */
-}
-
-.banner img {
-    max-width: 100%; /* Ensure it doesn't overflow */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Prevent extra space below the image */
-    margin-left: 0; /* Ensure it's fully to the left */
-}
-
-
-
+/* Banner Section */
 .banner-section {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 300px; /* Adjust this height if necessary */
     overflow: hidden;
-    margin-top: 150px;
+    margin-top: 0; /* Remove any top margin to ensure no space above */
 }
 
+/* Image in Banner Section */
 .banner-section img {
     width: 100%;
     height: 100%;
     object-fit: cover; 
 }
 
+/* Banner Overlay */
 .banner-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
 }
 
+/* Text on Banner Section */
 .banner-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 2.5em; 
+    font-size: 2.5em; /* Adjust font size */
     font-weight: bold;
     text-align: center;
-    z-index: 2; 
+    z-index: 2;
 }
 
-/* Banner */
+/* Specific Banner */
 .banner {
     position: relative;
     width: 100%;
-    height: 350px;
+    height: 350px; /* Adjust height as needed */
     background: url('media/ocbc_banner.jpg') no-repeat center center/cover;
     display: flex;
     align-items: center;
@@ -194,6 +178,163 @@ header .logo {
     font-weight: bold;
 }
 
+
+/* General styling for the content sections */
+.individual-banking,
+.business-banking,
+.promotions,
+.help-support {
+    background: #ffffff;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings styling */
+.individual-banking h2,
+.business-banking h2,
+.promotions h2,
+.help-support h2 {
+    font-size: 2em;
+    color: #d32f2f;  /* A strong red that evokes OCBC's branding */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Paragraph styling */
+.individual-banking p,
+.business-banking p,
+.promotions p,
+.help-support p {
+    font-size: 1em;
+    color: #555555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* List styling */
+.individual-banking ul,
+.business-banking ul,
+.promotions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.individual-banking li,
+.business-banking li,
+.promotions li {
+    padding: 15px 10px;
+    border-bottom: 1px solid #eaeaea;
+    transition: background-color 0.3s ease;
+}
+
+.individual-banking li:last-child,
+.business-banking li:last-child,
+.promotions li:last-child {
+    border-bottom: none;
+}
+
+/* Link styling */
+.individual-banking li a,
+.business-banking li a,
+.promotions li a,
+.help-support a {
+    text-decoration: none;
+    color: #d32f2f;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.individual-banking li a:hover,
+.business-banking li a:hover,
+.promotions li a:hover,
+.help-support a:hover {
+    color: #a82a2a;
+}
+
+/* Additional styling for help-support section */
+.help-support a {
+    margin-right: 15px;
+}
+
+.help-support p:last-of-type {
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 0.9em;
+    color: #777777;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .individual-banking,
+    .business-banking,
+    .promotions,
+    .help-support {
+        padding: 20px;
+        margin: 15px;
+    }
+    
+    .individual-banking h2,
+    .business-banking h2,
+    .promotions h2,
+    .help-support h2 {
+        font-size: 1.8em;
+    }
+}
+
+.help-item {
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.help-item:hover {
+    background-color: #f8f8f8;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 /* Sections */
 .section {
     padding: 60px 20px;
@@ -236,7 +377,6 @@ header .logo {
     margin-top: 10px;
     font-size: 18px;
 }
-
 
 /* General footer styling */
 .footer {

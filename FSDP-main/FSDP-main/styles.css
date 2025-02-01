@@ -756,7 +756,22 @@ header .logo {
 
 
 
-
+ /* Style for the voice toggle button */
+ #voiceToggle {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+#voiceToggle.off {
+    background: #dc3545;
+}
 
 
 

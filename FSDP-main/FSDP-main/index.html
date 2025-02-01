@@ -31,6 +31,7 @@
             <div class="logo">
                 <img src="media/OCBC Logo.png" alt="OCBC Logo">
             </div>
+            <button id="extraVoiceButton" class="mic-record">Voice Navigation</button>
             <nav class="sub-nav">
                 <a href="#">Accounts</a>
                 <a href="#">Cards</a>
@@ -129,8 +130,11 @@
         </div>
         <button id="recordButton" class="mic-record">Start Recording</button>
     </div>
+
+    <button id="voiceToggle" class="off">Enable Voice</button>
+
     <script>
-                window.watsonAssistantChatOptions = {
+                /*window.watsonAssistantChatOptions = {
             integrationID: "cbf2905d-47c4-4ac7-aaba-deee43faaa06", // Your integration ID
             region: "us-south", // The region your integration is hosted in
             serviceInstanceID: "b0a69481-ca01-4a11-b2cd-743beec90bd4", // Your service instance ID
@@ -176,8 +180,150 @@
                         }
                     }
                 });
+            }*/
+
+
+            let voiceEnabled = false;
+    let recognition;
+    let synth = window.speechSynthesis;
+
+    function initSpeechRecognition() {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        console.error("Speech recognition not supported in this browser.");
+        return;
+    }
+
+    if (!recognition) {
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;  // Set to false to avoid duplicate phrases
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+
+        recognition.onstart = function () {
+            console.log("Speech recognition started...");
+        };
+
+        recognition.onerror = function (event) {
+            console.error("Speech recognition error:", event.error);
+            if (event.error === "not-allowed") {
+                alert("Microphone access blocked. Please enable it in browser settings.");
             }
         };
+
+        recognition.onend = function () {
+            console.log("Speech recognition stopped.");
+            if (voiceEnabled) {
+                recognition.start();  // Restart listening when voice mode is enabled
+            }
+        };
+
+        recognition.onresult = function (event) {
+            let transcript = event.results[0][0].transcript;
+            console.log("User said:", transcript);
+
+            // **Clear previous message before sending**
+            setTimeout(() => {
+                sendToChatbot(transcript);
+            }, 100);  // Delay to avoid conflicts
+        };
+    }
+}
+
+function sendToChatbot(message) {
+    console.log("Sending message:", message);
+    
+    fetch("http://localhost:5005/webhooks/rest/webhook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sender: "user", message: message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.length > 0) {
+            let botResponse = data[0].text || "I didn't understand that.";
+            console.log("Bot response:", botResponse);
+            speak(botResponse);
+        } else {
+            console.log("No response received.");
+        }
+    })
+    .catch(error => {
+        console.error("Error sending message:", error);
+    });
+
+    // **Clear transcript after sending**
+    setTimeout(() => {
+        recognition.stop();
+        recognition.start();
+    }, 500);  // Prevents repeating messages
+}
+
+
+    function speak(text) {
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+        synth.speak(utterance);
+    }
+
+    document.getElementById("voiceToggle").addEventListener("click", function () {
+        voiceEnabled = !voiceEnabled;
+        this.innerText = voiceEnabled ? "Disable Voice" : "Enable Voice";
+        if (voiceEnabled) {
+            initSpeechRecognition();
+        }
+    });
+
+    document.getElementById("recordButton").addEventListener("click", function () {
+        if (recognition) {
+            recognition.start();
+        }
+    });
+
+    function loadChatWidget() {
+    if (window.WebChat) {
+        console.log("Chat widget already loaded. Skipping reinitialization.");
+        return;  // Prevent reloading the chat widget on every button press
+    }
+
+    let script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js";
+    script.async = true;
+    script.onload = () => {
+        window.WebChat.default({
+            initPayload: "/greet",
+            customData: { language: "en" },
+            socketUrl: "http://localhost:5005",
+            socketPath: "/socket.io/",
+            title: "Chat with Us",
+            subtitle: "Powered by Rasa",
+            inputTextFieldHint: "Say something...",
+            voiceRecognition: voiceEnabled,
+            voiceOutput: voiceEnabled,
+            showFullScreenButton: true
+        }, null);
+    };
+
+    document.body.appendChild(script);
+}
+
+    // Load chatbot initially (voice OFF by default)
+    loadChatWidget();
+
+    // Toggle Voice On/Off
+    document.getElementById("voiceToggle").addEventListener("click", function () {
+    voiceEnabled = !voiceEnabled;
+    this.innerText = voiceEnabled ? "Disable Voice" : "Enable Voice";
+
+    if (voiceEnabled) {
+        initSpeechRecognition();
+        recognition.start();
+    } else if (recognition) {
+        recognition.stop();
+    }
+});
+
+
 
         // Function to send the phone number to the backend
         function reportPhoneNumberToBackend(phoneNumber) {
@@ -210,6 +356,62 @@
             script.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
             document.head.appendChild(script);
         });
+
+    document.getElementById("extraVoiceButton").addEventListener("click", function () {
+    let button = this;
+
+    if (!recognition) {
+        initSpeechRecognition();
+    }
+
+    if (button.classList.contains("recording")) {
+        // Stop recording if it's already on
+        recognition.stop();
+        button.classList.remove("recording");
+    } else {
+        // Start recording if it's off
+        button.classList.add("recording");
+
+        recognition.onresult = function (event) {
+            let transcript = event.results[0][0].transcript;
+            console.log("User said:", transcript);
+
+            // **Only call navigateBasedOnSpeech when "Activate Voice Input" is used**
+            navigateBasedOnSpeech(transcript);
+        };
+
+        recognition.start();
+    }
+});
+
+
+    function navigateBasedOnSpeech(transcript) {
+    const pages = {
+        "card": "cards.html",
+        "scam": "scam.html",
+        "general": "general.html",
+        "banking": "banking.html",
+        "heatmap": "heatmap.html",
+        "contact": "contact.html",
+        "insurance": "insurance.html",
+        "investment": "investment.html",
+        "home": "index.html"
+    };
+
+    console.log("Transcript received:", transcript);  // Log the transcript for debugging
+
+    for (let keyword in pages) {
+        console.log(`Checking if "${transcript}" includes "${keyword}"`); // Log the check
+        if (transcript.toLowerCase().includes(keyword.toLowerCase())) {
+            console.log("Redirecting to:", pages[keyword]); // Log the redirection action
+            window.location.href = pages[keyword];
+            return; // Stop checking once a match is found
+        }
+    }
+
+    console.log("No matching page found for:", transcript); // Log if no match is found
+}
+
 
     </script>
 

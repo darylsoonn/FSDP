@@ -364,13 +364,24 @@ function sendToChatbot(message) {
     } else {
         // Start recording if it's off
         button.classList.add("recording");
+
+        recognition.onresult = function (event) {
+            let transcript = event.results[0][0].transcript;
+            console.log("User said:", transcript);
+
+            // **Only call navigateBasedOnSpeech when "Activate Voice Input" is used**
+            navigateBasedOnSpeech(transcript);
+        };
+
         recognition.start();
     }
+});
+
 
     function navigateBasedOnSpeech(transcript) {
     const pages = {
         "card": "cards.html",
-        "scam": "scams.html",
+        "scam": "scam.html",
         "general": "general.html",
         "banking": "banking.html",
         "heatmap": "heatmap.html",
@@ -392,9 +403,6 @@ function sendToChatbot(message) {
 
     console.log("No matching page found for:", transcript); // Log if no match is found
 }
-
-
-});
 
 
     </script>

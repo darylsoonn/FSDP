@@ -131,14 +131,19 @@
                 </form>
             </div>
 
-            <div id="success-modal" class="modal" style="display: none;">
-                <div class="modal-content">
-                    <span class="close" onclick="closeSuccessModal()">&times;</span>
-                    <h2>Form Successfully Submitted!</h2>
-                    <p>Thank you for doing your part in keeping us safe!</p>
-                </div>
-            </div>            
-        </div>
+<!-- Success Modal -->
+<div id="success-modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeSuccessModal()">&times;</span>
+        <h2>Scam Report Submitted</h2>
+        
+        <!-- Show the scam summary here -->
+        <div id="scam-summary"></div>
+        
+        <button onclick="closeSuccessModal()">Close</button>
+    </div>
+</div>
+
         
         <div class="chatbot-icon" onclick="openChatbot()">
             <img src="media/Chat Icon.png" alt="Chatbot Icon" style="width: 50px; height: 50px;">

@@ -323,10 +323,36 @@ function resetForm() {
 }
 
 function submitScamForm(event) {
-    event.preventDefault();
-    closeScamModal();
-    document.getElementById("success-modal").style.display = "block";
+    event.preventDefault(); // Prevent default form submission
+    
+    if (validateForm()) { // Ensure the form is valid before displaying data
+        // Collect the form data
+        const scamDetails = document.getElementById("description").value;
+        const scamAmount = document.getElementById("amount-lost").value;
+        const scammerName = document.getElementById("scammer-name").value;
+        const actionsTaken = document.getElementById("actions-taken").value;
+
+        // Create a summary of the input data
+        const reportSummary = `
+            <h3>Scam Report Summary:</h3>
+            <p><strong>Description:</strong> ${scamDetails}</p>
+            <p><strong>Amount Lost:</strong> ${scamAmount}</p>
+            <p><strong>Scammer Name:</strong> ${scammerName}</p>
+            <p><strong>Actions Taken:</strong> ${actionsTaken}</p>
+        `;
+
+        // Display the summary in a div or modal (you can create a new modal for this if needed)
+        document.getElementById("scam-summary").innerHTML = reportSummary;
+
+        // Optionally, you can use an alert to show the summary
+        // alert(reportSummary);
+
+        // Close the scam modal and show the success modal
+        closeScamModal();
+        document.getElementById("success-modal").style.display = "block";
+    }
 }
+
 
 function closeSuccessModal() {
     document.getElementById("success-modal").style.display = "none";

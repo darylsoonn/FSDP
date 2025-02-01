@@ -124,6 +124,8 @@
     </div>
 
     <button id="voiceToggle" class="off">Enable Voice</button>
+
+    <button id="extraVoiceButton" class="mic-record">Activate Voice Input</button>
     <script>
                 /*window.watsonAssistantChatOptions = {
             integrationID: "cbf2905d-47c4-4ac7-aaba-deee43faaa06", // Your integration ID
@@ -220,7 +222,6 @@
         };
     }
 }
-
 
 function sendToChatbot(message) {
     console.log("Sending message:", message);
@@ -348,6 +349,53 @@ function sendToChatbot(message) {
             script.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/latest/WatsonAssistantChatEntry.js";
             document.head.appendChild(script);
         });
+
+    document.getElementById("extraVoiceButton").addEventListener("click", function () {
+    let button = this;
+
+    if (!recognition) {
+        initSpeechRecognition();
+    }
+
+    if (button.classList.contains("recording")) {
+        // Stop recording if it's already on
+        recognition.stop();
+        button.classList.remove("recording");
+    } else {
+        // Start recording if it's off
+        button.classList.add("recording");
+        recognition.start();
+    }
+
+    function navigateBasedOnSpeech(transcript) {
+    const pages = {
+        "card": "cards.html",
+        "scam": "scams.html",
+        "general": "general.html",
+        "banking": "banking.html",
+        "heatmap": "heatmap.html",
+        "contact": "contact.html",
+        "insurance": "insurance.html",
+        "investment": "investment.html"
+    };
+
+    console.log("Transcript received:", transcript);  // Log the transcript for debugging
+
+    for (let keyword in pages) {
+        console.log(`Checking if "${transcript}" includes "${keyword}"`); // Log the check
+        if (transcript.toLowerCase().includes(keyword.toLowerCase())) {
+            console.log("Redirecting to:", pages[keyword]); // Log the redirection action
+            window.location.href = pages[keyword];
+            return; // Stop checking once a match is found
+        }
+    }
+
+    console.log("No matching page found for:", transcript); // Log if no match is found
+}
+
+
+});
+
 
     </script>
 

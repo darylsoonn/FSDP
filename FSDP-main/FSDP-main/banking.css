@@ -1,0 +1,342 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    overflow-y: scroll;
+    padding-top: 100px;
+}
+
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px;
+    }
+    header .logo {
+        width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 8px 10px;
+    }
+    header .logo {
+        width: 60px;
+    }
+}
+
+
+header.header {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+    padding: 0 20px;
+    position: fixed;
+    top: 0 !important; 
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: none; 
+}
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 0.9em;
+    color: #555555;
+}
+
+.header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    width: 100%;
+    margin-top: 0;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+
+header .logo {
+    width: 80px; 
+    height: auto;
+}
+
+.section-indicator strong {
+    color: #333333;
+}
+
+.main-content {
+    margin-top: 120px;
+}
+
+.main-nav a {
+    color: #555555;
+    margin-right: 15px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+    transform: scale(1);
+    transform-origin: center;
+    margin-left: 0;
+    padding-left: 60px;
+}
+
+.sub-nav {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: flex-end;
+    margin-left: 30px;
+}
+
+.sub-nav a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 5px 0;
+}
+
+.sub-nav a:hover {
+    text-decoration: underline;
+}
+
+.sub-nav a.login {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+.container {
+    padding-top: 100px; 
+}
+
+.banner {
+    background-color: white; /* Make the entire banner background white */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the left */
+    width: 100vw; /* Full width */
+    height: auto; /* Keep height dynamic */
+    padding: 0; /* Remove any default padding */
+}
+
+.banner img {
+    max-width: 100%; /* Ensure it doesn't overflow */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Prevent extra space below the image */
+    margin-left: 0; /* Ensure it's fully to the left */
+}
+
+
+
+.banner-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    margin-top: 150px;
+}
+
+.banner-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2.5em; 
+    font-weight: bold;
+    text-align: center;
+    z-index: 2; 
+}
+
+/* Banner */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background: url('media/ocbc_banner.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Sections */
+.section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #d32f2f;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.card h3 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+
+/* General footer styling */
+.footer {
+    background-color: #f9f9f9;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer-logo p, 
+.footer-links h4, 
+.footer-contact h4 {
+    color: #333;
+}
+
+[data-theme="dark"] .footer-logo p, 
+[data-theme="dark"] .footer-links h4, 
+[data-theme="dark"] .footer-contact h4 {
+    color: #ddd;
+}
+
+.footer-logo, .footer-links, .footer-contact {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-logo img {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.footer-logo p {
+    font-size: 14px;
+    color: #333;
+}
+
+.footer-logo ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-logo ul li {
+    color: #333;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.footer-links h4, .footer-contact h4 {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.footer-links ul, .footer-contact p {
+    list-style: none;
+    padding: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.footer-links ul li, .footer-contact p {
+    margin: 5px 0;
+}
+
+.footer-contact .social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: #fff;
+    background-color: #333;
+    padding: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px solid #ddd;
+}
+
+[data-theme="dark"] .footer-bottom {
+    color: #999;
+    border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}

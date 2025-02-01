@@ -178,99 +178,205 @@ header .logo {
     font-weight: bold;
 }
 
-/* Help & Support Section */
+
+/* General styling for the content sections */
+.individual-banking,
+.business-banking,
+.promotions,
 .help-support {
+    background: #ffffff;
     max-width: 1200px;
-    margin: 30px auto;
+    margin: 20px auto;
     padding: 30px 40px;
-    background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .help-support h2 {
-    text-align: center;
+}
+
+/* Headings styling */
+.individual-banking h2,
+.business-banking h2,
+.promotions h2,
+.help-support h2 {
     font-size: 2em;
-    color: #d32f2f;
-    margin-bottom: 20px;
-  }
-  
-  .help-support p {
+    color: #d32f2f;  /* A strong red that evokes OCBC's branding */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Paragraph styling */
+.individual-banking p,
+.business-banking p,
+.promotions p,
+.help-support p {
     font-size: 1em;
-    color: #555;
+    color: #555555;
+    line-height: 1.6;
     margin-bottom: 20px;
-  }
-  
-  /* Help Items */
-  .help-items {
-    border-top: 1px solid #eee;
-  }
-  
-  .help-item {
-    cursor: pointer;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
+}
+
+/* List styling */
+.individual-banking ul,
+.business-banking ul,
+.promotions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.individual-banking li,
+.business-banking li,
+.promotions li {
+    padding: 15px 10px;
+    border-bottom: 1px solid #eaeaea;
     transition: background-color 0.3s ease;
-  }
-  
-  .help-item:hover {
-    background-color: #f9f9f9;
-  }
-  
-  .help-item a {
+}
+
+.individual-banking li:last-child,
+.business-banking li:last-child,
+.promotions li:last-child {
+    border-bottom: none;
+}
+
+/* Link styling */
+.individual-banking li a,
+.business-banking li a,
+.promotions li a,
+.help-support a {
     text-decoration: none;
     color: #d32f2f;
     font-weight: bold;
     transition: color 0.3s ease;
-  }
-  
-  .help-item a:hover {
+}
+
+.individual-banking li a:hover,
+.business-banking li a:hover,
+.promotions li a:hover,
+.help-support a:hover {
     color: #a82a2a;
-  }
-  
-  .help-item p {
-    margin-top: 5px;
-    color: #555;
-    font-size: 0.95em;
-  }
-  
-  /* Modal Styles */
-  .modal {
-    display: none; /* Hidden by default */
+}
+
+/* Additional styling for help-support section */
+.help-support a {
+    margin-right: 15px;
+}
+
+.help-support p:last-of-type {
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 0.9em;
+    color: #777777;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .individual-banking,
+    .business-banking,
+    .promotions,
+    .help-support {
+        padding: 20px;
+        margin: 15px;
+    }
+    
+    .individual-banking h2,
+    .business-banking h2,
+    .promotions h2,
+    .help-support h2 {
+        font-size: 1.8em;
+    }
+}
+
+.help-item {
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.help-item:hover {
+    background-color: #f8f8f8;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal {
+    display: none;
     position: fixed;
-    z-index: 200;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
-  }
-  
-  .modal-content {
-    background: #fff;
-    margin: 10% auto;
-    padding: 30px;
-    border-radius: 8px;
-    width: 60%;
-    position: relative;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-  
-  .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
     color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .close-btn:hover {
-    color: #000;
-  }
-  
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Sections */
+.section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: #d32f2f;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.card h3 {
+    margin-top: 10px;
+    font-size: 18px;
+}
 
 /* General footer styling */
 .footer {
@@ -286,6 +392,18 @@ header .logo {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+}
+
+.footer-logo p, 
+.footer-links h4, 
+.footer-contact h4 {
+    color: #333;
+}
+
+[data-theme="dark"] .footer-logo p, 
+[data-theme="dark"] .footer-links h4, 
+[data-theme="dark"] .footer-contact h4 {
+    color: #ddd;
 }
 
 .footer-logo, .footer-links, .footer-contact {
@@ -354,18 +472,11 @@ header .logo {
     border-top: 1px solid #ddd;
 }
 
-.footer-bottom p {
-    margin: 5px 0;
+[data-theme="dark"] .footer-bottom {
+    color: #999;
+    border-top: 1px solid #444;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .footer-logo, .footer-links, .footer-contact {
-        margin: 15px 0;
-    }
+.footer-bottom p {
+    margin: 5px 0;
 }

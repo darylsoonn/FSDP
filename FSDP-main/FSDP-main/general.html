@@ -1,87 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCBC Help and Support</title>
-    <link rel="stylesheet" href="general.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCBC Help and Support</title>
+  <link rel="stylesheet" href="general.css">
 </head>
 <body>
 
-    <header class="header">
-        <div class="header-top">
-            <span class="section-indicator"><strong></strong></span>
-            <nav class="main-nav">
-                <a href="#">Premier Banking</a>
-                <a href="#">Digital Banking</a>
-                <a href="#">Security</a>
-                <a href="#">Branches & ATMs</a>
-                <a href="#">Get help</a>
-            </nav>
-        </div>
-        <div class="header-bottom">
-            <div class="logo">
-                <img src="media/OCBC Logo.png" alt="OCBC Logo">
-            </div>
-            <nav class="sub-nav">
-                <a href="#">Accounts</a>
-                <a href="#">Cards</a>
-                <a href="#">Loans</a>
-                <a href="#">Insurance</a>
-                <a href="#">Investments</a>
-                <a href="#">Advisory</a>
-                <a href="#">More</a>
-                <a href="#" class="login">Login</a>
-            </nav>
-        </div>
-    </header>
+  <header class="header">
+    <div class="header-top">
+      <span class="section-indicator"><strong></strong></span>
+      <nav class="main-nav">
+        <a href="#">Premier Banking</a>
+        <a href="#">Digital Banking</a>
+        <a href="#">Security</a>
+        <a href="#">Branches & ATMs</a>
+        <a href="#">Get Help</a>
+      </nav>
+    </div>
+    <div class="header-bottom">
+      <div class="logo">
+        <img src="media/OCBC Logo.png" alt="OCBC Logo">
+      </div>
+      <nav class="sub-nav">
+        <a href="#">Accounts</a>
+        <a href="#">Cards</a>
+        <a href="#">Loans</a>
+        <a href="#">Insurance</a>
+        <a href="#">Investments</a>
+        <a href="#">Advisory</a>
+        <a href="#">More</a>
+        <a href="#" class="login">Login</a>
+      </nav>
+    </div>
+  </header>
 
+  <div class="banner-section">
+    <img src="media/general page.png" alt="General">
+    <div class="banner-overlay"></div>
+    <div class="banner-text">General</div>
+  </div>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="media/OCBC Logo.png" alt="OCBC Logo">
-                <p><strong>Personal Banking</strong></p>
-                <p>You are in <strong>Singapore</strong> <span>&#9660;</span></p>
-                <ul>
-                    <li>Premier Banking</li>
-                    <li>FRANK by OCBC</li>
-                    <li>Business Banking</li>
-                    <li>OCBC Group</li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Useful links</h4>
-                <ul>
-                    <li>OCBC Online Banking</li>
-                    <li>ATM and Branch locator</li>
-                    <li>Help and Support</li>
-                    <li>Important Documents</li>
-                    <li>Report Vulnerability</li>
-                </ul>
-            </div>
-            
-            <div class="footer-contact">
-                <h4>Get in touch with us</h4>
-                <p>Contact Us</p>
-                <p>+65 6363 3333</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fas fa-comments"></i></a>
-                </div>
-            </div>
+  <!-- General Help & Support Section -->
+  <section class="help-support" style="max-width:1200px; margin:30px auto; padding:30px 40px; background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center; color:#d32f2f; font-size:2em; margin-bottom:20px;">Help & Support</h2>
+    <p style="font-size:1em; line-height:1.6; color:#555; margin-bottom:20px;">
+      Find answers to your questions and get assistance with any general inquiries or issues you may have. Our dedicated support team is here to help you every step of the way.
+    </p>
+    <div class="help-items">
+      <div class="help-item" onclick="openModal('modal-faqs')" style="cursor:pointer; padding:15px; border-bottom:1px solid #eee; transition: background-color 0.3s ease;">
+        <a href="#" style="text-decoration:none; color:#d32f2f; font-weight:bold;">FAQs</a>
+        <p style="margin-top:5px; color:#555;">Browse frequently asked questions for quick answers.</p>
+      </div>
+      <div class="help-item" onclick="openModal('modal-contact')" style="cursor:pointer; padding:15px; border-bottom:1px solid #eee; transition: background-color 0.3s ease;">
+        <a href="#" style="text-decoration:none; color:#d32f2f; font-weight:bold;">Contact Us</a>
+        <p style="margin-top:5px; color:#555;">Get in touch with our support team via phone, email, or chat.</p>
+      </div>
+      <div class="help-item" onclick="openModal('modal-troubleshoot')" style="cursor:pointer; padding:15px; border-bottom:1px solid #eee; transition: background-color 0.3s ease;">
+        <a href="#" style="text-decoration:none; color:#d32f2f; font-weight:bold;">Troubleshooting</a>
+        <p style="margin-top:5px; color:#555;">Find solutions to common issues and learn how to resolve them.</p>
+      </div>
+      <div class="help-item" onclick="openModal('modal-guides')" style="cursor:pointer; padding:15px; transition: background-color 0.3s ease;">
+        <a href="#" style="text-decoration:none; color:#d32f2f; font-weight:bold;">User Guides</a>
+        <p style="margin-top:5px; color:#555;">Step-by-step guides to help you navigate our services.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modals -->
+  <div id="modal-faqs" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-faqs')">&times;</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Here you'll find answers to the most common questions about our services and products.</p>
+      <!-- Additional FAQ content can be added here -->
+    </div>
+  </div>
+
+  <div id="modal-contact" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-contact')">&times;</span>
+      <h2>Contact Us</h2>
+      <p>If you need further assistance, please reach out to us:</p>
+      <ul>
+        <li>Phone: +65 6363 3333</li>
+        <li>Email: support@ocbc.com</li>
+        <li>Chat: Available on our website</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="modal-troubleshoot" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-troubleshoot')">&times;</span>
+      <h2>Troubleshooting</h2>
+      <p>Find solutions for common issues, from logging in to navigating our website.</p>
+    </div>
+  </div>
+
+  <div id="modal-guides" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-guides')">&times;</span>
+      <h2>User Guides</h2>
+      <p>Explore our detailed guides to help you understand and use our services more effectively.</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="media/OCBC Logo.png" alt="OCBC Logo">
+        <p><strong>Personal Banking</strong></p>
+        <p>You are in <strong>Singapore</strong> <span>&#9660;</span></p>
+        <ul>
+          <li>Premier Banking</li>
+          <li>FRANK by OCBC</li>
+          <li>Business Banking</li>
+          <li>OCBC Group</li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Useful links</h4>
+        <ul>
+          <li>OCBC Online Banking</li>
+          <li>ATM and Branch locator</li>
+          <li>Help and Support</li>
+          <li>Important Documents</li>
+          <li>Report Vulnerability</li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Get in touch with us</h4>
+        <p>Contact Us</p>
+        <p>+65 6363 3333</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fas fa-comments"></i></a>
         </div>
-        
-        <div class="footer-bottom">
-            <p>Conditions of Access | Policies | Notices</p>
-            <p>&copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co. Reg. No.: 193200032W</p>
-        </div>
-    </footer>
+      </div>
+    </div>
     
-    <script src="gerenal.js"></script>
+    <div class="footer-bottom">
+      <p>Conditions of Access | Policies | Notices</p>
+      <p>&copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co. Reg. No.: 193200032W</p>
+    </div>
+  </footer>
+  
+  <script src="general.js"></script>
 </body>
 </html>

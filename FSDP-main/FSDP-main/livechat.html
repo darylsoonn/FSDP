@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat Support</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-top">
+            <span class="section-indicator"><strong></strong></span>
+            <nav class="main-nav">
+                <a href="banking.html">Premier Banking</a>
+                <a href="banking.html">Digital Banking</a>
+                <a href="#">Security</a>
+                <a href="#">Branches & ATMs</a>
+                <a href="contact.html">Get help</a>         
+            </nav>
+        </div>
+        <div class="header-bottom">
+            <div class="logo">
+              <a href="index.html"><img src="media/OCBC Logo.png" alt="OCBC Logo"></a>
+            </div>
+            <nav class="sub-nav">
+                <a href="#">Accounts</a>
+                <a href="cards.html">Cards</a>
+                <a href="banking.html">Loans</a>
+                <a href="banking.html">Insurance</a>
+                <a href="banking.html">Investments</a>
+                <a href="General">Advisory</a>
+                <a href="General">More</a>
+                <a href="#" class="login">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    
+
+    <div class="banner-section">
+        <img src="media/ocbc.png" alt="Help and Support Banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-text">LiveChat Support</div>
+    </div>
+
+<!-- Chat Container -->
+<div>
+    
+</div>
+<div class="chat-container">
+   <!-- Chat Header -->
+   <div class="live-chat-header">
+       Live Chat Support
+       <p>You're now speaking to Alice (Customer Service)</p>
+   </div>
+   <!-- Chat Body -->
+   <div class="chat-body">
+       <ul class="message-list">
+           <!-- Messages go here -->
+       </ul>
+   </div>
+   <!-- Chat Input Section -->
+   <div class="chat-input-section">
+       <input type="text" class="message-input" placeholder="Type your message...">
+       <button class="send-btn">Send</button>
+   </div>
+
+   <!-- Typing Indicator (optional) -->
+   <div id="typingIndicator" class="typing-indicator">
+    <p><em>Alice is available right now!</em></p>
+</div>
+
+<!-- Footer with information -->
+<footer class="chat-footer">
+    <p>Need help? You can reach out to <strong>Alice</strong> anytime.</p>
+</footer>
+</div>
+
+
+    <div class="pad-container"></div>
+
+    <script src="livechat.js"></script> <!-- Your client-side JS -->
+</body>
+
+</html>

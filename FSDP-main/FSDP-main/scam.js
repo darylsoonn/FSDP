@@ -237,130 +237,160 @@ const totalSteps = 4; // Total number of steps
 
 // Open the scam modal
 function openScamModal() {
-    document.getElementById("scam-modal").style.display = "block";
-    updateNavigation(); // Initialize navigation buttons
+  document.getElementById("scam-modal").style.display = "block";
+  updateNavigation(); // Initialize navigation buttons
 }
 
-// Close the scam modal
+// Close the scam modal and reset the form
 function closeScamModal() {
-    document.getElementById("scam-modal").style.display = "none";
-    resetForm();
+  document.getElementById("scam-modal").style.display = "none";
+  resetForm();
 }
 
-// Go to the next step
+// Close the success modal (pop-up)
+function closeSuccessModal() {
+  document.getElementById("success-modal").style.display = "none";
+}
+
+// Navigation functions for multi-step form
 function nextStep() {
     if (currentStep < totalSteps) {
-        // Validate required fields before proceeding
-        if (!validateCurrentStep()) return;
-
-        document.getElementById(`step-${currentStep}`).style.display = "none";
-        currentStep++;
-        document.getElementById(`step-${currentStep}`).style.display = "block";
+      if (!validateCurrentStep()) return; // Validate required fields on current step
+  
+      // Hide and disable the current step
+      const currentStepEl = document.getElementById(`step-${currentStep}`);
+      currentStepEl.style.display = "none";
+      currentStepEl.querySelectorAll("input, textarea, select").forEach(input => {
+        input.disabled = true;
+      });
+  
+      currentStep++;
+      
+      // Show and enable the next step
+      const nextStepEl = document.getElementById(`step-${currentStep}`);
+      nextStepEl.style.display = "block";
+      nextStepEl.querySelectorAll("input, textarea, select").forEach(input => {
+        input.disabled = false;
+      });
     }
     updateNavigation();
-}
+  }
+  
 
-// Go to the previous step
 function prevStep() {
-    if (currentStep > 1) {
-        document.getElementById(`step-${currentStep}`).style.display = "none";
-        currentStep--;
-        document.getElementById(`step-${currentStep}`).style.display = "block";
-    }
-    updateNavigation();
+  if (currentStep > 1) {
+    document.getElementById(`step-${currentStep}`).style.display = "none";
+    currentStep--;
+    document.getElementById(`step-${currentStep}`).style.display = "block";
+  }
+  updateNavigation();
 }
-
-// Update navigation buttons and instructions
+  
 function updateNavigation() {
-    const instructions = [
-        "Step 1: Enter basic details",
-        "Step 2: Enter scam description and upload proof",
-        "Step 3: Enter scammer details and amount lost",
-        "Step 4: Describe actions taken"
-    ];
-    document.getElementById("form-step-instruction").innerText = instructions[currentStep - 1];
+    console.log("Current Step:", currentStep);
+      
+  const instructions = [
+    "Step 1: Enter basic details",
+    "Step 2: Enter scam description and upload proof",
+    "Step 3: Enter scammer details and amount lost",
+    "Step 4: Describe actions taken",
+  ];
+  document.getElementById("form-step-instruction").innerText =
+    instructions[currentStep - 1];
 
-    // Toggle visibility of buttons
-    document.getElementById("prev-button").style.display = currentStep > 1 ? "inline-block" : "none";
-    document.getElementById("next-button").style.display = currentStep < totalSteps ? "inline-block" : "none";
-    document.getElementById("submit-button").style.display = currentStep === totalSteps ? "inline-block" : "none";
+  // Toggle visibility of navigation buttons
+  document.getElementById("prev-button").style.display =
+    currentStep > 1 ? "inline-block" : "none";
+  document.getElementById("next-button").style.display =
+    currentStep < totalSteps ? "inline-block" : "none";
+  document.getElementById("submit-button").style.display =
+    currentStep === totalSteps ? "inline-block" : "none";
 }
 
-// Validate the form for the current step
+// Validate required fields on the current step
 function validateCurrentStep() {
-    let isValid = true;
-    const stepFields = document.querySelectorAll(`#step-${currentStep} input, #step-${currentStep} textarea`);
-    stepFields.forEach((field) => {
-        if (field.hasAttribute("required") && !field.value.trim()) {
-            alert(`Please fill out the required field: ${field.previousElementSibling.innerText}`);
-            isValid = false;
-        }
-    });
-    return isValid;
-}
-
-// Validate the entire form upon submission
-function validateForm() {
-    const scamDetails = document.getElementById("description").value;
-    if (scamDetails.split(' ').length > 200) {
-        alert("Please limit your scam details to 200 words.");
-        return false;
+  let isValid = true;
+  const stepFields = document.querySelectorAll(
+    `#step-${currentStep} input, #step-${currentStep} textarea`
+  );
+  stepFields.forEach((field) => {
+    if (field.hasAttribute("required") && !field.value.trim()) {
+      alert(`Please fill out the required field: ${field.previousElementSibling.innerText}`);
+      isValid = false;
     }
-    alert("Scam report submitted successfully!");
-    return true;
+  });
+  return isValid;
 }
 
-// Reset the form and steps
+// Reset the form and navigation
 function resetForm() {
-    currentStep = 1;
-    document.querySelectorAll(".form-step").forEach((step) => {
-        step.style.display = "none";
-    });
-    document.getElementById("step-1").style.display = "block";
-    updateNavigation();
-    document.getElementById("report-scam-form").reset(); // Clear form fields
-    document.getElementById("word-count").textContent = "0/200 words"; // Reset word count
+  currentStep = 1;
+  document.querySelectorAll(".form-step").forEach((step) => {
+    step.style.display = "none";
+  });
+  document.getElementById("step-1").style.display = "block";
+  updateNavigation();
+  document.getElementById("report-scam-form").reset();
+  if (document.getElementById("word-count")) {
+    document.getElementById("word-count").textContent = "0/200 words";
+  }
 }
 
 function submitScamForm(event) {
-    event.preventDefault(); // Prevent default form submission
-    
-    if (validateForm()) { // Ensure the form is valid before displaying data
-        // Collect the form data
-        const scamDetails = document.getElementById("description").value;
-        const scamAmount = document.getElementById("amount-lost").value;
-        const scammerName = document.getElementById("scammer-name").value;
-        const actionsTaken = document.getElementById("actions-taken").value;
+    event.preventDefault();
+    console.log("submitScamForm triggered");
 
-        // Create a summary of the input data
-        const reportSummary = `
-            <h3>Scam Report Summary:</h3>
-            <p><strong>Description:</strong> ${scamDetails}</p>
-            <p><strong>Amount Lost:</strong> ${scamAmount}</p>
-            <p><strong>Scammer Name:</strong> ${scammerName}</p>
-            <p><strong>Actions Taken:</strong> ${actionsTaken}</p>
-        `;
-
-        // Display the summary in a div or modal (you can create a new modal for this if needed)
-        document.getElementById("scam-summary").innerHTML = reportSummary;
-
-        // Optionally, you can use an alert to show the summary
-        // alert(reportSummary);
-
-        // Close the scam modal and show the success modal
-        closeScamModal();
-        document.getElementById("success-modal").style.display = "block";
+    // Check if success modal exists
+    let successModal = document.getElementById("success-modal");
+    if (!successModal) {
+        console.error("Error: success-modal element is missing!");
+        return;
     }
+
+    // Gather input values
+    const victimName = document.getElementById("victim-name").value;
+    const victimContact = document.getElementById("victim-contact").value;
+    const scamDetails = document.getElementById("description").value;
+    const scammerContact = document.getElementById("scammer-contact").value;
+    const scamAmount = document.getElementById("amount-lost").value;
+    const actionsTaken = document.getElementById("actions-taken").value;
+
+    // Build the summary HTML
+    const reportSummary = `
+        <p><strong>Your Name:</strong> ${victimName}</p>
+        <p><strong>Your Contact:</strong> ${victimContact}</p>
+        <p><strong>Scam Details:</strong> ${scamDetails}</p>
+        <p><strong>Scammer Contact Info:</strong> ${scammerContact || "N/A"}</p>
+        <p><strong>Amount Lost:</strong> ${scamAmount || "N/A"}</p>
+        <p><strong>Actions Taken:</strong> ${actionsTaken || "N/A"}</p>
+        <p style="font-weight:bold; color:green;">Report Successful!</p>
+    `;
+
+    // Insert summary into the success modal
+    document.getElementById("scam-summary").innerHTML = reportSummary;
+
+    // Close the scam report modal
+    closeScamModal();
+    console.log("Closing scam modal...");
+
+    // Show the success modal
+    successModal.style.display = "block";
+    console.log("Success modal should now be visible.");
 }
 
-
-function closeSuccessModal() {
-    document.getElementById("success-modal").style.display = "none";
-}
-
-// Update word count for the scam description field
+// Update word count for scam details (if needed)
 document.getElementById("description").addEventListener("input", function () {
-    const wordCount = this.value.trim().split(/\s+/).filter(Boolean).length;
-    document.getElementById("word-count").textContent = `${wordCount}/200 words`;
+  const wordCount = this.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById("word-count").textContent = `${wordCount}/200 words`;
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM fully loaded");
+
+    let successModal = document.getElementById("success-modal");
+    console.log("Success Modal:", successModal); // Debugging
+
+    if (!successModal) {
+        console.error("Error: success-modal not found!");
+    }
+});

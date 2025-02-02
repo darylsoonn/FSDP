@@ -184,6 +184,7 @@ header .logo {
     flex-grow: 1;
     justify-content: flex-end;
     margin-left: 30px;
+    align-items: center;
 }
 
 .sub-nav a {
@@ -832,6 +833,14 @@ header .logo {
 }
 
 .mic-record {
+    display: flex;
+    align-items: center; 
+    padding: 5px 10px; 
+    height: fit-content;
+    border: none;
+    background: none;
+    font: inherit;
+    cursor: pointer;
     background-color: #ffffff;
     color: #4caf50;
     padding: 10px 20px;
@@ -906,8 +915,6 @@ header .logo {
 }
 
 #extraVoiceButton {
-    position: fixed;
-    left: 25%;
     background-color: #ffffff;
     color: #4caf50;
     padding: 10px 20px;

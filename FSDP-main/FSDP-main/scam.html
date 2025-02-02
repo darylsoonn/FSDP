@@ -1,196 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCBC Scam Report</title>
-    <link rel="stylesheet" href="scam.css">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OCBC Scam Report</title>
+  <link rel="stylesheet" href="scam.css" />
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="scam-body">
+  <header class="header">
+    <div class="header-top">
+      <span class="section-indicator"><strong></strong></span>
+      <nav class="main-nav">
+        <a href="#">Premier Banking</a>
+        <a href="#">Digital Banking</a>
+        <a href="#">Security</a>
+        <a href="#">Branches & ATMs</a>
+        <a href="#">Get help</a>
+      </nav>
+    </div>
+    <div class="header-bottom">
+      <div class="logo">
+        <img src="media/OCBC Logo.png" alt="OCBC Logo" />
+      </div>
+      <nav class="sub-nav">
+        <a href="#">Accounts</a>
+        <a href="#">Cards</a>
+        <a href="#">Loans</a>
+        <a href="#">Insurance</a>
+        <a href="#">Investments</a>
+        <a href="#">Advisory</a>
+        <a href="#">More</a>
+        <a href="#" class="login">Login</a>
+      </nav>
+    </div>
+  </header>
 
-    <header class="header">
-        <div class="header-top">
-            <span class="section-indicator"><strong></strong></span>
-            <nav class="main-nav">
-                <a href="#">Premier Banking</a>
-                <a href="#">Digital Banking</a>
-                <a href="#">Security</a>
-                <a href="#">Branches & ATMs</a>
-                <a href="#">Get help</a>
-            </nav>
-        </div>
-        <div class="header-bottom">
-            <div class="logo">
-                <img src="media/OCBC Logo.png" alt="OCBC Logo">
+  <main class="scam-main-content">
+    <!-- Search Bar with Button -->
+    <div class="search-container">
+      <input
+        type="text"
+        id="search-bar"
+        class="search-bar"
+        placeholder="Search scam numbers..."
+      />
+      <button class="search-button" onclick="searchFunction()">Search</button>
+    </div>
+
+    <!-- Heatmap Button -->
+    <div class="heatmap-container">
+      <button class="heatmap-button" onclick="viewHeatmap()">
+        View Scam Heatmap
+      </button>
+    </div>
+
+    <section class="scam-table-container">
+      <table class="scam-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Reported Number</th>
+            <th>Quantity of Reports</th>
+            <th>Upvotes</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <button class="report-scam-button" onclick="openScamModal()">
+      Report a Scam
+      <img src="media/report.png" alt="Report Icon" class="report-icon" />
+    </button>
+
+    <!-- Scam Report Modal -->
+    <div id="scam-modal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeScamModal()">&times;</span>
+          <h2>Report a Scam</h2>
+          <p id="form-step-instruction">Step 1: Enter basic details</p>
+          <!-- Form onsubmit calls submitScamForm(event) -->
+          <form id="report-scam-form" onsubmit="submitScamForm(event)">
+            <!-- Step 1: Victim Details -->
+            <div class="form-step" id="step-1">
+              <div class="form-group">
+                <label for="victim-name">Your Name:</label>
+                <input type="text" id="victim-name" name="victim_name" placeholder="Enter your name" required />
+              </div>
+              <div class="form-group">
+                <label for="victim-contact">Your Contact Info:</label>
+                <input type="email" id="victim-contact" name="victim_contact_info" placeholder="Enter your email" required />
+              </div>
             </div>
-            <nav class="sub-nav">
-                <a href="#">Accounts</a>
-                <a href="#">Cards</a>
-                <a href="#">Loans</a>
-                <a href="#">Insurance</a>
-                <a href="#">Investments</a>
-                <a href="#">Advisory</a>
-                <a href="#">More</a>
-                <a href="#" class="login">Login</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="scam-main-content">
-        <!-- Search Bar with Button -->
-        <div class="search-container">
-            <input type="text" id="search-bar" class="search-bar" placeholder="Search scam numbers...">
-            <button class="search-button" onclick="searchFunction()">Search</button>
-        </div>
-
-        <!-- Heatmap Button -->
-<div class="heatmap-container">
-    <button class="heatmap-button" onclick="viewHeatmap()">View Scam Heatmap</button>
-</div>
-
-        <section class="scam-table-container">
-            <table class="scam-table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Reported Number</th>
-                        <th>Quantity of Reports</th>
-                        <th>Upvotes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
-        </section>
-
-        <button class="report-scam-button" onclick="openScamModal()">
-            Report a Scam
-            <img src="media/report.png" alt="Report Icon" class="report-icon">
-        </button>
-        
-        <div id="scam-modal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeScamModal()">&times;</span>
-                <h2>Report a Scam</h2>
-                <p id="form-step-instruction">Step 1: Enter basic details</p>
-                <form id="report-scam-form">
-                    <!-- Step 1: Victim Details -->
-                    <div class="form-step" id="step-1">
-                        <div class="form-group">
-                            <label for="victim-name">Your Name:</label>
-                            <input type="text" id="victim-name" name="victim_name" placeholder="Enter your name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="victim-contact">Your Contact Info:</label>
-                            <input type="email" id="victim-contact" name="victim_contact_info" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-        
-                    <!-- Step 2: Scam Description and Attachment -->
-                    <div class="form-step" id="step-2" style="display: none;">
-                        <div class="form-group">
-                            <label for="description">Scam Details:</label>
-                            <textarea id="description" name="description" placeholder="Describe the scam" rows="5" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="attachment">Upload Proof (optional):</label>
-                            <input type="file" id="attachment" name="attachment_path" accept="image/*">
-                        </div>
-                    </div>
-        
-                    <!-- Step 3: Scammer Details and Amount Lost -->
-                    <div class="form-step" id="step-3" style="display: none;">
-                        <div class="form-group">
-                            <label for="scammer-contact">Scammer Contact Info:</label>
-                            <input type="text" id="scammer-contact" name="scammer_contact_info" placeholder="Enter scammer contact info">
-                        </div>
-                        <div class="form-group">
-                            <label for="amount-lost">Amount Lost (optional):</label>
-                            <input type="number" id="amount-lost" name="amount_lost" placeholder="Enter the amount lost">
-                        </div>
-                    </div>
-        
-                    <!-- Step 4: Actions Taken -->
-                    <div class="form-step" id="step-4" style="display: none;">
-                        <div class="form-group">
-                            <label for="actions-taken">Actions Taken:</label>
-                            <textarea id="actions-taken" name="actions_taken" placeholder="Describe any actions taken" rows="4"></textarea>
-                        </div>
-                        <!-- Google reCAPTCHA only appears on final step -->
-                        <div class="g-recaptcha" data-sitekey="6LdSOskqAAAAAFLBVn6WzRwTc0wOOdsAz-gFTKhL"></div>
-                    </div>
-        
-                    <!-- Navigation Buttons -->
-                    <div class="form-navigation">
-                        <button type="button" id="prev-button" onclick="prevStep()" style="display: none;">Previous</button>
-                        <button type="button" id="next-button" onclick="nextStep()">Next</button>
-                        <button type="submit" id="submit-button" style="display: none;">Submit Report</button>
-                    </div>
-                </form>
+  
+            <!-- Step 2: Scam Description and Attachment -->
+            <div class="form-step" id="step-2" style="display: none;">
+              <div class="form-group">
+                <label for="description">Scam Details:</label>
+                <textarea id="description" name="description" placeholder="Describe the scam" rows="5" required></textarea>
+                <!-- Word count display -->
+                <p id="word-count">0/200 words</p>
+              </div>
+              <div class="form-group">
+                <label for="attachment">Upload Proof (optional):</label>
+                <input type="file" id="attachment" name="attachment_path" accept="image/*" />
+              </div>
             </div>
-
-            <div id="success-modal" class="modal" style="display: none;">
-                <div class="modal-content">
-                    <span class="close" onclick="closeSuccessModal()">&times;</span>
-                    <h2>Form Successfully Submitted!</h2>
-                    <p>Thank you for doing your part in keeping us safe!</p>
-                </div>
-            </div>            
-        </div>
-        
-        <div class="chatbot-icon" onclick="openChatbot()">
-            <img src="media/Chat Icon.png" alt="Chatbot Icon" style="width: 50px; height: 50px;">
-        </div>
-
-    </main>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="media/OCBC Logo.png" alt="OCBC Logo">
-                <p><strong>Personal Banking</strong></p>
-                <p>You are in <strong>Singapore</strong> <span>&#9660;</span></p>
-                <ul>
-                    <li>Premier Banking</li>
-                    <li>FRANK by OCBC</li>
-                    <li>Business Banking</li>
-                    <li>OCBC Group</li>
-                </ul>
+  
+            <!-- Step 3: Scammer Details and Amount Lost -->
+            <div class="form-step" id="step-3" style="display: none;">
+              <div class="form-group">
+                <label for="scammer-contact">Scammer Contact Info:</label>
+                <input type="text" id="scammer-contact" name="scammer_contact_info" placeholder="Enter scammer contact info" />
+              </div>
+              <div class="form-group">
+                <label for="amount-lost">Amount Lost (optional):</label>
+                <input type="number" id="amount-lost" name="amount_lost" placeholder="Enter the amount lost" />
+              </div>
             </div>
-            
-            <div class="footer-links">
-                <h4>Useful links</h4>
-                <ul>
-                    <li>OCBC Online Banking</li>
-                    <li>ATM and Branch locator</li>
-                    <li>Help and Support</li>
-                    <li>Important Documents</li>
-                    <li>Report Vulnerability</li>
-                </ul>
+  
+            <!-- Step 4: Actions Taken -->
+            <div class="form-step" id="step-4" style="display: none;">
+              <div class="form-group">
+                <label for="actions-taken">Actions Taken:</label>
+                <textarea id="actions-taken" name="actions_taken" placeholder="Describe any actions taken" rows="4"></textarea>
+              </div>
+              <!-- Google reCAPTCHA only appears on final step -->
+              <div class="g-recaptcha" data-sitekey="6LdSOskqAAAAAFLBVn6WzRwTc0wOOdsAz-gFTKhL"></div>
             </div>
-            
-            <div class="footer-contact">
-                <h4>Get in touch with us</h4>
-                <p>Contact Us</p>
-                <p>+65 6363 3333</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fas fa-comments"></i></a>
-                </div>
+  
+            <!-- Navigation Buttons -->
+            <div class="form-navigation">
+              <button type="button" id="prev-button" onclick="prevStep()" style="display: none;">Previous</button>
+              <button type="button" id="next-button" onclick="nextStep()">Next</button>
+              <button type="submit" id="submit-button" style="display: none;">Submit Report</button>
             </div>
+          </form>
         </div>
-        
-        <div class="footer-bottom">
-            <p>Conditions of Access | Policies | Notices</p>
-            <p>&copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co. Reg. No.: 193200032W</p>
-        </div>
-    </footer>
+  
+<!-- Success Modal -->
+<div id="success-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeSuccessModal()">&times;</span>
+      <h2>Scam Report Submitted</h2>
+      <div id="scam-summary"></div>
+      <button onclick="closeSuccessModal()">Close</button>
+    </div>
+  </div>
+  
 
-    <script src="scam.js"></script>
+    <div class="chatbot-icon" onclick="openChatbot()">
+      <img
+        src="media/Chat Icon.png"
+        alt="Chatbot Icon"
+        style="width: 50px; height: 50px;"
+      />
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="media/OCBC Logo.png" alt="OCBC Logo" />
+        <p><strong>Personal Banking</strong></p>
+        <p>
+          You are in <strong>Singapore</strong> <span>&#9660;</span>
+        </p>
+        <ul>
+          <li>Premier Banking</li>
+          <li>FRANK by OCBC</li>
+          <li>Business Banking</li>
+          <li>OCBC Group</li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Useful links</h4>
+        <ul>
+          <li>OCBC Online Banking</li>
+          <li>ATM and Branch locator</li>
+          <li>Help and Support</li>
+          <li>Important Documents</li>
+          <li>Report Vulnerability</li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Get in touch with us</h4>
+        <p>Contact Us</p>
+        <p>+65 6363 3333</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fas fa-comments"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>Conditions of Access | Policies | Notices</p>
+      <p>
+        &copy; Copyright 2004 - 2024 OCBC Bank. All Rights Reserved. Co.
+        Reg. No.: 193200032W
+      </p>
+    </div>
+  </footer>
+
+  <script src="scam.js"></script>
 </body>
 </html>

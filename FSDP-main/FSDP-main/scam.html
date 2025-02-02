@@ -76,63 +76,120 @@
 
     <!-- Scam Report Modal -->
     <div id="scam-modal" class="modal">
-        <div class="modal-content">
-          <span class="close" onclick="closeScamModal()">&times;</span>
-          <h2>Report a Scam</h2>
-          <p id="form-step-instruction">Step 1: Enter basic details</p>
-          <!-- Form onsubmit calls submitScamForm(event) -->
-          <form id="report-scam-form" onsubmit="submitScamForm(event)">
-            <!-- Step 1: Victim Details -->
-            <div class="form-step" id="step-1">
-              <div class="form-group">
-                <label for="victim-name">Your Name:</label>
-                <input type="text" id="victim-name" name="victim_name" placeholder="Enter your name" required />
-              </div>
-              <div class="form-group">
-                <label for="victim-contact">Your Contact Info:</label>
-                <input type="email" id="victim-contact" name="victim_contact_info" placeholder="Enter your email" required />
-              </div>
+      <div class="modal-content">
+        <span class="close" onclick="closeScamModal()">&times;</span>
+        <h2>Report a Scam</h2>
+        <p id="form-step-instruction">Step 1: Enter basic details</p>
+        <!-- Note the onsubmit attribute below -->
+        <form id="report-scam-form" onsubmit="submitScamForm(event)">
+          <!-- Step 1: Victim Details -->
+          <div class="form-step" id="step-1">
+            <div class="form-group">
+              <label for="victim-name">Your Name:</label>
+              <input
+                type="text"
+                id="victim-name"
+                name="victim_name"
+                placeholder="Enter your name"
+                required
+              />
             </div>
-  
-            <!-- Step 2: Scam Description and Attachment -->
-            <div class="form-step" id="step-2" style="display: none;">
-              <div class="form-group">
-                <label for="description">Scam Details:</label>
-                <textarea id="description" name="description" placeholder="Describe the scam" rows="5" required></textarea>
-                <!-- Word count display -->
-                <p id="word-count">0/200 words</p>
-              </div>
-  
-            <!-- Step 3: Scammer Details and Amount Lost -->
-            <div class="form-step" id="step-3" style="display: none;">
-              <div class="form-group">
-                <label for="scammer-contact">Scammer Contact Info:</label>
-                <input type="text" id="scammer-contact" name="scammer_contact_info" placeholder="Enter scammer contact info" />
-              </div>
-              <div class="form-group">
-                <label for="amount-lost">Amount Lost (optional):</label>
-                <input type="number" id="amount-lost" name="amount_lost" placeholder="Enter the amount lost" />
-              </div>
+            <div class="form-group">
+              <label for="victim-contact">Your Contact Info:</label>
+              <input
+                type="email"
+                id="victim-contact"
+                name="victim_contact_info"
+                placeholder="Enter your email"
+                required
+              />
             </div>
-  
-            <!-- Step 4: Actions Taken -->
-            <div class="form-step" id="step-4" style="display: none;">
-              <div class="form-group">
-                <label for="actions-taken">Actions Taken:</label>
-                <textarea id="actions-taken" name="actions_taken" placeholder="Describe any actions taken" rows="4"></textarea>
-              </div>
-              <!-- Google reCAPTCHA only appears on final step -->
-              <div class="g-recaptcha" data-sitekey="6LdSOskqAAAAAFLBVn6WzRwTc0wOOdsAz-gFTKhL"></div>
+          </div>
+
+          <!-- Step 2: Scam Description and Attachment -->
+          <div class="form-step" id="step-2" style="display: none;">
+            <div class="form-group">
+              <label for="description">Scam Details:</label>
+              <textarea
+                id="description"
+                name="description"
+                placeholder="Describe the scam"
+                rows="5"
+                required
+              ></textarea>
+              <!-- Word count display -->
+              <p id="word-count">0/200 words</p>
             </div>
-  
-            <!-- Navigation Buttons -->
-            <div class="form-navigation">
-              <button type="button" id="prev-button" onclick="prevStep()" style="display: none;">Previous</button>
-              <button type="button" id="next-button" onclick="nextStep()">Next</button>
-              <button type="submit" id="submit-button" style="display: none;">Submit Report</button>
+            <div class="form-group">
+              <label for="attachment">Upload Proof (optional):</label>
+              <input
+                type="file"
+                id="attachment"
+                name="attachment_path"
+                accept="image/*"
+              />
             </div>
-          </form>
-        </div>
+          </div>
+
+          <!-- Step 3: Scammer Details and Amount Lost -->
+          <div class="form-step" id="step-3" style="display: none;">
+            <div class="form-group">
+              <label for="scammer-contact">Scammer Contact Info:</label>
+              <input
+                type="text"
+                id="scammer-contact"
+                name="scammer_contact_info"
+                placeholder="Enter scammer contact info"
+              />
+            </div>
+            <div class="form-group">
+              <label for="amount-lost">Amount Lost (optional):</label>
+              <input
+                type="number"
+                id="amount-lost"
+                name="amount_lost"
+                placeholder="Enter the amount lost"
+              />
+            </div>
+          </div>
+
+          <!-- Step 4: Actions Taken -->
+          <div class="form-step" id="step-4" style="display: none;">
+            <div class="form-group">
+              <label for="actions-taken">Actions Taken:</label>
+              <textarea
+                id="actions-taken"
+                name="actions_taken"
+                placeholder="Describe any actions taken"
+                rows="4"
+              ></textarea>
+            </div>
+            <!-- Google reCAPTCHA only appears on final step -->
+            <div
+              class="g-recaptcha"
+              data-sitekey="6LdSOskqAAAAAFLBVn6WzRwTc0wOOdsAz-gFTKhL"
+            ></div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="form-navigation">
+            <button
+              type="button"
+              id="prev-button"
+              onclick="prevStep()"
+              style="display: none;"
+            >
+              Previous
+            </button>
+            <button type="button" id="next-button" onclick="nextStep()">
+              Next
+            </button>
+            <button type="submit" id="submit-button" style="display: none;">
+              Submit Report
+            </button>
+          </div>
+        </form>
+      </div>
   
 <!-- Success Modal -->
 <div id="success-modal" class="modal">

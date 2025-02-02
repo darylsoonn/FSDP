@@ -370,215 +370,7 @@ html {
     height: 24px;
 }
 
-.service-text {
-    font-size: 1em;
-    font-weight: bold;
-    color: #333;
-    flex: 1;
-}
 
-.progress-bar {
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    width: 100%;
-    height: 8px;
-    position: relative;
-    overflow: hidden;
-}
-
-.progress-fill {
-    background-color: #4a90e2;
-    height: 100%;
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.percentages {
-    font-size: 0.9em;
-    color: #333;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-/* Reset and body */
-.scam-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    overflow-y: scroll;
-}
-
-/* Header styling */
-.scam-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    color: black;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-    border-bottom: 1px solid #ddd;
-    height: 60px;
-}
-
-.scam-header .scam-logo-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 20px;
-}
-
-.scam-header .scam-logo {
-    font-size: 1.5em;
-    color: #f44336;
-}
-
-.scam-header .scam-page-title {
-    font-weight: bold;
-    font-size: 1em;
-    color: #333;
-    margin-top: 5px;
-}
-
-.scam-header .scam-nav-links a {
-    color: black;
-    margin-left: 20px;
-    text-decoration: none;
-    font-size: 0.9em;
-    padding: 15px 0;
-}
-
-.scam-header .scam-search-bar {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.scam-header .scam-search-bar label {
-    font-size: 0.9em;
-    color: #555;
-}
-
-.scam-header .scam-search-bar input[type="text"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Main content styling */
-.scam-main-content {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    margin-top: 80px;
-}
-
-/* Report table styling */
-.scam-table-container {
-    width: 70%;
-}
-
-.scam-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.scam-table th,
-.scam-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.scam-table th {
-    background-color: #f9f9f9;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Chatbot section styling */
-.scam-chatbot-container {
-    width: 25%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-}
-
-.scam-chatbot {
-    width: 100px;
-    height: 150px;
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #333;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Adjusted page title container styling */
-.scam-page-title-container {
-    text-align: center;
-    margin-top: 70px;
-    /* Slightly lower to create space above */
-    padding: 10px 0;
-    background-color: #f4f4f4;
-}
-
-/* Table container styling */
-.scam-table-container {
-    width: 95%;
-    /* Extend the table width */
-    margin: 0 auto;
-    /* Center the table */
-    padding: 0;
-    /* Minimal padding for full width */
-}
-
-/* Main content adjustment */
-.scam-main-content {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    /* Slightly reduced gap */
-    padding: 0 10px;
-    /* Remove side padding to give the table more space */
-}
-
-/* Table cell styling */
-.scam-table th,
-.scam-table td {
-    font-size: 1.1em;
-    padding: 18px;
-    /* Reduced padding for compact look */
-}
-
-/* Chatbot container adjustments */
-.scam-chatbot-container {
-    width: 12%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    margin-top: 20px;
-}
-
-.scam-chatbot {
-    width: 100px;
-    height: 100px;
-    font-size: 1em;
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -813,4 +605,183 @@ html {
 
 .edit-button:hover {
     background-color: #357abd;
+}
+
+/* Live Chat Header */
+.live-chat-header {
+    background-color: #ff4d4d;
+    /* Red background */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.8em;
+    /* Larger title */
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    /* Rounded corners for the top */
+    margin-bottom: 20px;
+    /* Space between title and chat container */
+}
+
+/* Chat Container */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Shadow for depth */
+}
+
+/* Chat Header */
+.chat-header {
+    background-color: #ff4d4d;
+    /* Red background */
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Chat Body */
+.chat-body {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: scroll;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Chat container */
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Wrapper for messages */
+.agent-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    /* Move Alice's messages to the right */
+}
+
+.customer-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    /* Keep customer messages on the left */
+}
+
+/* Customer's Messages (Left) */
+.customer-message {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #e6e6e6;
+    color: rgb(0, 0, 0);
+    max-width: 75%;
+    font-size: 1em;
+}
+
+/* Agent's Messages (Right) */
+.agent-message {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #dc3545;
+    color: white;
+    max-width: 75%;
+    font-size: 1em;
+    text-align: left;
+    /* Align text within the bubble */
+}
+
+/* Chat Input Section */
+.chat-input-section {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Input Field */
+.message-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    margin-right: 10px;
+}
+
+/* Input Focus Styling */
+.message-input:focus {
+    border-color: #d32f2f;
+    /* Red */
+}
+
+/* Send Button */
+.send-btn {
+    padding: 10px 15px;
+    font-size: 1em;
+    color: white;
+    background-color: #d32f2f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Chat Box for Communication with Alice */
+.chat-box {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    max-height: calc(100% - 160px);
+    /* Adjust to fit between header and input */
+}
+
+/* Send Button Hover */
+.send-btn:hover {
+    background-color: #c82333;
+    /* Darker red */
+}
+
+/* Styling for the chat bubbles */
+.message-list li {
+    word-wrap: break-word;
+    max-width: 90%;
+}
+
+/* Scrollbar Styling */
+.chat-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background-color: #d32f2f;
+    /* Red */
+    border-radius: 5px;
+}
+
+.chat-body::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
 }

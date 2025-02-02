@@ -944,6 +944,10 @@ header .logo {
     /* Space between title and chat container */
 }
 
+.live-chat-header p {
+    font-size: 0.6em;
+}
+
 /* Chat Container */
 .chat-container {
     width: 100%;

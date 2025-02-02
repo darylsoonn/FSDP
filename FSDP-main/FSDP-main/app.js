@@ -94,6 +94,8 @@ app.get('/api/ocbc-branches', async (req, res) => {
         }
     }
 });
+
+
 //chatgpt watson fix
 app.post("/api/storePhoneNumber", (req, res) => {
     const phoneNumber = req.body.phoneNumber;

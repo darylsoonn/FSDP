@@ -178,6 +178,78 @@ header .logo {
     font-weight: bold;
 }
 
+.cards-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 30px 40px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .cards-content h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #d32f2f;
+    margin-bottom: 30px;
+  }
+  
+  /* Card Products Grid */
+  .card-products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .card-item {
+    background: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    width: calc(50% - 20px);
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .card-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .card-item h3 {
+    margin: 15px 0 10px;
+    font-size: 1.5em;
+    color: #d32f2f;
+  }
+  
+  .card-item p {
+    padding: 0 15px 15px;
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  .learn-more {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #d32f2f;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .learn-more:hover {
+    background-color: #a82a2a;
+  }
+  
 /* Help & Support Section */
 .help-support {
     max-width: 1200px;
@@ -185,7 +257,7 @@ header .logo {
     padding: 30px 40px;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
   
   .help-support h2 {
@@ -271,7 +343,6 @@ header .logo {
     color: #000;
   }
   
-
 /* General footer styling */
 .footer {
     background-color: #f9f9f9;

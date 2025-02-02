@@ -378,6 +378,12 @@ function submitScamForm(event) {
     console.log("Success modal should now be visible.");
 }
 
+function openSuccessModal() {
+    const successModal = document.getElementById("success-modal");
+    successModal.style.display = "block";
+}
+
+
 // Update word count for scam details (if needed)
 document.getElementById("description").addEventListener("input", function () {
   const wordCount = this.value.trim().split(/\s+/).filter(Boolean).length;

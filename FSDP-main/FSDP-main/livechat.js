@@ -1,8 +1,9 @@
 const socket = io('http://localhost:8080');
 
 // Set a fixed username for Alice (Customer Support)
-let username = sessionStorage.getItem("username") || "John Park(Customer)";
-sessionStorage.setItem("username", username);
+let username = sessionStorage.getItem("customer_username") || "John Park(Customer)";
+sessionStorage.setItem("customer_username", username);
+
 
 console.log('Using fixed username:', username);
 

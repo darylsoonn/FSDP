@@ -9,6 +9,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 # Load Whisper model
 model = whisper.load_model("base")
+print("hrllo")
 
 def transcribe_file(file_path):
     if not os.path.exists(file_path):
